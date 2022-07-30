@@ -3,14 +3,38 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AccessComponent } from './components/admin/access/access.component';
+import { AbmLotesComponent } from './components/admin/abm-lotes/abm-lotes.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { DetalleLoteComponent } from './components/admin/detalle-lote/detalle-lote.component';
+import { TableComponent } from './components/table/table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { EstadoLotePipe } from './pipes/estado-lote.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AccessComponent,
+    AbmLotesComponent,
+    DetalleLoteComponent,
+    TableComponent,
+    EstadoLotePipe
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
