@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "data-qr-gea",
-=======
   "name": "data-qr",
->>>>>>> 2651ea7c8fb3b7bd0d4dcef6d45929697ad25aeb
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
