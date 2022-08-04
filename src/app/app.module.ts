@@ -15,6 +15,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EstadoLotePipe } from './pipes/estado-lote.pipe';
+import { QrsComponent } from './components/admin/qrs/qrs.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +27,7 @@ import { EstadoLotePipe } from './pipes/estado-lote.pipe';
     AccessComponent,
     AbmLotesComponent,
     DetalleLoteComponent,
+    QrsComponent,
     TableComponent,
     EstadoLotePipe
   ],
@@ -34,7 +40,10 @@ import { EstadoLotePipe } from './pipes/estado-lote.pipe';
     MatButtonModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    QRCodeModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

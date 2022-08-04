@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { Lote } from 'src/app/models/lote';
 import { LotesService } from 'src/app/services/lotes.service';
 
@@ -14,14 +15,18 @@ export class DetalleLoteComponent implements OnInit {
   dataSource: MatTableDataSource<Lote> = new MatTableDataSource<Lote>();
 
   constructor(
-    private lotesService: LotesService
+    private lotesService: LotesService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.lotesService.getLoteByCod(2).subscribe(
-      response => {
-        console.log(response);
-        this.dataSource.data = response;
+    this.activatedRoute.params.subscribe(
+      (resp: any) => {
+        this.lotesService.getLoteByCod(resp.codigo).subscribe(
+          response => {
+            this.dataSource.data = response;
+          }
+        )
       }
     )
   }
