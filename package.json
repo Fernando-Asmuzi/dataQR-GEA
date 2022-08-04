@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "data-qr-gea",
+=======
+  "name": "data-qr",
+>>>>>>> 2651ea7c8fb3b7bd0d4dcef6d45929697ad25aeb
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -11,10 +15,12 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.3.0",
+    "@angular/cdk": "^13.3.9",
     "@angular/common": "~13.3.0",
     "@angular/compiler": "~13.3.0",
     "@angular/core": "~13.3.0",
     "@angular/forms": "~13.3.0",
+    "@angular/material": "^13.3.9",
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
