@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
+<<<<<<< HEAD
   uri: 'http://localhost/gea_qr/api'
+=======
+  url_servicios: 'http://geadata.com.ar/api/'
+>>>>>>> main
 };
 
 /*
