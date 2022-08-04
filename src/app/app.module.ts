@@ -19,6 +19,8 @@ import { QrsComponent } from './components/admin/qrs/qrs.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { OnCreateDirective } from './directives/on-create.directive';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DetalleLoteComponent,
     QrsComponent,
     TableComponent,
-    EstadoLotePipe
+    EstadoLotePipe,
+    OnCreateDirective
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     QRCodeModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

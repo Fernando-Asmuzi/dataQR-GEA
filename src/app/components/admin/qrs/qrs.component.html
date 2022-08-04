@@ -7,8 +7,8 @@
         </mat-option>
     </mat-select>
 </mat-form-field>
-<div class="container-qr">
-    <div *ngFor="let lote of lotes">
+<div class="container-qr" #qrs>
+    <div *ngFor="let lote of lotes" class="qr" (onCreate)="onCreatedItem(lote)">
         <qrcode
             [qrdata]="('http://56.ar/') + (lote.id)"
             [width]="sizeControl.value?.value"
@@ -17,4 +17,4 @@
         <p style="font-size: {{ sizeControl.value?.value/10 }}px">{{lote.id}}</p>
     </div>
 </div>
-<button mat-raised-button color="primary">Descargar códigos</button>
+<button mat-raised-button color="primary" (click)="downloadQR()">Descargar códigos</button>
