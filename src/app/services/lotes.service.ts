@@ -9,7 +9,7 @@ import { Lote } from '../models/lote';
 })
 export class LotesService {
 
-  private baseUri = environment.uri;
+  private baseUri = environment.url_servicios;
 
   constructor(
     private http: HttpClient
@@ -17,22 +17,22 @@ export class LotesService {
   }
 
   getAllLotes(): Observable<Lote[]> {
-    return this.http.get<Lote[]>(`${this.baseUri}/lotes.php`);
+    return this.http.get<Lote[]>(`${this.baseUri}lotes.php`);
   }
 
   getLoteByCod(codigo: number): Observable<Lote[]> {
-    return this.http.get<Lote[]>(`${this.baseUri}/lotes.php?codigo=${codigo}`);
+    return this.http.get<Lote[]>(`${this.baseUri}lotes.php?codigo=${codigo}`);
   }
 
   getLoteById(lote: Lote): Observable<Lote> {
-    return this.http.get<Lote>(`${this.baseUri}/lotes.php?id=${lote.id}`);
+    return this.http.get<Lote>(`${this.baseUri}lotes.php?id=${lote.id}`);
   }
 
   getLoteForCodes(): Observable<Lote[]> {
-    return this.http.get<Lote[]>(`${this.baseUri}/lotes.php?bylote=true`);
+    return this.http.get<Lote[]>(`${this.baseUri}lotes.php?bylote=true`);
   }
 
   updateLotes(lote: Lote): Observable<Lote> {
-    return this.http.put<Lote>(`${this.baseUri}/lotes.php`, lote);
+    return this.http.put<Lote>(`${this.baseUri}lotes.php`, lote);
   }
 }

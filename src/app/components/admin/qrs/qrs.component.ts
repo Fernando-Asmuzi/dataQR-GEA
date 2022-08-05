@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild, ViewChildren, View
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as JSZip from 'jszip';
-import domtoimage from 'dom-to-image';
+import { toPng } from 'html-to-image';
 import { LotesService } from 'src/app/services/lotes.service';
 import { Lote } from 'src/app/models/lote';
 
@@ -59,15 +59,20 @@ export class QrsComponent implements OnInit {
   async downloadQR(): Promise<void> {
     let zip = new JSZip();
     let img = zip.folder("images");
-    // console.log(qrlist);
-    this.createDomElement(img);
 
-    // zip.generateAsync({type: 'base64'}).then(
-    //   (content) => window.location.href = 'data:application/zip;base64,' + content
-    // );
+    this.createDomElement(img)
+    setTimeout(() => {
+
+      zip.generateAsync({type:"base64"}).then(
+        (content: any) => window.location.href = "data:application/zip;base64," + content
+      );
+    }, 5000);
+
+      
+
   }
 
-  createDomElement(img: any): void {
+  async createDomElement(img: any): Promise<void> {
     const dataURItoBlob = (dataURI: any) => {
       let byteString = atob(dataURI.split(',')[1]);
       let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
@@ -80,26 +85,31 @@ export class QrsComponent implements OnInit {
       return bb;
     }
     
-    this.lotes.map((lote: Lote) => {
-      let container = document.createElement('div');
-      let qr = document.createElement('qrcode');
-      qr.setAttribute('qrdata', '{{ http://56.ar/' + lote.id + ' }}');
-      qr.setAttribute('width',this.sizeControl.value?.value);
-      qr.setAttribute('errorCorrectionLevel','M');
-      
-      let par = document.createElement('p');
-      par.innerHTML = lote.id.toString();
-      container.append(qr)
-      container.append(par);
-      console.log(container);
+    
 
-      domtoimage.toPng(container).then( function (data) {
+    this.lotes.map((lote: Lote) => {
+      const div = document.createElement('div');
+      let qr = document.getElementById(lote.id.toString());
+      const canvas = <HTMLCanvasElement> qr?.firstChild;
+      // console.log(canvas.toDataURL());
+      
+      let par = document.createElement('span');
+      par.innerHTML = lote.id.toString();
+      canvas.setAttribute('style','background-color: #ffffff')
+      const code = document.createElement('img');
+      code.setAttribute('id','codigo' + lote.id);
+      let width = this.sizeControl.value?.value;
+      let height = width + 10;
+      toPng(canvas, {width: width, height: height}).then(function (data) {
         let image = new Image();
-        image.setAttribute('src', data);
-        img.file(lote.id + '.png', dataURItoBlob(image.getAttribute("src")), {base64: true} )
-      })
-      .catch(function (error){
-				console.log('ocurrio un error', error);
+        image.crossOrigin = 'Anonymous';
+				image.setAttribute("src",data);
+        image.src = data;
+        // document.body.appendChild(image);
+				img!.file(code.getAttribute("id")+".png", dataURItoBlob(data), {base64: true});
+			})
+			.catch(function (error){
+        console.log('ocurrio un error', error);
 			})
       
     })

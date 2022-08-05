@@ -32,6 +32,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QRCodeModule } from 'angularx-qrcode';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
+import { QrImageComponent } from '../components/admin/qr-image/qr-image.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { MatCardModule } from '@angular/material/card';
     QrsComponent,
     TableComponent,
     EstadoLotePipe,
-    OnCreateDirective
+    OnCreateDirective,
+    QrImageComponent,
   ],
   imports: [
     CommonModule,
