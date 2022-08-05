@@ -39,8 +39,6 @@ export class QrsComponent implements OnInit {
   constructor(
     private lotesService: LotesService,
     private activateRoute: ActivatedRoute,
-    private renderer: Renderer2,
-    private viewContainerRef: ViewContainerRef
   ) { }
 
   ngOnInit(): void {
@@ -99,7 +97,7 @@ export class QrsComponent implements OnInit {
       const code = document.createElement('img');
       code.setAttribute('id','codigo' + lote.id);
       let width = this.sizeControl.value?.value;
-      let height = width + 10;
+      let height = width*1.10;
       toPng(canvas, {width: width, height: height}).then(function (data) {
         let image = new Image();
         image.crossOrigin = 'Anonymous';
