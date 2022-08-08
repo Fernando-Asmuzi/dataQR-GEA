@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SidenavComponent } from '../sidenav/sidenav.component';
 
 
 @Component({
@@ -8,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  opened = false;
+
+  constructor(private side: SidenavComponent) { }
 
   ngOnInit(): void {
   }
 
+  abrir(){
+    this.side.cambiar();
+  }
 }
