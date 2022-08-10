@@ -33,6 +33,13 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { QrImageComponent } from '../components/admin/qr-image/qr-image.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { GenerateLoteComponent } from '../components/admin/generate-lote/generate-lote.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -53,6 +60,7 @@ import { QrImageComponent } from '../components/admin/qr-image/qr-image.componen
     EstadoLotePipe,
     OnCreateDirective,
     QrImageComponent,
+    GenerateLoteComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +79,12 @@ import { QrImageComponent } from '../components/admin/qr-image/qr-image.componen
     QRCodeModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatGridListModule,
+    MatProgressSpinnerModule
   ]
 })
 export class LayoutModule { }

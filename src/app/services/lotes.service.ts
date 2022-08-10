@@ -35,4 +35,8 @@ export class LotesService {
   updateLotes(lote: Lote): Observable<Lote> {
     return this.http.put<Lote>(`${this.baseUri}lotes.php`, lote);
   }
+
+  createLote(lote: Lote): Observable<Lote> {
+    return this.http.post<Lote>(`${this.baseUri}lotes.php`, lote);
+  }
 }

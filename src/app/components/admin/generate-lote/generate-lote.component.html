@@ -1,0 +1,40 @@
+<form [formGroup]="form" (submit)="submitForm()">
+    <mat-card>
+        <mat-card-title>
+            <h2>Nuevo Lote</h2>
+        </mat-card-title>
+        <mat-card-content *ngIf="showSpinner">
+            <mat-spinner mode="indeterminate"></mat-spinner>
+        </mat-card-content>
+        <mat-card-content *ngIf="!showSpinner">
+            <mat-grid-list cols="3" rowHeight="2:1">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Selecione Categoria</mat-label>
+                        <mat-select formControlName="categoria">
+                            <mat-option [value]="categoria" *ngFor="let categoria of categorias">{{ categoria.categoria }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Cantidad</mat-label>
+                        <input matInput formControlName="cantidad" type="text">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Selecione Producto</mat-label>
+                        <mat-select formControlName="producto">
+                            <mat-option [value]="producto" *ngFor="let producto of productos">{{ producto.producto }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary" type="submit">Generar</button>
+            <button mat-raised-button color="warn" mat-dialog-close type="button">Cerrar</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
