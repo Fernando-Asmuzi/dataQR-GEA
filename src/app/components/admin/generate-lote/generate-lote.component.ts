@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize, Subscription } from 'rxjs';
 import { Categoria } from 'src/app/models/categoria';
@@ -36,7 +37,8 @@ export class GenerateLoteComponent implements OnInit, OnDestroy {
     private productosService: ProductosService,
     private lotesService: LotesService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -72,6 +74,7 @@ export class GenerateLoteComponent implements OnInit, OnDestroy {
     ).subscribe(
       response => {
         response ? this.snackBar.open('Lote creado','Aceptar',{duration: 1500}) : this.snackBar.open('Ocurrio un error','Aceptar',{duration: 1500})
+        this.dialog.closeAll();
       }
     )
   }
