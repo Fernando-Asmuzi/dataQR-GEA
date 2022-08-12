@@ -1,0 +1,8 @@
+<app-table
+    [showPaginator]="true"
+    [dataSource]="productos"
+    [columnas]="columnasTabla"
+    [actionButtons]="actionButtons"
+    (actionOne)="editProducto()"
+    (actionTwo)="deleteProducto()">
+</app-table>

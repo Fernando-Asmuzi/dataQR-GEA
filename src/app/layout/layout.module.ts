@@ -39,6 +39,9 @@ import { MatInputModule } from '@angular/material/input';
 import { GenerateLoteComponent } from '../components/admin/generate-lote/generate-lote.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AbmProductoComponent } from '../components/admin/abm-producto/abm-producto.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { DialogComponent } from '../components/admin/dialog/dialog.component';
 
 
 @NgModule({
@@ -60,7 +63,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     EstadoLotePipe,
     OnCreateDirective,
     QrImageComponent,
-    GenerateLoteComponent
+    GenerateLoteComponent,
+    AbmProductoComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,
@@ -84,7 +89,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatFormFieldModule,
     MatInputModule,
     MatGridListModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ]
 })
 export class LayoutModule { }
