@@ -18,11 +18,10 @@ export class FamiliarComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
 
-   /*  this.familiaresService.getFamiliares(Number(this.id)).subscribe(response =>{
+    this.familiaresService.getFamiliares(Number(this.id)).subscribe(response =>{
        this.familiares = response  
-  })  */
-    console.log(this.familiares)
+    }) 
+    
   }
 }

@@ -36,5 +36,5 @@ export const emptyFamiliar = (): Familiar => ({
     provincia: '',
     pais: '',
     ciudad: '',
-});
+}); 
 

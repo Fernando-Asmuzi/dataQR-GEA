@@ -6,21 +6,17 @@ import { FamiliarComponent } from './familiar/familiar.component';
 import { HomeComponent } from './home/home.component';
 import { InformacionComponent } from './informacion/informacion.component';
 import { LoginComponent } from './login/login.component';
-import { MenuComponent } from './menu/menu.component';
 import { ProductoComponent } from './producto/producto.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
+
 
 
 
 
 const routes: Routes = [
 {path: '', component: HomeComponent},
-{path: 'dashboard/:id',component: DashboardComponent},
-{path: 'informacion/:id',component: InformacionComponent},
-{path: 'producto',component: ProductoComponent},
 {path: 'login',component: LoginComponent},
-{path: 'principal/:id',component: SidenavComponent},
-{path: 'familiares/:id',component: FamiliarComponent},
+{path: 'principal/:id',component: DashboardComponent},
+{path: 'familiares',component: FamiliarComponent},
 {path: 'emergencia',component: EmergenciaComponent}    
 ];
 

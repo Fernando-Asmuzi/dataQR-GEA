@@ -20,4 +20,8 @@ export class UsuarioService {
   getUsuario(user: any): Observable<any>{
     return this.http.get<Usuario[]>(`${this.urlBase}usuarios.php?user_login=${user}`);
   } 
+
+  getUsuarioId(id: any): Observable<any>{
+    return this.http.get<Usuario[]>(`${this.urlBase}usuarios.php?id=${id}`);
+  }
 }

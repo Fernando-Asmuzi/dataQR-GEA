@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 
@@ -11,7 +11,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class LoginComponent implements OnInit {
 
-  email = new FormControl('', [Validators.required, Validators.email]);
+  email = new FormControl('', [Validators.required]);
   hide = true;
   password = '';
   user = '';
@@ -30,11 +30,10 @@ export class LoginComponent implements OnInit {
   }
 
   ingresar(){
+   
     this.usuarioServicie.getUsuario(this.email.value).subscribe( response =>{
        if(response){
           this.route.navigate(['/principal/'+ response.id]);
-          this.user = response.display_name;
-       }else{        
        }
     });
   }
