@@ -30,6 +30,8 @@ export class QrsComponent implements OnInit {
     },
   ];
 
+  plantilla: string = 'hueso';
+
   ancho!: number;
 
   sizeControl = new FormControl(this.sizes[0], Validators.required);
@@ -62,7 +64,14 @@ export class QrsComponent implements OnInit {
     setTimeout(() => {
 
       zip.generateAsync({type:"base64"}).then(
-        (content: any) => window.location.href = "data:application/zip;base64," + content
+        (content: any) => {
+          let zeldaContainer = <HTMLElement> document.getElementById('link');
+          const zelda = document.createElement('a');
+          zelda.setAttribute('href',"data:application/zip;base64," + content);
+          zelda.innerHTML = "Descargar wacho";
+          zeldaContainer.append(zelda);
+          // window.location.href = "data:application/zip;base64," + content
+        }
       );
     }, 5000);
 
@@ -96,8 +105,8 @@ export class QrsComponent implements OnInit {
       canvas.setAttribute('style','background-color: #ffffff')
       const code = document.createElement('img');
       code.setAttribute('id','codigo' + lote.id);
-      let width = this.sizeControl.value?.value;
-      let height = width*1.10;
+      let width = 267;
+      let height = 389;
       toPng(canvas, {width: width, height: height}).then(function (data) {
         let image = new Image();
         image.crossOrigin = 'Anonymous';

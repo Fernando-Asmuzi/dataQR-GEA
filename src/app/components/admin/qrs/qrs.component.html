@@ -8,7 +8,8 @@
     </mat-select>
 </mat-form-field>
 <button mat-raised-button color="primary" (click)="downloadQR()">Descargar códigos</button>
-<div class="container-qr" #qrs>
+<div id="link"></div>
+<div class="container-qr" id="plantilla" *ngIf="plantilla === 'hueso'" >
     <div *ngFor="let lote of lotes" class="qr"  id="{{lote.id}}">
         <app-qr-image
             [id]="lote.id"

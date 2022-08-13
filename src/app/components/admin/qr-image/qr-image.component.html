@@ -1,7 +1,12 @@
-<qrcode
-    id="id"
-    [qrdata]="qrdata"
-    [width]="width"
-    [errorCorrectionLevel]="errorCorrectionLevel"
-></qrcode>
-<p style="font-size: {{ width/10 }}px">{{id}}</p>
+<!-- <img src="assets/images/hueso.png" class="hueso"/> -->
+<div class="container-qr">
+    <qrcode
+        id="id"
+        [qrdata]="qrdata"
+        [width]="84"
+        [margin]="0"
+        [errorCorrectionLevel]="errorCorrectionLevel"
+        class="codigoQr"
+    ></qrcode>
+</div>
+<!-- <p style="font-size: {{ width/10 }}px">{{id}}</p> -->
