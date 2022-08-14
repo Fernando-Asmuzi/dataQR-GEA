@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Producto } from '../models/producto';
+import { Vinculo } from '../models/vinculo'
 
 
 const cudOptions = {
@@ -20,7 +21,11 @@ export class ProductosService {
   constructor(public http: HttpClient) { }
 
       getProducto(id: any): Observable<any>{
-        return this.http.get<Producto[]>(`${this.urlBase}vinculacion.php?id_usuario=${id}`);
+        return this.http.get<Producto[]>(`${this.urlBase}productos.php?id=${id}`);
+      }
+
+      getVinculoFamiliar(id: any): Observable<any>{
+        return this.http.get<Vinculo[]>(`${this.urlBase}vinculacion.php?id_usuario=${id}`);
       }
 
 }
