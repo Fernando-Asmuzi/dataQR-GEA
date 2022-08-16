@@ -2,10 +2,11 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild, ViewChildren, View
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as JSZip from 'jszip';
-import { toPng } from 'html-to-image';
+import { toBlob } from 'html-to-image';
 import { LotesService } from 'src/app/services/lotes.service';
 import { Lote } from 'src/app/models/lote';
-
+import { saveAs
+ } from 'file-saver';
 @Component({
   selector: 'app-qrs',
   templateUrl: './qrs.component.html',
@@ -38,6 +39,8 @@ export class QrsComponent implements OnInit {
 
   @ViewChildren('qrs') qrs!: ElementRef;
 
+  showSpinner: boolean = false;
+
   constructor(
     private lotesService: LotesService,
     private activateRoute: ActivatedRoute,
@@ -57,29 +60,24 @@ export class QrsComponent implements OnInit {
 
 
   async downloadQR(): Promise<void> {
-    let zip = new JSZip();
-    let img = zip.folder("images");
+    
 
-    this.createDomElement(img)
-    setTimeout(() => {
+    this.createDomElement()
+    // setTimeout(() => {
 
-      zip.generateAsync({type:"base64"}).then(
-        (content: any) => {
-          let zeldaContainer = <HTMLElement> document.getElementById('link');
-          const zelda = document.createElement('a');
-          zelda.setAttribute('href',"data:application/zip;base64," + content);
-          zelda.innerHTML = "Descargar wacho";
-          zeldaContainer.append(zelda);
-          // window.location.href = "data:application/zip;base64," + content
-        }
-      );
-    }, 5000);
+      
+    // }, 20000);
 
       
 
   }
 
-  async createDomElement(img: any): Promise<void> {
+  async createDomElement(): Promise<void> {
+
+    this.showSpinner = true;
+    let zip = new JSZip();
+    let img = zip.folder("images");
+
     const dataURItoBlob = (dataURI: any) => {
       let byteString = atob(dataURI.split(',')[1]);
       let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
@@ -94,32 +92,42 @@ export class QrsComponent implements OnInit {
     
     
 
-    this.lotes.map((lote: Lote) => {
-      const div = document.createElement('div');
+    await this.lotes.map((lote: Lote, index: number) => {
+      // const div = document.createElement('div');
       let qr = document.getElementById(lote.id.toString());
       const canvas = <HTMLCanvasElement> qr?.firstChild;
       // console.log(canvas.toDataURL());
       
       let par = document.createElement('span');
       par.innerHTML = lote.id.toString();
-      canvas.setAttribute('style','background-color: #ffffff')
-      const code = document.createElement('img');
-      code.setAttribute('id','codigo' + lote.id);
+
+      let indice;
+      // canvas.setAttribute('style','background-color: #ffffff')
+      // const code = document.createElement('img');
+      // code.setAttribute('id','codigo' + lote.id);
       let width = 267;
       let height = 389;
-      toPng(canvas, {width: width, height: height}).then(function (data) {
-        let image = new Image();
-        image.crossOrigin = 'Anonymous';
-				image.setAttribute("src",data);
-        image.src = data;
-        // document.body.appendChild(image);
-				img!.file(code.getAttribute("id")+".png", dataURItoBlob(data), {base64: true});
+      toBlob(canvas, {width: width, height: height})
+      .then( (data: any) => {
+				img!.file(lote.id+".png", data, {base64: true});
+        indice = index + 1;
+        if (this.lotes.length === indice) {
+          zip.generateAsync({type:"blob", compression: "DEFLATE", compressionOptions: {level: 9}}).then(
+            (content: any) => {
+              saveAs(content, 'codigos.zip')
+              this.showSpinner = false;
+            }
+          );
+        }
 			})
 			.catch(function (error){
         console.log('ocurrio un error', error);
 			})
+
       
     })
+
+    
     
   }
 
