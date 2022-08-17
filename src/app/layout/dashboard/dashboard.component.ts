@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
     {name: "Productos" , path: 'productos', icon: "qr_code_2"},
     {name: "Familiares" , path: 'familiares', icon: "family_restroom"},
     {name: "Emergencia" , path: 'emergencia', icon: "emergency"},
+    {name: "Gestion Lotes QR" , path: 'lotes', icon: "emergency"},
   ]  
   constructor(private router: Router, private route: ActivatedRoute, private usuarioService: UsuarioService) { }
 

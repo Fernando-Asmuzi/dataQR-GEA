@@ -17,17 +17,18 @@ import { ProductoComponent } from './layout/producto/producto.component';
 
 const routes: Routes = [
   { path: '', component: EmergenciaComponent },
-  { path: 'detalle-lote/:codigo', component: DetalleLoteComponent },
-  { path: 'ver-qrs/:codigo', component: QrsComponent },
-  { path: 'tabla', component: TableComponent },
   { path: 'principal/:id', component: DashboardComponent, children: [
     // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'productos', component: ProductoComponent },
     { path: 'familiares',component: FamiliarComponent },
     { path: 'emergencia',component: EmergenciaComponent },
+    // Admin area
+    { path: 'lotes', component: AbmLotesComponent },
+    { path: 'detalle-lote/:codigo', component: DetalleLoteComponent },
+    { path: 'ver-qrs/:codigo', component: QrsComponent },
+    { path: 'marcos', component: AbmMarcosComponent },
   ] },
-  { path: 'marcos', component: AbmMarcosComponent },
   { path: 'login',component: LoginComponent },
   // { path: 'productos', component: ProductoComponent }
 ];
