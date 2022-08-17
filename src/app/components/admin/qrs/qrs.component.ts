@@ -7,7 +7,7 @@ import { LotesService } from 'src/app/services/lotes.service';
 import { Lote } from 'src/app/models/lote';
 import { saveAs
  } from 'file-saver';
-import { Marco } from 'src/app/models/marco';
+import { emptyMarco, Marco } from 'src/app/models/marco';
 import { MarcosService } from 'src/app/services/marcos.service';
 @Component({
   selector: 'app-qrs',
@@ -50,11 +50,7 @@ export class QrsComponent implements OnInit {
 
     this.marcosService.getAllMarcos().subscribe(
       response => {
-        let vacio: Marco = {
-          id: 0,
-          url: '',
-          descripcion: 'Sin marco'
-        }
+        let vacio: Marco = emptyMarco();
         response.unshift(vacio);
         this.marcos = response;
       }

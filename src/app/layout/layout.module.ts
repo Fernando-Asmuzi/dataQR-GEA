@@ -43,6 +43,7 @@ import { AbmProductoComponent } from '../components/admin/abm-producto/abm-produ
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogComponent } from '../components/admin/dialog/dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AbmMarcosComponent } from '../components/admin/abm-marcos/abm-marcos.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     QrImageComponent,
     GenerateLoteComponent,
     AbmProductoComponent,
-    DialogComponent
+    DialogComponent,
+    AbmMarcosComponent
   ],
   imports: [
     CommonModule,

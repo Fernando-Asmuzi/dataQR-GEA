@@ -18,4 +18,8 @@ export class MarcosService {
   getAllMarcos(): Observable<Marco[]> {
     return this.http.get<Marco[]>(`${this.baseUri}marcos.php`);
   }
+
+  deleteMarco(marco: Marco): Observable<Marco> {
+    return this.http.delete<Marco>(`${this.baseUri}marcos.php?id=${marco.id}`);
+  }
 }

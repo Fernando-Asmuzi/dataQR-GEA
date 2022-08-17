@@ -1,5 +1,11 @@
 export class Marco {
     id!: number;
-    url!: string;
+    imagen!: string;
     descripcion!: string;
 }
+
+export const emptyMarco = (): Marco => ({
+    id: 0,
+    imagen: '',
+    descripcion: 'Sin Marco'
+});

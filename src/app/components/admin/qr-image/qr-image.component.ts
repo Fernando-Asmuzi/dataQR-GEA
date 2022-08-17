@@ -32,7 +32,7 @@ export class QrImageComponent implements OnInit, OnChanges {
       this.isologo = changes['hasLogo'].currentValue ? './assets/images/isologo.png' : '';
     }
     if(changes['marco']){
-      this.urlMarco = `url(${changes['marco'].currentValue?.url})`;
+      this.urlMarco = `url(${changes['marco'].currentValue?.imagen})`;
       this.setMarco = changes['marco'].currentValue?.id !== 0 ? true : false;
     }
   }
