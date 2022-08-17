@@ -1,0 +1,17 @@
+<!-- <img src="assets/images/hueso.png" class="hueso"/> -->
+<div class="container-qr" [ngStyle]="{'background-image': urlMarco}" [ngClass]="{'containerMarco': setMarco, 'containerSinMarco': !setMarco}" id="qrContainer">
+    <qrcode
+        id="id"
+        [qrdata]="qrdata"
+        [width]="100"
+        [margin]="0"
+        [errorCorrectionLevel]="errorCorrectionLevel"
+        [colorLight]="'#fafafa'"
+        class="codigoQr"
+        [imageSrc]="isologo"
+        [imageHeight]="30"
+        [imageWidth]="30"
+        [ngClass]="{'conMarco': setMarco, 'sinMarco': !setMarco}"
+    ></qrcode>
+</div>
+<!-- <p style="font-size: {{ width/10 }}px">{{id}}</p> -->

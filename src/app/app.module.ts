@@ -8,8 +8,6 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
 
-
-
 @NgModule({
   declarations: [
     AppComponent, 

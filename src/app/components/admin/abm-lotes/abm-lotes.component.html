@@ -1,0 +1,19 @@
+<button mat-raised-button color="primary" (click)="generateLote()">Generar Lote</button>
+<div class="container">
+  <mat-card class="example-card" *ngFor="let lote of lotes">
+    <mat-card-title-group>
+      <mat-card-title>Datos del lote</mat-card-title>
+      <mat-card-subtitle>Cantidad: {{ lote.cantidad }}</mat-card-subtitle>
+      <img mat-card-sm-image [src]="lote.producto.imagen" >
+    </mat-card-title-group>
+    <mat-card-content>
+      <p>Categoria: {{ lote.categoria.categoria }}</p>
+      <p>Descripcion: {{ lote.producto.producto }}</p>
+      <p>Fecha de creación: {{ lote.fecha | date: 'dd/MM/YYYY'}}</p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-raised-button color="primary" [routerLink]="['ver-qrs', lote.codigo]">Ver códigos QR</button>
+        <button mat-raised-button color="primary" [routerLink]="['detalle-lote', lote.codigo]">Detalles del Lote</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

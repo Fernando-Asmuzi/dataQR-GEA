@@ -1,0 +1,25 @@
+
+<mat-form-field appearance="outline">
+    <mat-label>Seleccione marco</mat-label>
+    <mat-select (selectionChange)="onSelectionChange($event)">
+        <mat-option *ngFor="let marco of marcos; index as i" [value]="marco">
+            <img [src]="marco.imagen" height="20" width="20" />
+            {{ marco.descripcion }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-checkbox (change)="setIsologo($event)">Isologo</mat-checkbox>
+<button mat-raised-button color="primary" (click)="downloadQR()">Descargar códigos</button>
+<mat-spinner mode="indeterminate" *ngIf="showSpinner"></mat-spinner>
+<div class="container-qr" id="plantilla" *ngIf="plantilla === 'hueso'" >
+    <div *ngFor="let lote of lotes" class="qr"  id="{{lote.id}}">
+        <app-qr-image
+            [id]="lote.id"
+            [qrdata]="('http://56.ar/') + (lote.id)"
+            [errorCorrectionLevel]="'M'"
+            [hasLogo]="hasLogo"
+            [marco]="marco"
+        >
+        </app-qr-image>
+    </div>
+</div>

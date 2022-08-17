@@ -12,6 +12,13 @@ import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [],
@@ -40,7 +47,14 @@ import {MatSelectModule} from '@angular/material/select';
       MatListModule,
       MatTableModule,
       MatDialogModule,
-      MatSelectModule
+      MatSelectModule,
+      MatSortModule,
+      MatPaginatorModule,
+      MatSnackBarModule,
+      MatGridListModule,
+      MatProgressSpinnerModule,
+      MatTooltipModule,
+      MatCheckboxModule
     ],
   })
   export class MaterialModule { }

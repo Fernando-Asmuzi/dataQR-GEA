@@ -28,4 +28,8 @@ export class ProductosService {
         return this.http.get<Vinculo[]>(`${this.urlBase}vinculacion.php?id_usuario=${id}`);
       }
 
+  getAllProductos(): Observable<Producto[]>{
+    return this.http.get<Producto[]>(`${this.urlBase}productos.php`);
+  }
+
 }

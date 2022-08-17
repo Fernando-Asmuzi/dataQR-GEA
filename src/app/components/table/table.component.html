@@ -1,0 +1,34 @@
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+        <!-- ID Column -->
+        <ng-container [matColumnDef]="columna" *ngFor="let columna of columnas">
+            <div *ngIf="columna !== 'actions'">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ columna | titlecase }} </th>
+                <td mat-cell *matCellDef="let element">
+                    <img *ngIf="columna === 'imagen'" [src]="element.imagen" alt="{{ element.producto }}" class="imagen">
+                    <span *ngIf="columna !== 'imagen'" > {{ getColumnInfo(element, columna) | estadoLote }} </span>
+                </td>
+            </div>
+            <div *ngIf="columna === 'actions'">
+                <ng-container>
+                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                </ng-container>
+                <td mat-cell *matCellDef="let element">
+                    <ng-container *ngFor="let button of actionButtons; let i = index">
+                        <button mat-mini-fab color="{{ button.color }}" matTooltip="{{ button.tooltip }}" (click)="actionCaller(i + 1, element)" class="actionButton">
+                            <mat-icon>{{ button.icon }}</mat-icon>
+                        </button>
+                    </ng-container>
+                </td>
+            </div>
+        </ng-container>
+
+        <!-- <ng-container [matColumnDef]="'actions'">
+        </ng-container> -->
+        <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+    <div [hidden]="!showPaginator">
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+</div>

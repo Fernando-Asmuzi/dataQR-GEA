@@ -1,0 +1,9 @@
+<app-table
+    [dataSource]="dataSource"
+    [columnas]="columnasTabla"
+    [showPaginator]="true"
+    [actionButtons]="actionButtons"
+    (actionOne)="editMarco($event)"
+    (actionTwo)="deleteMarco($event)"
+>
+</app-table>

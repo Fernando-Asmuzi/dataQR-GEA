@@ -1,0 +1,30 @@
+
+p{
+    text-align: center;
+    margin-top: -20px;
+}
+.sinMarco{
+    margin-top: 0;
+}
+.conMarco{
+    margin-top: 20px;
+}
+.container-qr{
+    // background-image: url("/assets/images/marcos/8.png");
+    // background-color: red;
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    background-position: 50% 50%;
+    // tamaño hueso
+    // height: 389px;
+    // width: 267px;
+}
+.containerMarco{
+    height: 140px;
+    width: 140px;
+}
+.containerSinMarco{
+    height: 100px;
+    width: 100px;
+}
