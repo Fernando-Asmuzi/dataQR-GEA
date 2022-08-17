@@ -19,6 +19,7 @@ import { LayoutRoutingModule } from './layout-routing.module';
 
 /* material module */
 import { MaterialModule } from './material.module';
+import { FamiliarFormComponent } from './familiar-form/familiar-form.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { MaterialModule } from './material.module';
     PerfilComponent,
     ProductoComponent,
     EmergenciaComponent,
-    FamiliarComponent
+    FamiliarComponent,
+    FamiliarFormComponent
   ],
   imports: [
     HttpClientModule,

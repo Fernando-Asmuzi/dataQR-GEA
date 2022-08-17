@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Familiar } from 'src/app/models/familiar';
 
 const cudOptions = {
-  headers: new HttpHeaders({'Content-Type':'appication/json'})
+  headers: new HttpHeaders({'Content-Type':'application/json'})
 }
 
 @Injectable({
