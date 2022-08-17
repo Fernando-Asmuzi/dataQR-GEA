@@ -15,10 +15,10 @@ export class DashboardComponent implements OnInit {
   opcion: Number = 0;
 
   fillerNav = [
-    {name: "Home", opcion: 1, icon:"home"},
-    {name: "Productos" , opcion: 2, icon: "qr_code_2"},
-    {name: "Familiares" , opcion: 3, icon: "family_restroom"},
-    {name: "Emergencia" , opcion: 4, icon: "emergency"},
+    {name: "Home", path: '.', icon:"home"},
+    {name: "Productos" , path: 'productos', icon: "qr_code_2"},
+    {name: "Familiares" , path: 'familiares', icon: "family_restroom"},
+    {name: "Emergencia" , path: 'emergencia', icon: "emergency"},
   ]  
   constructor(private router: Router, private route: ActivatedRoute, private usuarioService: UsuarioService) { }
 
@@ -36,6 +36,11 @@ export class DashboardComponent implements OnInit {
     this.opcion = sel;
     console.log(this.opcion)
     return this.opcion;
+  }
+
+  logout(): void {
+    this.usuarioService.logOut();
+    this.router.navigate(['']);
   }
  
 }

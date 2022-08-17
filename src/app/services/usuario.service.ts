@@ -24,4 +24,16 @@ export class UsuarioService {
   getUsuarioId(id: any): Observable<any>{
     return this.http.get<Usuario[]>(`${this.urlBase}usuarios.php?id=${id}`);
   }
+
+  setUserLogin(user: any): void {
+    localStorage.setItem('userLogin', JSON.stringify(user));
+  }
+
+  getUserLogin(): any {
+    return JSON.parse(localStorage.getItem('userLogin') || '{}');
+  }
+
+  logOut(): void {
+    localStorage.removeItem('userLogin');
+  }
 }

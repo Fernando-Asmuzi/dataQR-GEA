@@ -4,6 +4,7 @@ import { FamiliaresService } from 'src/app/services/familiares.service';
 import { Familiar } from 'src/app/models/familiar';
 import { MatDialog } from '@angular/material/dialog';
 import { FamiliarFormComponent } from '../familiar-form/familiar-form.component';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-familiar',
@@ -16,10 +17,16 @@ export class FamiliarComponent implements OnInit {
   familiares: Array<Familiar> = [];
   
 
-  constructor(public dialog: MatDialog, private router: Router, private route: ActivatedRoute, private familiaresService: FamiliaresService) { }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute,
+    private familiaresService: FamiliaresService,
+    private usuarioService: UsuarioService
+    ) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id') ? this.route.snapshot.paramMap.get('id') : this.usuarioService.getUserLogin()?.id;
 
     this.familiaresService.getFamiliares(Number(this.id)).subscribe(response =>{
        this.familiares = response  

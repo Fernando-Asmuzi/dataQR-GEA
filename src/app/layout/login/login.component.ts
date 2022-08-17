@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
    
     this.usuarioServicie.getUsuario(this.email.value).subscribe( response =>{
        if(response){
+          this.usuarioServicie.setUserLogin(response);
           this.route.navigate(['/principal/'+ response.id]);
        }
     });

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
 import { Vinculo } from '../../models/vinculo'
 import {MatTableDataSource} from '@angular/material/table';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
  const ELEMENT_DATA: Vinculo[] = []; 
 
@@ -20,11 +21,16 @@ export class ProductoComponent implements OnInit {
   displayedColumns: string[] = ['Descripcion', 'Nombre', 'Apellido', 'Informacion'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
-  constructor(private router: Router, private route: ActivatedRoute, private productoService: ProductosService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private productoService: ProductosService,
+    private usuarioService: UsuarioService
+    ) { }
 
   ngOnInit(): void {
 
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id') ? this.route.snapshot.paramMap.get('id') : this.usuarioService.getUserLogin()?.id;
     this.productoService.getVinculoFamiliar(Number(this.id)).subscribe(response =>{
       this.dataSource = response 
       console.log(this.dataSource)
