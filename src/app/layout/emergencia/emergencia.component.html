@@ -1,14 +1,15 @@
-<body>
-    <div class="input">
-        <mat-form-field appearance="legacy">
-            <mat-label>Código numérico</mat-label>
-            <input matInput placeholder="Ingrese el código" name="codigo" [(ngModel)]="codigo">
-            <mat-hint></mat-hint>
-        </mat-form-field>
-    </div>
-    
-    <div class="boton">
-        <button mat-stroked-button color="accent" routerLink="/informacion/{{codigo}}">Ver información</button>
-    </div>
-    <a [routerLink]="['/login']">Ingresar</a>
-</body>
+<div class="container">
+    <mat-card>
+        <div class="input">
+            <mat-form-field appearance="outline">
+                <mat-label>Código numérico</mat-label>
+                <input matInput placeholder="Ingrese el código" name="codigo" [(ngModel)]="codigo">
+                <mat-hint></mat-hint>
+            </mat-form-field>
+        </div>
+        <button mat-stroked-button color="accent" class="boton" routerLink="/informacion/{{codigo}}">Ver información</button>
+        <mat-card-actions align="end">
+            <a [routerLink]="['/login']">Ingresar</a>
+        </mat-card-actions>
+    </mat-card>
+</div>
