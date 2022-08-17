@@ -1,0 +1,29 @@
+.example-spacer {
+    flex: 1 1 auto;
+
+}
+
+mat-sidenav-container{
+    height:100%;
+}
+
+mat-sidenav, mat-sidenav-content {
+    padding: 16px;
+}
+
+a{ 
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+mat-icon {
+    padding: 5px;
+}
+
+mat-sidenav {
+    width: 200px;
+}
+
+.logout{
+    position: absolute;
+    bottom: 0; 
+}

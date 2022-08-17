@@ -1,0 +1,36 @@
+
+  <mat-toolbar>
+  <span class="familiar-span">Familiares</span>
+  <span class="example-spacer"></span>
+  <button mat-button (click)="openDialog()">
+    <span class="material-icons" title="Agregar familiar">
+      person_add
+      </span>
+  </button>
+  
+</mat-toolbar>
+
+
+<div class="familiares" *ngFor="let f of familiares">
+    <mat-card>
+        <mat-card-title>{{f.nombre + " "}}{{f.apellido}}</mat-card-title>
+        <mat-card-content>
+          <p>
+            <b>Dirección: </b>{{f.direccion_primaria}}<br>
+            <b>Teléfono: </b>{{f.telefono_primario}}<br>
+            <b>Ciudad: </b>{{f.ciudad}}<br>
+            <b>Provincia: </b>{{f.provincia}}<br>
+            <b>País: </b>{{f.pais}}<br>
+          </p>
+        </mat-card-content>
+        <mat-card-footer>
+          <button mat-button><span class="material-icons">
+            visibility
+            </span>Ver más</button>
+          <button mat-button><span class="material-icons">
+            edit
+            </span>Modificar</button>
+        </mat-card-footer>
+    </mat-card>
+</div>
+ 

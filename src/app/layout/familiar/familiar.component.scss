@@ -1,0 +1,25 @@
+
+.familiares{
+    padding: 10px;
+}
+
+mat-card:hover{
+    transform: scale(1.01);
+}
+
+h1{ 
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+mat-card-footer{
+   text-align: right;
+}
+
+.familiar-span{
+    padding-left: 10px;
+}
+.example-spacer {
+    flex: 1 1 auto;
+  }

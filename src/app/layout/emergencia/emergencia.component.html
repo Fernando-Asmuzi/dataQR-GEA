@@ -1,0 +1,13 @@
+<body>
+    <div class="input">
+        <mat-form-field appearance="legacy">
+            <mat-label>Código numérico</mat-label>
+            <input matInput placeholder="Ingrese el código" name="codigo" [(ngModel)]="codigo">
+            <mat-hint></mat-hint>
+        </mat-form-field>
+    </div>
+    
+    <div class="boton">
+        <button mat-stroked-button color="accent" routerLink="/informacion/{{codigo}}">Ver información</button>
+    </div>
+</body>
