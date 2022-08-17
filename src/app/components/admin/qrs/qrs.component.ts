@@ -7,6 +7,8 @@ import { LotesService } from 'src/app/services/lotes.service';
 import { Lote } from 'src/app/models/lote';
 import { saveAs
  } from 'file-saver';
+import { Marco } from 'src/app/models/marco';
+import { MarcosService } from 'src/app/services/marcos.service';
 @Component({
   selector: 'app-qrs',
   templateUrl: './qrs.component.html',
@@ -16,26 +18,14 @@ export class QrsComponent implements OnInit {
 
   lotes: any;
 
-  sizes = [
-    {
-      value: 171,
-      viewValue: "1,5x1,5 cm"
-    },
-    {
-      value: 295,
-      viewValue: "2,5x2,5 cm"
-    },
-    {
-      value: 591,
-      viewValue: "5x5 cm"
-    },
-  ];
+  marcos: Marco[] = [];
 
   plantilla: string = 'hueso';
 
   ancho!: number;
 
-  sizeControl = new FormControl(this.sizes[0], Validators.required);
+  hasLogo!: boolean;
+  marco!: Marco;
 
   @ViewChildren('qrs') qrs!: ElementRef;
 
@@ -43,6 +33,7 @@ export class QrsComponent implements OnInit {
 
   constructor(
     private lotesService: LotesService,
+    private marcosService: MarcosService,
     private activateRoute: ActivatedRoute,
   ) { }
 
@@ -54,6 +45,18 @@ export class QrsComponent implements OnInit {
             this.lotes = response;
           }
         )
+      }
+    )
+
+    this.marcosService.getAllMarcos().subscribe(
+      response => {
+        let vacio: Marco = {
+          id: 0,
+          url: '',
+          descripcion: 'Sin marco'
+        }
+        response.unshift(vacio);
+        this.marcos = response;
       }
     )
   }
@@ -105,8 +108,16 @@ export class QrsComponent implements OnInit {
       // canvas.setAttribute('style','background-color: #ffffff')
       // const code = document.createElement('img');
       // code.setAttribute('id','codigo' + lote.id);
-      let width = 267;
-      let height = 389;
+      // plantilla hueso
+      // let width = 267;
+      // let height = 389;
+      // codigo sin marcos
+      // let width = 84;
+      // let height = 84;
+      // codigo con marco
+      const frame = document.getElementById('qrContainer');
+      let width = frame?.offsetWidth;
+      let height = frame?.offsetHeight;
       toBlob(canvas, {width: width, height: height})
       .then( (data: any) => {
 				img!.file(lote.id+".png", data, {base64: true});
@@ -114,8 +125,10 @@ export class QrsComponent implements OnInit {
         if (this.lotes.length === indice) {
           zip.generateAsync({type:"blob", compression: "DEFLATE", compressionOptions: {level: 9}}).then(
             (content: any) => {
-              saveAs(content, 'codigos.zip')
-              this.showSpinner = false;
+              // setTimeout(() => {
+                saveAs(content, 'codigos.zip')
+                this.showSpinner = false;
+              // }, 5000);
             }
           );
         }
@@ -135,5 +148,12 @@ export class QrsComponent implements OnInit {
     // console.log(item);
   }
 
+  setIsologo(event: any): void {
+    this.hasLogo = event.checked
+  }
+
+  onSelectionChange(event: any): void {
+    this.marco = event.value;
+  }
   
 }

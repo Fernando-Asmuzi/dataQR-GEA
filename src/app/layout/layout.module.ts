@@ -42,6 +42,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AbmProductoComponent } from '../components/admin/abm-producto/abm-producto.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogComponent } from '../components/admin/dialog/dialog.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { DialogComponent } from '../components/admin/dialog/dialog.component';
     MatInputModule,
     MatGridListModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule
   ]
 })
 export class LayoutModule { }
