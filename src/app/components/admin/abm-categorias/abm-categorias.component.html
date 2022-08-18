@@ -1,0 +1,18 @@
+<mat-toolbar>
+    <span class="familiar-span">Gestión de Categorías</span>
+    <span class="example-spacer"></span>
+    <button mat-button (click)="createCategoria()">
+        <span class="material-icons" matTooltip="Agregar categoría">
+            add_circle_outline
+        </span>
+    </button>
+</mat-toolbar>
+<app-table
+    [dataSource]="categorias"
+    [showPaginator]="true"
+    [columnas]="columnasTabla"
+    [actionButtons]="actionButtons"
+    (actionOne)="editCategoria($event)"
+    (actionTwo)="deleteCategoria($event)"
+>
+</app-table>

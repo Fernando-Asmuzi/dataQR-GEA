@@ -21,6 +21,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatMenuModule} from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -39,7 +42,10 @@ import { MatDividerModule } from '@angular/material/divider';
       MatDialogModule,
       MatSelectModule,
       MatChipsModule,
-      MatDividerModule
+      MatDividerModule,
+      MatSlideToggleModule,
+      MatMenuModule,
+      MatProgressBarModule
     ],
     exports: [
       MatToolbarModule,
@@ -61,7 +67,10 @@ import { MatDividerModule } from '@angular/material/divider';
       MatTooltipModule,
       MatCheckboxModule,
       MatChipsModule,
-      MatDividerModule
+      MatDividerModule,
+      MatSlideToggleModule,
+      MatMenuModule,
+      MatProgressBarModule
     ],
   })
   export class MaterialModule { }

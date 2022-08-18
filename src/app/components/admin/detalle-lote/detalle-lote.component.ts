@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { Lote } from 'src/app/models/lote';
+import { emptyLote, Lote } from 'src/app/models/lote';
 import { LotesService } from 'src/app/services/lotes.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class DetalleLoteComponent implements OnInit {
 
   columnasTabla: string[] = ['id','producto','categoria','estado'];
   dataSource: MatTableDataSource<Lote> = new MatTableDataSource<Lote>();
+  lote: Lote = emptyLote();
 
   constructor(
     private lotesService: LotesService,
@@ -26,6 +27,7 @@ export class DetalleLoteComponent implements OnInit {
         this.lotesService.getLoteByCod(resp.codigo).subscribe(
           response => {
             this.dataSource.data = response;
+            this.lote = response[0];
           }
         )
       }

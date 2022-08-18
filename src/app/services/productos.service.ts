@@ -32,4 +32,16 @@ export class ProductosService {
     return this.http.get<Producto[]>(`${this.urlBase}productos.php`);
   }
 
+  deleteProducto(producto: Producto): Observable<Producto>{
+    return this.http.delete<Producto>(`${this.urlBase}productos.php?id=${producto.id}`);
+  }
+
+  createProducto(producto: Producto): Observable<Producto>{
+    return this.http.post<Producto>(`${this.urlBase}productos.php`, producto);
+  }
+
+  updateProducto(producto: Producto): Observable<Producto>{
+    return this.http.put<Producto>(`${this.urlBase}productos.php`, producto);
+  }
+
 }

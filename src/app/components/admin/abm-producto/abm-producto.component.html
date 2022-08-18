@@ -1,8 +1,17 @@
+<mat-toolbar>
+    <span class="familiar-span">Gestión de Productos</span>
+    <span class="example-spacer"></span>
+    <button mat-button (click)="createProducto()">
+      <span class="material-icons" matTooltip="Agregar Producto">
+        add_circle_outline
+      </span>
+    </button>
+</mat-toolbar>
 <app-table
     [showPaginator]="true"
     [dataSource]="productos"
     [columnas]="columnasTabla"
     [actionButtons]="actionButtons"
-    (actionOne)="editProducto()"
-    (actionTwo)="deleteProducto()">
+    (actionOne)="editProducto($event)"
+    (actionTwo)="deleteProducto($event)">
 </app-table>

@@ -35,6 +35,11 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { NamePipe } from './pipes/name.pipe';
 import { AbmDisenoComponent } from './components/admin/abm-diseno/abm-diseno.component';
 import { GenerateDisenoComponent } from './components/admin/generate-diseno/generate-diseno.component';
+import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
+import { AbmCategoriasComponent } from './components/admin/abm-categorias/abm-categorias.component';
+import { GenerateProductoComponent } from './components/admin/generate-producto/generate-producto.component';
+import { GenerateCategoriaComponent } from './components/admin/generate-categoria/generate-categoria.component';
+import { GenerateMarcoComponent } from './components/admin/generate-marco/generate-marco.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +67,12 @@ import { GenerateDisenoComponent } from './components/admin/generate-diseno/gene
     AbmMarcosComponent,
     NamePipe,
     AbmDisenoComponent,
-    GenerateDisenoComponent
+    GenerateDisenoComponent,
+    AdminHomeComponent,
+    AbmCategoriasComponent,
+    GenerateProductoComponent,
+    GenerateCategoriaComponent,
+    GenerateMarcoComponent
   ],
   imports: [
     HttpClientModule,

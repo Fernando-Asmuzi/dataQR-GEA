@@ -1,16 +1,27 @@
-
-<mat-form-field appearance="outline">
-    <mat-label>Seleccione marco</mat-label>
-    <mat-select (selectionChange)="onSelectionChange($event)">
-        <mat-option *ngFor="let marco of marcos; index as i" [value]="marco">
-            <img [src]="marco.imagen" height="20" width="20" />
-            {{ marco.descripcion }}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
-<mat-checkbox (change)="setIsologo($event)">Isologo</mat-checkbox>
-<button mat-raised-button color="primary" (click)="downloadQR()">Descargar códigos</button>
-<mat-spinner mode="indeterminate" *ngIf="showSpinner"></mat-spinner>
+<mat-toolbar>
+    <span class="familiar-span">Códigos QR</span>
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+        Marco
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let marco of marcos" (click)="onSelectionChange(marco)">
+            <img [src]="marco.imagen" height="20" width="20" class="marco"/>{{ marco.descripcion }}
+        </button>
+    </mat-menu>
+    <mat-slide-toggle
+          class="example-margin"
+          [(ngModel)]="hasLogo">
+        Isologo
+    </mat-slide-toggle>
+    <button mat-button (click)="downloadQR()">
+      <span class="material-icons" matTooltip="Descargar Códigos">
+        cloud_download
+      </span>
+    </button>
+</mat-toolbar>
+<mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
 <div class="container-qr" id="plantilla" *ngIf="plantilla === 'hueso'" >
     <div *ngFor="let lote of lotes" class="qr"  id="{{lote.id}}">
         <app-qr-image

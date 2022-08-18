@@ -18,4 +18,16 @@ export class CategoriasService {
   getAllCategorias(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(`${this.baseUri}categorias.php`);
   }
+
+  deleteCategoria(categoria: Categoria): Observable<Categoria> {
+    return this.http.delete<Categoria>(`${this.baseUri}categorias.php?id=${categoria.id}`);
+  }
+
+  createCategoria(categoria: Categoria): Observable<Categoria> {
+    return this.http.post<Categoria>(`${this.baseUri}categorias.php`, categoria);
+  }
+
+  updateCategoria(categoria: Categoria): Observable<Categoria> {
+    return this.http.put<Categoria>(`${this.baseUri}categorias.php`, categoria);
+  }
 }

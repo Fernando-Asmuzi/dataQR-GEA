@@ -1,0 +1,22 @@
+<form [formGroup]="form" (submit)="submitForm()">
+    <mat-card>
+        <mat-card-title>
+            <h2>Nuevo Producto</h2>
+        </mat-card-title>
+        <mat-card-content>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="producto" type="text">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Imagen</mat-label>
+                <input matInput formControlName="imagen" type="text">
+            </mat-form-field>
+          </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" *ngIf="!data">Crear</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" *ngIf="data">Modificar</button>
+            <button mat-raised-button color="warn" mat-dialog-close type="button" (click)="cancel()">Cerrar</button>
+        </mat-card-actions>
+    </mat-card>
+</form>

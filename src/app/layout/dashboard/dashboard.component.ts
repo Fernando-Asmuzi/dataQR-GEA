@@ -23,10 +23,11 @@ export class DashboardComponent implements OnInit {
     {name: "Familiares" , path: 'familiares', icon: "family_restroom", admin: false},
     {name: "Emergencia" , path: 'emergencia', icon: "emergency", admin: false},
     // Admin area
-    {name: "Home" , path: 'lotes', icon: "home", admin: true},
+    {name: "Home" , path: 'home-admin', icon: "home", admin: true},
     {name: "Gestion Lotes QR" , path: 'lotes', icon: "qr_code_2", admin: true},
     {name: "Gestion Marcos" , path: 'marcos', icon: "filter_frames", admin: true},
     {name: "Gestion Categorías" , path: 'categorias', icon: "art_track", admin: true},
+    {name: "Gestion Productos" , path: 'abm-productos', icon: "shopping_basket", admin: true},
     {name: "Gestion Diseño" , path: 'disenos', icon: "category", admin: true},
   ]  
   constructor(private router: Router, private route: ActivatedRoute, private usuarioService: UsuarioService) { }

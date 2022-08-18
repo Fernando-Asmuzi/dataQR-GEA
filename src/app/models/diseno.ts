@@ -4,7 +4,7 @@ export interface Diseno {
     descripcion: string;
 }
 
-export const emptyCategoria = (): Diseno => ({
+export const emptyDiseno = (): Diseno => ({
     id: 0,
     nombre: '',
     descripcion: ''

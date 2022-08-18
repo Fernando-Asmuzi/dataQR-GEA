@@ -47,7 +47,7 @@ export class AbmLotesComponent implements OnInit {
 
 
   generateLote(): void {
-    this.dialog.open(GenerateLoteComponent, {width: '50%'}).afterClosed().subscribe(
+    this.dialog.open(GenerateLoteComponent, {width: '20%'}).afterClosed().subscribe(
       () => this.loadLotes()
     )
   }

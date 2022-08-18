@@ -20,6 +20,8 @@ export class QrsComponent implements OnInit {
 
   marcos: Marco[] = [];
 
+  defaultMarco: Marco = emptyMarco();
+
   plantilla: string = 'hueso';
 
   ancho!: number;
@@ -148,8 +150,8 @@ export class QrsComponent implements OnInit {
     this.hasLogo = event.checked
   }
 
-  onSelectionChange(event: any): void {
-    this.marco = event.value;
+  onSelectionChange(marco: Marco): void {
+    this.marco = marco;
   }
   
 }

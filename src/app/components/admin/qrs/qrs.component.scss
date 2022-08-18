@@ -1,7 +1,7 @@
 .container-qr{
     display: flex;
     flex-wrap: wrap;
-    width: 4620px;
+    // width: 4620px;
     // background-color: #7f6b64;
     p{
         text-align: center;
@@ -10,4 +10,17 @@
 }
 .qr{
     margin: 5px 10px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+.familiar-span{
+    padding-left: 10px;
+}
+.select{
+    float: right;
+}
+.marco{
+    margin-right: 5px;
 }

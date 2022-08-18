@@ -1,7 +1,6 @@
 <mat-toolbar>
   <span class="familiar-span">Gestión de Lotes</span>
   <span class="example-spacer"></span>
-  <!-- <button mat-raised-button color="primary" (click)="generateLote()">Generar Lote</button> -->
   <button mat-button (click)="generateLote()">
     <span class="material-icons" matTooltip="Agregar Lote">
       add_circle_outline
@@ -16,9 +15,11 @@
       <img mat-card-sm-image [src]="lote.producto.imagen" >
     </mat-card-title-group>
     <mat-card-content>
+      <p>Código: {{ lote.codigo }}</p>
       <p>Categoria: {{ lote.categoria.categoria }}</p>
       <p>Descripcion: {{ lote.producto.producto }}</p>
       <p>Fecha de creación: {{ lote.fecha | date: 'dd/MM/YYYY'}}</p>
+      <p>Diseño: {{ lote.diseno.descripcion }}</p>
     </mat-card-content>
     <mat-card-actions align="end">
         <button mat-raised-button color="primary" [routerLink]="['../ver-qrs', lote.codigo]">Ver códigos QR</button>
