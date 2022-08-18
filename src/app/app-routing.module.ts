@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { TooltipComponent } from '@angular/material/tooltip';
 import { RouterModule, Routes } from '@angular/router';
+import { AbmDisenoComponent } from './components/admin/abm-diseno/abm-diseno.component';
 import { AbmLotesComponent } from './components/admin/abm-lotes/abm-lotes.component';
 import { AbmMarcosComponent } from './components/admin/abm-marcos/abm-marcos.component';
 import { AbmProductoComponent } from './components/admin/abm-producto/abm-producto.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
     { path: 'detalle-lote/:codigo', component: DetalleLoteComponent },
     { path: 'ver-qrs/:codigo', component: QrsComponent },
     { path: 'marcos', component: AbmMarcosComponent },
+    { path: 'disenos', component: AbmDisenoComponent },
   ] },
   { path: 'login',component: LoginComponent },
   // { path: 'productos', component: ProductoComponent }

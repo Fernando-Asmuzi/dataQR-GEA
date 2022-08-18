@@ -3,9 +3,9 @@
   <span class="familiar-span">Familiares</span>
   <span class="example-spacer"></span>
   <button mat-button (click)="openDialog()">
-    <span class="material-icons" title="Agregar familiar">
+    <span class="material-icons" matTooltip="Agregar familiar">
       person_add
-      </span>
+    </span>
   </button>
   
 </mat-toolbar>
@@ -13,14 +13,14 @@
 
 <div class="familiares" *ngFor="let f of familiares">
     <mat-card>
-        <mat-card-title>{{f.nombre + " "}}{{f.apellido}}</mat-card-title>
+        <mat-card-title>{{f | name | uppercase}}</mat-card-title>
         <mat-card-content>
           <p>
-            <b>Dirección: </b>{{f.direccion_primaria}}<br>
-            <b>Teléfono: </b>{{f.telefono_primario}}<br>
-            <b>Ciudad: </b>{{f.ciudad}}<br>
-            <b>Provincia: </b>{{f.provincia}}<br>
-            <b>País: </b>{{f.pais}}<br>
+            <b>Dirección: </b>{{f.direccion_primaria | uppercase}}<br>
+            <b>Teléfono: </b>{{f.telefono_primario | uppercase}}<br>
+            <b>Ciudad: </b>{{f.ciudad | uppercase}}<br>
+            <b>Provincia: </b>{{f.provincia | uppercase}}<br>
+            <b>País: </b>{{f.pais | uppercase}}<br>
           </p>
         </mat-card-content>
         <mat-card-footer>

@@ -6,7 +6,14 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ columna | titlecase }} </th>
                 <td mat-cell *matCellDef="let element">
                     <img *ngIf="columna === 'imagen'" [src]="element.imagen" alt="{{ element.producto }}" class="imagen">
-                    <span *ngIf="columna !== 'imagen'" > {{ getColumnInfo(element, columna) | estadoLote }} </span>
+                    <span *ngIf="columna !== 'imagen' && columna !== 'estado'" > {{ getColumnInfo(element, columna) }} </span>
+                    <span *ngIf="columna !== 'imagen' && columna === 'estado'">
+                        <mat-chip-list>
+                            <mat-chip [color]="element.estado ? 'warn' : 'primary'" selected>
+                                {{ getColumnInfo(element, columna) | estadoLote }}
+                            </mat-chip>
+                        </mat-chip-list>
+                    </span>
                 </td>
             </div>
             <div *ngIf="columna === 'actions'">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { emptyUsuario, Usuario } from 'src/app/models/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 
@@ -14,18 +15,25 @@ export class DashboardComponent implements OnInit {
   user: String | null = '';
   opcion: Number = 0;
 
+  usuario: Usuario = emptyUsuario();
+
   fillerNav = [
-    {name: "Home", path: '.', icon:"home"},
-    {name: "Productos" , path: 'productos', icon: "qr_code_2"},
-    {name: "Familiares" , path: 'familiares', icon: "family_restroom"},
-    {name: "Emergencia" , path: 'emergencia', icon: "emergency"},
-    {name: "Gestion Lotes QR" , path: 'lotes', icon: "emergency"},
+    {name: "Home", path: '.', icon:"home", admin: false},
+    {name: "Productos" , path: 'productos', icon: "store", admin: false},
+    {name: "Familiares" , path: 'familiares', icon: "family_restroom", admin: false},
+    {name: "Emergencia" , path: 'emergencia', icon: "emergency", admin: false},
+    // Admin area
+    {name: "Home" , path: 'lotes', icon: "home", admin: true},
+    {name: "Gestion Lotes QR" , path: 'lotes', icon: "qr_code_2", admin: true},
+    {name: "Gestion Marcos" , path: 'marcos', icon: "filter_frames", admin: true},
+    {name: "Gestion Categorías" , path: 'categorias', icon: "art_track", admin: true},
+    {name: "Gestion Diseño" , path: 'disenos', icon: "category", admin: true},
   ]  
   constructor(private router: Router, private route: ActivatedRoute, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
       this.id = this.route.snapshot.paramMap.get('id');
-      console.log(this.id)
+      this.usuario = this.usuarioService.getUserLogin();
       this.usuarioService.getUsuarioId(Number(this.id)).subscribe( response =>{
         if(response){
            this.user = response.display_name;

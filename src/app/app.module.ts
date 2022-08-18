@@ -32,6 +32,8 @@ import { OnCreateDirective } from './directives/on-create.directive';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
+import { NamePipe } from './pipes/name.pipe';
+import { AbmDisenoComponent } from './components/admin/abm-diseno/abm-diseno.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +58,9 @@ import { QRCodeModule } from 'angularx-qrcode';
     GenerateLoteComponent,
     AbmProductoComponent,
     DialogComponent,
-    AbmMarcosComponent
+    AbmMarcosComponent,
+    NamePipe,
+    AbmDisenoComponent
   ],
   imports: [
     HttpClientModule,

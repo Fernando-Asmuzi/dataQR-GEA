@@ -1,0 +1,18 @@
+<mat-toolbar>
+    <span class="familiar-span">Diseños</span>
+    <span class="example-spacer"></span>
+    <button mat-button >
+        <span class="material-icons" matTooltip="Agregar diseño">
+            add_circle_outline
+        </span>
+    </button>
+</mat-toolbar>
+<app-table
+    [dataSource]="disenos"
+    [showPaginator]="true"
+    [columnas]="columnasTabla"
+    [actionButtons]="actionButtons"
+    (actionOne)="editDiseno($event)"
+    (actionTwo)="deleteDiseno($event)"
+>
+</app-table>

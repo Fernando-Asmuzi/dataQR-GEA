@@ -1,9 +1,15 @@
 .example-card {
-    min-width: 300px;
+    min-width: 280px;
     margin: 8px;
 }
 .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+}
+.example-spacer {
+    flex: 1 1 auto;
+}
+.familiar-span{
+    padding-left: 10px;
 }

@@ -1,25 +1,32 @@
-<app-header></app-header>
+<mat-toolbar color="primary">
+  <button (click)="opened=!opened" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>GEA</span>
+  <span class="example-spacer"></span>
+  <span class="user">Usuario: {{user}}</span>
+</mat-toolbar>
 
- <mat-sidenav-container>
-    <mat-sidenav mode="side" [(opened)]="opened">
-     <mat-nav-list>
-        <a mat-list-item *ngFor="let nav of fillerNav" [routerLink]="[nav.path]">
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [(opened)]="opened">
+    <mat-nav-list>
+      <div *ngFor="let nav of fillerNav">
+        <a mat-list-item [routerLink]="[nav.path]" *ngIf="nav.admin === usuario.admin">
           <mat-icon>{{nav.icon}}</mat-icon>
           {{nav.name}}
         </a>
-        <a mat-list-item class="logout" (click)="logout()">
-          <mat-icon>logout</mat-icon>
-          Salir
-        </a>
-      </mat-nav-list> 
+      </div>
+    </mat-nav-list>
+    <mat-nav-list>
+      <a mat-list-item class="logout" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Salir
+      </a>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar>
-      <button (click)="opened=!opened" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>{{user}}</span>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content> 
-</mat-sidenav-container> 
+    <div class="container-router">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
