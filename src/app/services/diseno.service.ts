@@ -30,4 +30,8 @@ export class DisenoService {
   deleteDiseno(diseno: Diseno): Observable<Diseno> {
     return this.http.delete<Diseno>(`${this.baseUri}diseno.php?id=${diseno.id}`);
   }
+
+  putDiseno(diseno: Diseno): Observable<Diseno> {
+    return this.http.put<Diseno>(`${this.baseUri}diseno.php`, diseno);
+  }
 }

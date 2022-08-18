@@ -43,7 +43,20 @@ export class AbmDisenoComponent extends BaseComponent implements OnInit {
   }
 
   editDiseno(diseno: Diseno): void {
-
+    this.dialog.open(GenerateDisenoComponent, {width: '20%', data: diseno}).afterClosed().subscribe(
+      (diseno) => {
+        if (diseno) {
+          this.disenoService.putDiseno(diseno).subscribe(
+            resp => {
+              if (resp) {
+                this.snackBar.open('Diseño modificado correctamente', 'Aceptar', {duration: 1500})
+                this.loadTable();
+              }
+            }
+          )
+        }
+      }
+    );
   }
 
   deleteDiseno(diseno: Diseno): void {
@@ -73,7 +86,11 @@ export class AbmDisenoComponent extends BaseComponent implements OnInit {
     this.dialog.open(GenerateDisenoComponent, {width: '20%'}).afterClosed().subscribe(
       (diseno) => {
         if (diseno) {
-          this.disenoService.postDiseno(diseno).subscribe(
+          const nuevoDiseno: any = {
+            nombre: diseno.nombre,
+            descripcion: diseno.descripcion
+          }
+          this.disenoService.postDiseno(nuevoDiseno).subscribe(
             resp => {
               if (resp) {
                 this.snackBar.open('Diseño creado correctamente', 'Aceptar', {duration: 1500})
