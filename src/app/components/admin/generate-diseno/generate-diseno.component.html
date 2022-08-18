@@ -1,0 +1,21 @@
+<form [formGroup]="form" (submit)="submitForm()">
+    <mat-card>
+        <mat-card-title>
+            <h2>Nuevo Diseño</h2>
+        </mat-card-title>
+        <mat-card-content>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre" type="text">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Descripción</mat-label>
+                <input matInput formControlName="descripcion" type="text">
+            </mat-form-field>
+          </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Crear</button>
+            <button mat-raised-button color="warn" mat-dialog-close type="button" (click)="cancel()">Cerrar</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
