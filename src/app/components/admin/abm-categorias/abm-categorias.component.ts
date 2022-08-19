@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { ActionButton } from 'src/app/models/actionButton';
 import { Categoria } from 'src/app/models/categoria';
 import { CategoriasService } from 'src/app/services/categorias.service';
@@ -13,7 +14,7 @@ import { GenerateCategoriaComponent } from '../generate-categoria/generate-categ
   templateUrl: './abm-categorias.component.html',
   styleUrls: ['./abm-categorias.component.scss']
 })
-export class AbmCategoriasComponent extends BaseComponent implements OnInit {
+export class AbmCategoriasComponent extends BaseComponent implements OnInit, OnDestroy {
 
   categorias: MatTableDataSource<Categoria> = new MatTableDataSource<Categoria>();
   columnasTabla: string[] = ['id','categoria', 'actions'];
@@ -28,7 +29,9 @@ export class AbmCategoriasComponent extends BaseComponent implements OnInit {
       color: 'warn',
       tooltip: 'Eliminar'
     },
-  ]
+  ];
+
+  categoriasSubscription!: Subscription;
   
   constructor(
     private categoriasService: CategoriasService,
@@ -42,8 +45,12 @@ export class AbmCategoriasComponent extends BaseComponent implements OnInit {
     this.loadTable();
   }
 
+  ngOnDestroy(): void {
+    this.categoriasSubscription && this.categoriasSubscription.unsubscribe();
+  }
+
   loadTable(): void {
-    this.categoriasService.getAllCategorias().subscribe(
+    this.categoriasSubscription = this.categoriasService.getAllCategorias().subscribe(
       response => this.categorias.data = response
     )
   }
@@ -55,7 +62,7 @@ export class AbmCategoriasComponent extends BaseComponent implements OnInit {
           const nuevaCategoria: any = {
             categoria: categoria.categoria,
           }
-          this.categoriasService.createCategoria(nuevaCategoria).subscribe(
+          this.categoriasSubscription = this.categoriasService.createCategoria(nuevaCategoria).subscribe(
             resp => {
               if (resp) {
                 this.snackBar.open('Categoría creada correctamente', 'Aceptar', {duration: 1500})
@@ -72,7 +79,7 @@ export class AbmCategoriasComponent extends BaseComponent implements OnInit {
     this.dialog.open(GenerateCategoriaComponent, {width: '20%', data: categoria}).afterClosed().subscribe(
       (categoria) => {
         if (categoria) {
-          this.categoriasService.updateCategoria(categoria).subscribe(
+          this.categoriasSubscription = this.categoriasService.updateCategoria(categoria).subscribe(
             resp => {
               if (resp) {
                 this.snackBar.open('Categoría modificada correctamente', 'Aceptar', {duration: 1500})
@@ -89,7 +96,7 @@ export class AbmCategoriasComponent extends BaseComponent implements OnInit {
     this.showBasicDialog('Atención', 'Va a borrar una categoría, confirme eliminación').afterClosed().subscribe(
       resp => {
         if (resp) {
-          this.categoriasService.deleteCategoria(categoria).subscribe(
+          this.categoriasSubscription = this.categoriasService.deleteCategoria(categoria).subscribe(
             response => {
               if(response){
                 this.snackBar.open('Categoría eliminada correctamente', 'Aceptar', {duration: 1500})

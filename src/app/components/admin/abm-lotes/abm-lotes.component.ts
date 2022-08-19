@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { emptyLote, Lote } from 'src/app/models/lote';
 import { LotesService } from 'src/app/services/lotes.service';
 import { GenerateLoteComponent } from '../generate-lote/generate-lote.component';
@@ -9,9 +10,11 @@ import { GenerateLoteComponent } from '../generate-lote/generate-lote.component'
   templateUrl: './abm-lotes.component.html',
   styleUrls: ['./abm-lotes.component.scss']
 })
-export class AbmLotesComponent implements OnInit {
+export class AbmLotesComponent implements OnInit, OnDestroy {
 
   public lotes: Array<Lote> = new Array<Lote>();
+
+  lotesSubscription!: Subscription;
 
   constructor(
     private lotesServices: LotesService,
@@ -22,6 +25,9 @@ export class AbmLotesComponent implements OnInit {
     this.loadLotes();   
   }
 
+  ngOnDestroy(): void {
+    this.lotesSubscription && this.lotesSubscription.unsubscribe();
+  }
 
   generateLote(): void {
     this.dialog.open(GenerateLoteComponent, {width: '20%'}).afterClosed().subscribe(
@@ -30,7 +36,7 @@ export class AbmLotesComponent implements OnInit {
   }
 
   loadLotes(): void {
-    this.lotesServices.getLoteForCodes().subscribe(
+    this.lotesSubscription = this.lotesServices.getLoteForCodes().subscribe(
       response => this.lotes = response
     )
   }

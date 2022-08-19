@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { emptyLote, Lote } from 'src/app/models/lote';
 import { LotesService } from 'src/app/services/lotes.service';
 
@@ -10,11 +11,13 @@ import { LotesService } from 'src/app/services/lotes.service';
   templateUrl: './detalle-lote.component.html',
   styleUrls: ['./detalle-lote.component.scss']
 })
-export class DetalleLoteComponent implements OnInit {
+export class DetalleLoteComponent implements OnInit, OnDestroy {
 
   columnasTabla: string[] = ['id','producto','categoria','estado'];
   dataSource: MatTableDataSource<Lote> = new MatTableDataSource<Lote>();
   lote: Lote = emptyLote();
+
+  loteSubscription!: Subscription;
 
   constructor(
     private lotesService: LotesService,
@@ -24,7 +27,7 @@ export class DetalleLoteComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
       (resp: any) => {
-        this.lotesService.getLoteByCod(resp.codigo).subscribe(
+        this.loteSubscription = this.lotesService.getLoteByCod(resp.codigo).subscribe(
           response => {
             this.dataSource.data = response;
             this.lote = response[0];
@@ -32,6 +35,10 @@ export class DetalleLoteComponent implements OnInit {
         )
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    this.loteSubscription && this.loteSubscription.unsubscribe();
   }
 
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { ActionButton } from 'src/app/models/actionButton';
 import { Marco } from 'src/app/models/marco';
 import { MarcosService } from 'src/app/services/marcos.service';
@@ -13,7 +14,7 @@ import { GenerateMarcoComponent } from '../generate-marco/generate-marco.compone
   templateUrl: './abm-marcos.component.html',
   styleUrls: ['./abm-marcos.component.scss']
 })
-export class AbmMarcosComponent extends BaseComponent implements OnInit {
+export class AbmMarcosComponent extends BaseComponent implements OnInit, OnDestroy {
 
   dataSource: MatTableDataSource<Marco> = new MatTableDataSource<Marco>();
   columnasTabla: string[] = ['id','imagen','descripcion', 'actions'];
@@ -28,7 +29,9 @@ export class AbmMarcosComponent extends BaseComponent implements OnInit {
       color: 'warn',
       tooltip: 'Eliminar'
     },
-  ]
+  ];
+
+  marcosSubscription!: Subscription;
 
   constructor(
     private marcosService: MarcosService,
@@ -42,8 +45,12 @@ export class AbmMarcosComponent extends BaseComponent implements OnInit {
    this.loadTable();
   }
 
+  ngOnDestroy(): void {
+    this.marcosSubscription && this.marcosSubscription.unsubscribe();
+  }
+
   loadTable(): void {
-    this.marcosService.getAllMarcos().subscribe(
+    this.marcosSubscription = this.marcosService.getAllMarcos().subscribe(
       response => this.dataSource.data = response
     )
   }
@@ -52,7 +59,7 @@ export class AbmMarcosComponent extends BaseComponent implements OnInit {
     this.dialog.open(GenerateMarcoComponent, {width: '20%', data: marco}).afterClosed().subscribe(
       (marco) => {
         if (marco) {
-          this.marcosService.updateMarco(marco).subscribe(
+          this.marcosSubscription = this.marcosService.updateMarco(marco).subscribe(
             resp => {
               if (resp) {
                 this.snackBar.open('Marco modificado correctamente', 'Aceptar', {duration: 1500})
@@ -69,7 +76,7 @@ export class AbmMarcosComponent extends BaseComponent implements OnInit {
     this.showBasicDialog('Atención', 'Va a borrar un producto, confirme eliminación').afterClosed().subscribe(
       response => {
         if(response){
-          this.marcosService.deleteMarco(marco).subscribe(
+          this.marcosSubscription = this.marcosService.deleteMarco(marco).subscribe(
             response => {
               if(response){
                 this.snackBar.open('Marco eliminado correctamente', 'Aceptar', {duration: 1500})
@@ -90,7 +97,7 @@ export class AbmMarcosComponent extends BaseComponent implements OnInit {
             imagen: marco.imagen,
             descripcion: marco.descripcion
           }
-          this.marcosService.createMarco(nuevoMarco).subscribe(
+          this.marcosSubscription = this.marcosService.createMarco(nuevoMarco).subscribe(
             resp => {
               if (resp) {
                 this.snackBar.open('Marco creado correctamente', 'Aceptar', {duration: 1500})

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { ActionButton } from 'src/app/models/actionButton';
 import { Producto } from 'src/app/models/producto';
 import { ProductosService } from 'src/app/services/productos.service';
@@ -13,7 +14,7 @@ import { GenerateProductoComponent } from '../generate-producto/generate-product
   templateUrl: './abm-producto.component.html',
   styleUrls: ['./abm-producto.component.scss']
 })
-export class AbmProductoComponent extends BaseComponent implements OnInit {
+export class AbmProductoComponent extends BaseComponent implements OnInit, OnDestroy {
 
   productos: MatTableDataSource<Producto> = new MatTableDataSource<Producto>()
   columnasTabla: string[] = ['id','producto','imagen', 'actions'];
@@ -28,7 +29,9 @@ export class AbmProductoComponent extends BaseComponent implements OnInit {
       color: 'warn',
       tooltip: 'Eliminar'
     },
-  ]
+  ];
+
+  productosSubscription!: Subscription;
 
   constructor(
     private productosService: ProductosService,
@@ -42,8 +45,12 @@ export class AbmProductoComponent extends BaseComponent implements OnInit {
     this.loadTable();
   }
 
+  ngOnDestroy(): void {
+    this.productosSubscription && this.productosSubscription.unsubscribe();
+  }
+
   loadTable(): void {
-    this.productosService.getAllProductos().subscribe(
+    this.productosSubscription = this.productosService.getAllProductos().subscribe(
       response => this.productos.data = response
     )
   }
@@ -52,7 +59,7 @@ export class AbmProductoComponent extends BaseComponent implements OnInit {
     this.dialog.open(GenerateProductoComponent, {width: '20%', data: producto}).afterClosed().subscribe(
       (producto) => {
         if (producto) {
-          this.productosService.updateProducto(producto).subscribe(
+          this.productosSubscription = this.productosService.updateProducto(producto).subscribe(
             resp => {
               if (resp) {
                 this.snackBar.open('Producto modificado correctamente', 'Aceptar', {duration: 1500})
@@ -69,7 +76,7 @@ export class AbmProductoComponent extends BaseComponent implements OnInit {
     this.showBasicDialog('Atención', 'Va a borrar un producto, confirme eliminación').afterClosed().subscribe(
       response => {
         if (response) {
-          this.productosService.deleteProducto(producto).subscribe(
+          this.productosSubscription = this.productosService.deleteProducto(producto).subscribe(
             () => {
               this.snackBar.open('Producto eliminado', 'Aceptar', {duration: 1500});
               this.loadTable();
@@ -88,7 +95,7 @@ export class AbmProductoComponent extends BaseComponent implements OnInit {
             producto: producto.producto,
             imagen: producto.imagen
           }
-          this.productosService.createProducto(nuevoProducto).subscribe(
+          this.productosSubscription = this.productosService.createProducto(nuevoProducto).subscribe(
             resp => {
               if (resp) {
                 this.snackBar.open('Producto creado correctamente', 'Aceptar', {duration: 1500})
