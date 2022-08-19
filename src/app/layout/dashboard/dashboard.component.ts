@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
     {name: "Gestion Diseño" , path: 'disenos', icon: "category", admin: true},
   ]  
   constructor(private router: Router, private route: ActivatedRoute, private usuarioService: UsuarioService) { }
-
+ 
   ngOnInit(): void {
       this.id = this.route.snapshot.paramMap.get('id');
       this.usuario = this.usuarioService.getUserLogin();
