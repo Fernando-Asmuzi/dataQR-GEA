@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as JSZip from 'jszip';
@@ -9,12 +9,15 @@ import { saveAs
  } from 'file-saver';
 import { emptyMarco, Marco } from 'src/app/models/marco';
 import { MarcosService } from 'src/app/services/marcos.service';
+import { finalize, Subscription } from 'rxjs';
+import { BaseComponent } from '../../abstract/base.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-qrs',
   templateUrl: './qrs.component.html',
   styleUrls: ['./qrs.component.scss']
 })
-export class QrsComponent implements OnInit {
+export class QrsComponent extends BaseComponent implements OnInit, OnDestroy {
 
   lotes: any;
 
@@ -33,16 +36,25 @@ export class QrsComponent implements OnInit {
 
   showSpinner: boolean = false;
 
+  lotesSubscription!: Subscription;
+  marcosSubscription!: Subscription;
+
   constructor(
     private lotesService: LotesService,
     private marcosService: MarcosService,
     private activateRoute: ActivatedRoute,
-  ) { }
+    public override dialog: MatDialog
+  ) {
+    super(dialog);
+  }
 
   ngOnInit(): void {
+    this.showSpinner = true;
     this.activateRoute.params.subscribe(
       (resp: any) => {
-        this.lotesService.getLoteByCod(resp.codigo).subscribe(
+        this.lotesSubscription = this.lotesService.getLoteByCod(resp.codigo).pipe(
+          finalize( () => this.showSpinner = false),
+        ).subscribe(
           response => {
             this.lotes = response;
           }
@@ -50,7 +62,7 @@ export class QrsComponent implements OnInit {
       }
     )
 
-    this.marcosService.getAllMarcos().subscribe(
+    this.marcosSubscription = this.marcosService.getAllMarcos().subscribe(
       response => {
         let vacio: Marco = emptyMarco();
         response.unshift(vacio);
@@ -59,53 +71,25 @@ export class QrsComponent implements OnInit {
     )
   }
 
-
-  async downloadQR(): Promise<void> {
-    
-
-    this.createDomElement()
-    // setTimeout(() => {
-
-      
-    // }, 20000);
-
-      
-
+  ngOnDestroy(): void {
+    this.lotesSubscription && this.lotesSubscription.unsubscribe();
+    this.marcosSubscription && this.marcosSubscription.unsubscribe();
   }
 
-  async createDomElement(): Promise<void> {
+  async downloadQR(): Promise<void> {
 
     this.showSpinner = true;
     let zip = new JSZip();
     let img = zip.folder("images");
 
-    const dataURItoBlob = (dataURI: any) => {
-      let byteString = atob(dataURI.split(',')[1]);
-      let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-      let ab = new ArrayBuffer(byteString.length);
-      let ia = new Uint8Array(ab);
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-      let bb = new Blob([ab]);
-      return bb;
-    }
-    
-    
-
     await this.lotes.map((lote: Lote, index: number) => {
-      // const div = document.createElement('div');
       let qr = document.getElementById(lote.id.toString());
       const canvas = <HTMLCanvasElement> qr?.firstChild;
-      // console.log(canvas.toDataURL());
       
       let par = document.createElement('span');
       par.innerHTML = lote.id.toString();
 
       let indice;
-      // canvas.setAttribute('style','background-color: #ffffff')
-      // const code = document.createElement('img');
-      // code.setAttribute('id','codigo' + lote.id);
       // plantilla hueso
       // let width = 267;
       // let height = 389;
@@ -123,27 +107,17 @@ export class QrsComponent implements OnInit {
         if (this.lotes.length === indice) {
           zip.generateAsync({type:"blob", compression: "DEFLATE", compressionOptions: {level: 9}}).then(
             (content: any) => {
-              // setTimeout(() => {
-                saveAs(content, 'codigos.zip')
-                this.showSpinner = false;
-              // }, 5000);
+              saveAs(content, 'codigos.zip')
+              this.showSpinner = false;
             }
           );
         }
 			})
-			.catch(function (error){
-        console.log('ocurrio un error', error);
+			.catch((error) => {
+        this.showBasicDialog('Error', 'Ocurrió un error al generar el archivo, intente nuevamente.')
+        console.log(error);
 			})
-
-      
     })
-
-    
-    
-  }
-
-  onCreatedItem(item: any): void {
-    // console.log(item);
   }
 
   setIsologo(event: any): void {
