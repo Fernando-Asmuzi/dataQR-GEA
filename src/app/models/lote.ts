@@ -11,6 +11,8 @@ export interface Lote {
     fecha: Date;
     codigo: string;
     cantidad: number;
+    libres?: number;
+    registrados?: number;
 }
 
 export const emptyLote = (): Lote => ({
@@ -21,5 +23,7 @@ export const emptyLote = (): Lote => ({
     libre: false,
     fecha: new Date(),
     codigo: '',
-    cantidad: 0
+    cantidad: 0,
+    libres: 0,
+    registrados: 0
 });

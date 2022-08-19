@@ -1,0 +1,18 @@
+<mat-card>
+    <mat-card-title-group>
+        <mat-card-title>
+            Lote N°: {{ lote.codigo }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ lote.producto.producto }}</mat-card-subtitle>
+        <img mat-card-sm-image [src]="lote.producto.imagen" >
+      </mat-card-title-group>
+      <mat-card-content>
+        <p><span>Categoría:</span> {{ lote.categoria.categoria }}</p>
+        <p><span>Diseño:</span> {{ lote.diseno.descripcion }}</p>
+        <p><span>Cantidad:</span> {{ lote.cantidad }}</p>
+        <p><span>Creación:</span> {{ lote.fecha | date: 'dd/MM/YYYY'  }}</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+      </mat-card-actions>
+</mat-card>

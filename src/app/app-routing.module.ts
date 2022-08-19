@@ -27,6 +27,7 @@ const routes: Routes = [
     { path: 'familiares',component: FamiliarComponent },
     { path: 'emergencia',component: EmergenciaComponent },
     // Admin area
+    { path: '', component: AdminHomeComponent },
     { path: 'home-admin', component: AdminHomeComponent },
     { path: 'lotes', component: AbmLotesComponent },
     { path: 'detalle-lote/:codigo', component: DetalleLoteComponent },

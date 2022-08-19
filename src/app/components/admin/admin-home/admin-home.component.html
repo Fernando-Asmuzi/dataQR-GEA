@@ -1,1 +1,37 @@
-<p>admin-home works!</p>
+<mat-toolbar>
+    <span class="familiar-span">Panel de Administración</span>
+    <span class="example-spacer"></span>
+</mat-toolbar>
+<div class="container">
+    <mat-card class="card">
+        <mat-card-title>
+            Total de QRs generados
+        </mat-card-title>
+        <div class="grafico">
+            <ngx-charts-advanced-pie-chart
+                [label]="''"
+                [scheme]="colorScheme"
+                [results]="single"
+                [percentageFormatting]="formatPercent"
+                (select)="verDetalle($event)"
+                (activate)="setLote($event)">
+            </ngx-charts-advanced-pie-chart>
+        </div>
+    </mat-card>
+    <mat-card class="card">
+        <mat-card-title *ngIf="lote.id !== 0">
+            Lote seleccionado: {{ lote.codigo }} | {{ lote.producto.producto }} | {{ lote.categoria.categoria }} | {{ lote.diseno.descripcion | uppercase }}
+        </mat-card-title>
+        <mat-card-title *ngIf="lote.id === 0">
+            No se seleccionó lote
+        </mat-card-title>
+        <div class="grafico" *ngIf="lote.id !== 0">
+            <ngx-charts-pie-chart
+                [scheme]="colorScheme"
+                [results]="torta"
+                [labels]="true"
+                [legend]="true">
+            </ngx-charts-pie-chart>
+        </div>
+    </mat-card>
+</div>

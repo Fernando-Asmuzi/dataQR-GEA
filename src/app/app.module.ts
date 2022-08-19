@@ -40,6 +40,8 @@ import { AbmCategoriasComponent } from './components/admin/abm-categorias/abm-ca
 import { GenerateProductoComponent } from './components/admin/generate-producto/generate-producto.component';
 import { GenerateCategoriaComponent } from './components/admin/generate-categoria/generate-categoria.component';
 import { GenerateMarcoComponent } from './components/admin/generate-marco/generate-marco.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { CardLoteComponent } from './components/admin/card-lote/card-lote.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +74,8 @@ import { GenerateMarcoComponent } from './components/admin/generate-marco/genera
     AbmCategoriasComponent,
     GenerateProductoComponent,
     GenerateCategoriaComponent,
-    GenerateMarcoComponent
+    GenerateMarcoComponent,
+    CardLoteComponent
   ],
   imports: [
     HttpClientModule,
@@ -85,7 +88,8 @@ import { GenerateMarcoComponent } from './components/admin/generate-marco/genera
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    QRCodeModule
+    QRCodeModule,
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
