@@ -13,13 +13,15 @@ import { TableComponent } from './components/table/table.component';
 import { DashboardComponent } from './layout/dashboard/dashboard.component';
 import { EmergenciaComponent } from './layout/emergencia/emergencia.component';
 import { FamiliarComponent } from './layout/familiar/familiar.component';
-import { HomeComponent } from './layout/home/home.component';
+import { InformacionComponent } from './layout/informacion/informacion.component';
 import { LoginComponent } from './layout/login/login.component';
 import { PerfilComponent } from './layout/perfil/perfil.component';
 import { ProductoComponent } from './layout/producto/producto.component';
 
+
 const routes: Routes = [
   { path: '', component: EmergenciaComponent },
+  { path: 'informacion/:codigo', component: InformacionComponent },
   { path: 'principal/:id', component: DashboardComponent, children: [
     // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },

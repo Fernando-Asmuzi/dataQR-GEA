@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Usuario } from 'src/app/models/usuario';
 
+
 const cudOptions = {
   headers: new HttpHeaders({'Content-Type':'application/json'})
 }
@@ -12,10 +13,14 @@ const cudOptions = {
   providedIn: 'root'
 })
 export class UsuarioService {
-
+ 
   private urlBase = environment.url_servicios;
   
   constructor(public http: HttpClient) { }
+
+  postUsuario(usuario: any): Observable<Usuario> {
+    return this.http.post<Usuario>(`${this.urlBase}login.php`, usuario);
+  }
 
   getUsuario(user: any): Observable<any>{
     return this.http.get<Usuario[]>(`${this.urlBase}usuarios.php?user_login=${user}`);
