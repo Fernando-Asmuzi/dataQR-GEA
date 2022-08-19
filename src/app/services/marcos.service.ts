@@ -22,4 +22,13 @@ export class MarcosService {
   deleteMarco(marco: Marco): Observable<Marco> {
     return this.http.delete<Marco>(`${this.baseUri}marcos.php?id=${marco.id}`);
   }
+
+  createMarco(marco: Marco): Observable<Marco> {
+    return this.http.post<Marco>(`${this.baseUri}marcos.php`, marco);
+  }
+
+  updateMarco(marco: Marco): Observable<Marco> {
+    return this.http.put<Marco>(`${this.baseUri}marcos.php`, marco);
+  }
+
 }
