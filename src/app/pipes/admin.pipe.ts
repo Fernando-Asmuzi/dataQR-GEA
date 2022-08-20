@@ -6,8 +6,8 @@ import { Usuario } from '../models/usuario';
 })
 export class AdminPipe implements PipeTransform {
 
-  transform(usuario: Usuario): unknown {
-    return usuario.admin ? 'Administrador' : 'Usuario común';
+  transform(admin: any): unknown {
+    return admin ? 'Administrador' : 'Usuario común';
   }
 
 }

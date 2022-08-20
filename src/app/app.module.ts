@@ -42,6 +42,8 @@ import { GenerateCategoriaComponent } from './components/admin/generate-categori
 import { GenerateMarcoComponent } from './components/admin/generate-marco/generate-marco.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CardLoteComponent } from './components/admin/card-lote/card-lote.component';
+import { AbmAdminComponent } from './components/admin/abm-admin/abm-admin.component';
+import { AdminPipe } from './pipes/admin.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +77,9 @@ import { CardLoteComponent } from './components/admin/card-lote/card-lote.compon
     GenerateProductoComponent,
     GenerateCategoriaComponent,
     GenerateMarcoComponent,
-    CardLoteComponent
+    CardLoteComponent,
+    AbmAdminComponent,
+    AdminPipe
   ],
   imports: [
     HttpClientModule,

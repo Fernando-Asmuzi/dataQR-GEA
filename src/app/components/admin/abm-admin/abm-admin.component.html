@@ -1,0 +1,12 @@
+<mat-toolbar>
+    <span class="familiar-span">Gestión de Usuarios</span>
+    <span class="example-spacer"></span>
+</mat-toolbar>
+<app-table
+    [dataSource]="usuarios"
+    [showPaginator]="true"
+    [columnas]="columnasTabla"
+    [actionButtons]="actionButtons"
+    (actionOne)="editAdmin($event)"
+>
+</app-table>

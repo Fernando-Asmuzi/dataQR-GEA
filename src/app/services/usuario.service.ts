@@ -13,7 +13,7 @@ const cudOptions = {
 })
 export class UsuarioService {
 
-  private urlBase = environment.url_servicios;
+  private urlBase = 'http://geadata.com.ar/api/';
   
   constructor(public http: HttpClient) { }
 
@@ -36,4 +36,13 @@ export class UsuarioService {
   logOut(): void {
     localStorage.removeItem('userLogin');
   }
+
+  getAllUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.urlBase}usuarios.php`);
+  }
+
+  updateAdmin(usuario: Usuario): Observable<Usuario>{
+    return this.http.put<Usuario>(`${this.urlBase}usuarios.php`, usuario)
+  }
+
 }

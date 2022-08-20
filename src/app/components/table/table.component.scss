@@ -9,7 +9,12 @@ table {
     height: 3.5em;
 }
 mat-chip {
-  width: 80px;
   display: flex;
   justify-content: center;
+}
+.chip-lote {
+    width: 80px;
+}
+.chip-admin {
+    width: 120px;
 }

@@ -6,11 +6,20 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ columna | titlecase }} </th>
                 <td mat-cell *matCellDef="let element">
                     <img *ngIf="columna === 'imagen'" [src]="element.imagen" alt="{{ element.producto }}" class="imagen">
-                    <span *ngIf="columna !== 'imagen' && columna !== 'estado'" > {{ getColumnInfo(element, columna) }} </span>
-                    <span *ngIf="columna !== 'imagen' && columna === 'estado'">
+                    <span *ngIf="columna !== 'imagen' && columna !== 'admin'">
+                        <span *ngIf="columna !== 'estado'" > {{ getColumnInfo(element, columna) }} </span>
+                        <span *ngIf="columna === 'estado'">
+                            <mat-chip-list>
+                                <mat-chip [color]="element.estado ? 'warn' : 'primary'" selected class="chip-lote">
+                                    {{ getColumnInfo(element, columna) | estadoLote }}
+                                </mat-chip>
+                            </mat-chip-list>
+                        </span>
+                    </span>
+                    <span *ngIf="columna === 'admin'">
                         <mat-chip-list>
-                            <mat-chip [color]="element.estado ? 'warn' : 'primary'" selected>
-                                {{ getColumnInfo(element, columna) | estadoLote }}
+                            <mat-chip [color]="element.admin ? 'warn' : 'primary'" selected class="chip-admin">
+                                {{ getColumnInfo(element, columna) | admin }}
                             </mat-chip>
                         </mat-chip-list>
                     </span>
