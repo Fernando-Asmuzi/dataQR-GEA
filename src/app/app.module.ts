@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './layout/home/home.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { MaterialModule } from './layout/material.module';
 import { QrImageComponent } from './components/admin/qr-image/qr-image.component';
@@ -47,7 +46,6 @@ import { AdminPipe } from './pipes/admin.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     HeaderComponent,
     DashboardComponent,
     InformacionComponent,

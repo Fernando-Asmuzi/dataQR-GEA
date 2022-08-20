@@ -1,6 +1,14 @@
-<div class="modal">
+<!-- **********************
+     **********************
+     Formulario de nuevo familiar  --> 
+     
+<mat-dialog-content class="mat-typography">
     <h1>Nuevo familiar</h1>
+    <h3>Datos personales</h3>
     <div class="modal-body">
+
+          <!-- Datos personales -->
+          <!-- Nombre y apellido -->
         <table class="example-full-width" cellspacing="0"><tr>
             <td><mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Nombre/s*</mat-label>
@@ -11,6 +19,16 @@
               <input matInput>
             </mat-form-field></td>
         </tr></table>
+
+          <!-- DNI -->
+        <table class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field appearance="outline">
+              <mat-label>Documento*</mat-label>
+              <input matInput maxlength="8">
+            </mat-form-field></td>
+        </tr></table>
+
+          <!-- Direcciones -->
         <table class="example-full-width" cellspacing="0"><tr>
             <td><mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Dirección Primaria*</mat-label>
@@ -21,40 +39,228 @@
                 <input matInput>
               </mat-form-field></td>
         </tr></table>
+
+          <!-- Provincia, localidad -->
         <table class="example-full-width" cellspacing="0"><tr>
-            <td><mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Pais*</mat-label>
-                <input matInput value="Argentina" disabled>
-              </mat-form-field></td>
             <td> <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Provincia*</mat-label>
-                <mat-select [(ngModel)]="selectedValue" name="provincia">
-                  <mat-option *ngFor="let p of listaProvincias" [value]="p.nombre">
-                    {{p.nombre}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field></td>
+              <mat-label>Provincia*</mat-label>
+              <mat-select [(ngModel)]="selectedValue" name="provincia" (selectionChange)="getLocalidades(selectedValue)">
+                <mat-option *ngFor="let p of listaProvincias" [value]="p.nombre">
+                  {{p.nombre}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field></td>
+            <td> <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Localidad*</mat-label>
+              <mat-select [(ngModel)]="selectedValue" name="localidad">
+                <mat-option *ngFor="let d of listaDepartamentos" [value]="d.nombre">
+                  {{d.nombre}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field></td>
         </tr></table>
+
+         <!-- Pais -->
+        <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field appearance="outline">
+              <mat-label>Pais*</mat-label>
+              <input matInput value="Argentina" disabled>
+            </mat-form-field></td>
+        </tr></table>
+
+         <!-- Telefono -->
+        <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Teléfono principal*</mat-label>
+            <input type="number" matInput  maxlength="10">
+            <mat-hint align="start"><strong>Caract. sin 0, numero sin 15. Ej. 11 12345678</strong></mat-hint>
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Teléfono secundario</mat-label>
+            <input type="number" matInput maxlength="10">
+          </mat-form-field></td>
+        </tr></table>  
+        
+         <!-- Datos de salud -->
+         <h3>Datos de salud</h3>
+
+          <!-- factor sangre y alergias -->
         <table class="example-full-width" cellspacing="0"><tr>
             <td><mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Teléfono</mat-label>
-                <span matPrefix>+1 &nbsp;</span>
-                <input type="tel" matInput placeholder="(caract.) numero telefónico">
+              <mat-label>Factor sanguíneo*</mat-label>
+              <mat-select [(ngModel)]="selectedValue" name="factorSangre">
+                <mat-option *ngFor="let f of factorSangre" [value]="f.value">
+                  {{f.value}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Alergia/s*</mat-label>
+              <input matInput>
+            </mat-form-field></td>
+        </tr></table>
+
+          <!-- diagnostico y medicacion -->
+          <table class="example-full-width" cellspacing="0"><tr>
+              <td><mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Diagnóstico</mat-label>
+                <input matInput>
               </mat-form-field></td>
               <td><mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Teléfono</mat-label>
-                <span matPrefix>+1 &nbsp;</span>
-                <input type="tel" matInput placeholder="(caract.) numero telefónico">
+                <mat-label>Medicación</mat-label>
+                <input matInput>
               </mat-form-field></td>
+          </tr></table>
+
+            <!-- otros detalles -->
+          <table class="example-full-width" cellspacing="0"><tr>
+              <td><mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Diagnóstico</mat-label>
+                <textarea matInput></textarea>
+              </mat-form-field></td>
+          </tr></table>
+  </div>
+      <mat-dialog-actions align="end">
+          <button mat-button>Agregar</button>    
+          <button mat-button mat-dialog-close>Cancelar</button>    
+      </mat-dialog-actions>
+</mat-dialog-content>   
+  <!-- 
+     **********************
+     ********************** -->
+
+
+     <!-- **********************
+     **********************
+     Formulario de nuevo modificación  --> 
+     
+<mat-dialog-content class="mat-typography">
+  <h1>Nuevo familiar</h1>
+  <h3>Datos personales</h3>
+  <div class="modal-body">
+
+        <!-- Datos personales -->
+        <!-- Nombre y apellido -->
+      <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Nombre/s*</mat-label>
+            <input matInput>
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Apellido/s*</mat-label>
+            <input matInput>
+          </mat-form-field></td>
+      </tr></table>
+
+        <!-- DNI -->
+      <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field appearance="outline">
+            <mat-label>Documento*</mat-label>
+            <input matInput maxlength="8">
+          </mat-form-field></td>
+      </tr></table>
+
+        <!-- Direcciones -->
+      <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Dirección Primaria*</mat-label>
+              <input matInput>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Dirección secundaria</mat-label>
+              <input matInput>
+            </mat-form-field></td>
+      </tr></table>
+
+        <!-- Provincia, localidad -->
+      <table class="example-full-width" cellspacing="0"><tr>
+          <td> <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Provincia*</mat-label>
+            <mat-select [(ngModel)]="selectedValue" name="provincia" (selectionChange)="getLocalidades(selectedValue)">
+              <mat-option *ngFor="let p of listaProvincias" [value]="p.nombre">
+                {{p.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field></td>
+          <td> <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Localidad*</mat-label>
+            <mat-select [(ngModel)]="selectedValue" name="localidad">
+              <mat-option *ngFor="let d of listaDepartamentos" [value]="d.nombre">
+                {{d.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field></td>
+      </tr></table>
+
+       <!-- Pais -->
+      <table class="example-full-width" cellspacing="0"><tr>
+        <td><mat-form-field appearance="outline">
+            <mat-label>Pais*</mat-label>
+            <input matInput value="Argentina" disabled>
+          </mat-form-field></td>
+      </tr></table>
+
+       <!-- Telefono -->
+      <table class="example-full-width" cellspacing="0"><tr>
+        <td><mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Teléfono principal*</mat-label>
+          <input type="number" matInput  maxlength="10">
+          <mat-hint align="start"><strong>Caract. sin 0, numero sin 15. Ej. 11 12345678</strong></mat-hint>
+        </mat-form-field></td>
+        <td><mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Teléfono secundario</mat-label>
+          <input type="number" matInput maxlength="10">
+        </mat-form-field></td>
+      </tr></table>  
+      
+       <!-- Datos de salud -->
+       <h3>Datos de salud</h3>
+
+        <!-- factor sangre y alergias -->
+      <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Factor sanguíneo*</mat-label>
+            <mat-select [(ngModel)]="selectedValue" name="factorSangre">
+              <mat-option *ngFor="let f of factorSangre" [value]="f.value">
+                {{f.value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Alergia/s*</mat-label>
+            <input matInput>
+          </mat-form-field></td>
+      </tr></table>
+
+        <!-- diagnostico y medicacion -->
+        <table class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Diagnóstico</mat-label>
+              <input matInput>
+            </mat-form-field></td>
+            <td><mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Medicación</mat-label>
+              <input matInput>
+            </mat-form-field></td>
         </tr></table>
 
-        
-    </div>
-
+          <!-- otros detalles -->
+        <table class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Diagnóstico</mat-label>
+              <textarea matInput></textarea>
+            </mat-form-field></td>
+        </tr></table>
+</div>
     <mat-dialog-actions align="end">
         <button mat-button>Agregar</button>    
-        <button mat-button mat-dialog-close>Cancel</button>    
+        <button mat-button mat-dialog-close>Cancelar</button>    
     </mat-dialog-actions>
+</mat-dialog-content>   
+<!-- 
+   **********************
+   ********************** -->
 
-      
-</div>
+
+
+
