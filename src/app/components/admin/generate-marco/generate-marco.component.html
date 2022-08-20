@@ -1,12 +1,17 @@
 <form [formGroup]="form" (submit)="submitForm()">
     <mat-card>
-        <mat-card-title>
-            <h2>Nuevo Marco</h2>
-        </mat-card-title>
+        <mat-card-header>
+            <mat-card-title>
+                <h2 *ngIf="!data">Nuevo Marco</h2>
+                <h2 *ngIf="data">Modificar Marco</h2>
+            </mat-card-title>
+            <mat-card-subtitle>El tamaño de los marcos deberá ser de 140x140 pixeles, dejando el cuadro central para el Código de 100x100 pixeles en formato PNG.</mat-card-subtitle>
+        </mat-card-header>
         <mat-card-content>
             <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Nombre</mat-label>
+                <mat-label>Descripción</mat-label>
                 <input matInput formControlName="descripcion" type="text">
+                <mat-error *ngIf="form.get('descripcion')?.errors?.['required']">Complete el campo</mat-error>
             </mat-form-field>
             <button type="button" mat-stroked-button color="primary" class="w-100" (click)="image.click()">Subir Imagen</button>
             <mat-progress-bar color="primary"
