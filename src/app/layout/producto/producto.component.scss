@@ -1,7 +1,6 @@
-h1{ 
-    margin-left: 10px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+
+mat-card{
+    padding-top: 10px;    
 }
 
 /* Structure */
@@ -9,7 +8,7 @@ table {
     width: 100%;
   }
   
-  .mat-form-field {
+.mat-form-field {
     font-size: 14px;
     width: 100%;
 }
@@ -18,16 +17,18 @@ table {
     padding: 10px;
 }
 
-mat-card:hover{
-    transform: scale(1.01);
+.productos-span{
+    padding-left: 10px;
+}
+.example-spacer {
+    flex: 1 1 auto;
 }
 
-h1{ 
-    margin-left: 10px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
 
-mat-card-footer{
-   text-align: right;
+.example-full-width {
+    width: 100%;
+}
+  
+td {
+    padding-right: 8px;
 }

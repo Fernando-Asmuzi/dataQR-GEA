@@ -27,21 +27,21 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   ingresar(){
    
-    
-    /* this.usuario.user_login = this.username.value;
-    this.usuario.user_pass = this.password; */
-
     this.login.username = this.username.value;
     this.login.password = this.password
-
+    var registro = JSON.parse(localStorage.getItem("registro") || '')
 
     this.usuarioServicie.postUsuario(this.login).subscribe( response =>{
        if(response){
-          this.usuarioServicie.setUserLogin(response);
-          this.route.navigate(['/principal/'+ response.id]);
+           if(registro.opcion == "registro"){
+              this.usuarioServicie.setUserLogin(response);
+              this.route.navigate(['/principal/'+ response.id + '/productos']);
+           }else{
+              this.usuarioServicie.setUserLogin(response);
+              this.route.navigate(['/principal/'+ response.id]);
+           }         
        }
     });
   }

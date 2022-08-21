@@ -2,13 +2,21 @@
     <mat-card>
         <div style="text-align:center;">
           <mat-card-title>
-            Datos del producto
+            Emergencia!
           </mat-card-title>
         </div>
-        <div class="example-container">
-            <h4>Lote: {{lote.id}}</h4> 
-            <h4>Categoría: {{lote.categoria.categoria}}</h4>
-            <h4>Producto: {{lote.producto.producto}}</h4>  
+        <div *ngFor="let i of informacion" class="line">
+          <a mat-list-item>
+            <mat-icon>{{i.icon}}</mat-icon>
+            <u>{{i.name}}</u> <a>: </a> {{i.value}}
+          </a>
         </div>        
-      </mat-card>
+    </mat-card>
 </div>
+<br>
+<div class="acciones">
+  <button mat-raised-button color="primary" class="full" [routerLink]="['/login']" (click)="registrar()">Registrar producto</button>
+  <br>
+  <a [routerLink]="['']">Volver</a>
+</div>
+

@@ -6,7 +6,27 @@
     align-items: center;
   }
 
-.example-container{
-    padding-top: 30px;
+a{ 
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  clear: left;
+  text-align: right;
+  vertical-align: middle;
+  line-height:25px;
 }
+
+mat-icon {
+  padding: 5px;
+  display:inline-block;
+  vertical-align:middle;
+}
+
+.line{
+  flex: 1 1 auto;
+  padding: 5px
+}
+
+.acciones{
+  text-align: center;
   
+}
+

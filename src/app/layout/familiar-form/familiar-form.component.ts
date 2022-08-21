@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PaisesService } from 'src/app/services/paises.service';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
@@ -24,7 +24,7 @@ export class FamiliarFormComponent implements OnInit {
     {value: 'AB-'},
   ]
   
-  constructor(private paisesService: PaisesService, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
 
