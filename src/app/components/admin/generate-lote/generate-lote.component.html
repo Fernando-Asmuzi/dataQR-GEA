@@ -9,22 +9,26 @@
                 <mat-select formControlName="categoria">
                     <mat-option [value]="categoria" *ngFor="let categoria of categorias">{{ categoria.categoria }}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="form.get('categoria')?.errors?.['required']">Seleccione categoria</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Cantidad</mat-label>
                 <input matInput formControlName="cantidad" type="text">
+                <mat-error *ngIf="form.get('cantidad')?.errors?.['required']">Complete el campo</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Selecione Producto</mat-label>
                 <mat-select formControlName="producto">
                     <mat-option [value]="producto" *ngFor="let producto of productos">{{ producto.producto }}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="form.get('producto')?.errors?.['required']">Seleccione producto</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Selecione Diseño</mat-label>
                 <mat-select formControlName="diseno">
                     <mat-option [value]="diseno" *ngFor="let diseno of disenos">{{ diseno.descripcion }}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="form.get('diseno')?.errors?.['required']">Seleccione diseño</mat-error>
             </mat-form-field>
             <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
           </mat-card-content>

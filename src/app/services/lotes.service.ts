@@ -39,4 +39,8 @@ export class LotesService {
   createLote(lote: Lote): Observable<Lote> {
     return this.http.post<Lote>(`${this.baseUri}lotes.php`, lote);
   }
+
+  delete(lote: Lote): Observable<Lote> {
+    return this.http.delete<Lote>(`${this.baseUri}lotes.php?codigo=${lote.codigo}`);
+  }
 }

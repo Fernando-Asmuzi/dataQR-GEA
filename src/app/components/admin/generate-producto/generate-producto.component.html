@@ -1,12 +1,14 @@
 <form [formGroup]="form" (submit)="submitForm()">
     <mat-card>
         <mat-card-title>
-            <h2>Nuevo Producto</h2>
+            <h2 *ngIf="!data">Nuevo Producto</h2>
+            <h2 *ngIf="data">Modificar Producto</h2>
         </mat-card-title>
         <mat-card-content>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Nombre</mat-label>
                 <input matInput formControlName="producto" type="text">
+                <mat-error *ngIf="form.get('producto')?.errors?.['required']">Complete el campo</mat-error>
             </mat-form-field>
             <button type="button" mat-stroked-button color="primary" class="w-100" (click)="image.click()">Subir Imagen</button>
             <mat-progress-bar color="primary"

@@ -1,16 +1,19 @@
 <form [formGroup]="form" (submit)="submitForm()">
     <mat-card>
         <mat-card-title>
-            <h2>Nuevo Diseño</h2>
+            <h2 *ngIf="!data">Nuevo Diseño</h2>
+            <h2 *ngIf="data">Modificar Diseño</h2>
         </mat-card-title>
         <mat-card-content>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Nombre</mat-label>
                 <input matInput formControlName="nombre" type="text">
+                <mat-error *ngIf="form.get('nombre')?.errors?.['required']">Complete el campo</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Descripción</mat-label>
                 <input matInput formControlName="descripcion" type="text">
+                <mat-error *ngIf="form.get('descripcion')?.errors?.['required']">Complete el campo</mat-error>
             </mat-form-field>
           </mat-card-content>
         <mat-card-actions align="end">
