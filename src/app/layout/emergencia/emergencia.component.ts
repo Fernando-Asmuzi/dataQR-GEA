@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./emergencia.component.scss']
 })
 export class EmergenciaComponent implements OnInit {
-  codigo : number = 0 
+  codigo!: number;
   constructor() { }
 
   ngOnInit(): void {

@@ -12,7 +12,7 @@ import { Familiar, emptyFamiliar } from 'src/app/models/familiar';
 })
 export class InformacionComponent implements OnInit {
 
-  codigo: number = 0 ;
+  codigo!: number;
   lote: Lote = emptyLote();
   familiar: Familiar = emptyFamiliar();
   informacion = [

@@ -23,7 +23,7 @@ import { ProductoComponent } from './layout/producto/producto.component';
 
 const routes: Routes = [
   { path: '', component: EmergenciaComponent },
-  { path: 'informacion/:codigo', component: InformacionComponent },
+  { path: ':codigo', component: InformacionComponent },
   { path: 'principal/:id', component: DashboardComponent, children: [
     // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
