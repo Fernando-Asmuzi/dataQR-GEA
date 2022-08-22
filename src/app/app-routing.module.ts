@@ -12,6 +12,7 @@ import { DetalleLoteComponent } from './components/admin/detalle-lote/detalle-lo
 import { QrsComponent } from './components/admin/qrs/qrs.component';
 import { TableComponent } from './components/table/table.component';
 import { AdminGuard } from './guards/admin.guard';
+import { UsuarioGuard } from './guards/usuario.guard';
 import { DashboardComponent } from './layout/dashboard/dashboard.component';
 import { EmergenciaComponent } from './layout/emergencia/emergencia.component';
 import { FamiliarComponent } from './layout/familiar/familiar.component';
@@ -22,14 +23,15 @@ import { ProductoComponent } from './layout/producto/producto.component';
 
 
 const routes: Routes = [
+  { path: 'login',component: LoginComponent },
   { path: '', component: EmergenciaComponent },
   { path: ':codigo', component: InformacionComponent },
   { path: 'principal/:id', component: DashboardComponent, children: [
     // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'productos', component: ProductoComponent },
-    { path: 'familiares',component: FamiliarComponent },
-    { path: 'emergencia',component: EmergenciaComponent },
+    { path: 'productos', component: ProductoComponent, canActivate: [UsuarioGuard] },
+    { path: 'familiares',component: FamiliarComponent, canActivate: [UsuarioGuard] },
+    { path: 'emergencia',component: EmergenciaComponent, canActivate: [UsuarioGuard] },
     // Admin area
     { path: '', component: AdminHomeComponent, canActivate: [AdminGuard] },
     { path: 'home-admin', component: AdminHomeComponent, canActivate: [AdminGuard] },
@@ -42,7 +44,7 @@ const routes: Routes = [
     { path: 'categorias', component: AbmCategoriasComponent, canActivate: [AdminGuard] },
     { path: 'usuarios', component: AbmAdminComponent, canActivate: [AdminGuard] },
   ] },
-  { path: 'login',component: LoginComponent },
+  
   // { path: 'productos', component: ProductoComponent }
 ];
 
