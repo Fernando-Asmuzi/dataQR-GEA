@@ -31,15 +31,14 @@ export class LoginComponent implements OnInit {
    
     this.login.username = this.username.value;
     this.login.password = this.password
-    var registro = JSON.parse(localStorage.getItem("registro") || '')
+    let registro = localStorage.getItem("registro") ? JSON.parse(localStorage.getItem("registro") || '') : null;
 
     this.usuarioServicie.postUsuario(this.login).subscribe( response =>{
        if(response){
-           if(registro.opcion == "registro"){
-              this.usuarioServicie.setUserLogin(response);
+         this.usuarioServicie.setUserLogin(response);
+           if(registro){
               this.route.navigate(['/principal/'+ response.id + '/productos']);
            }else{
-              this.usuarioServicie.setUserLogin(response);
               this.route.navigate(['/principal/'+ response.id]);
            }         
        }
