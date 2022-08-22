@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
       this.id = this.route.snapshot.paramMap.get('id');
       this.usuario = this.usuarioService.getUserLogin();
+      this.opened = this.usuario.admin;
       this.usuarioService.getUsuarioId(Number(this.id)).subscribe( response =>{
         if(response){
            this.user = response.display_name;
