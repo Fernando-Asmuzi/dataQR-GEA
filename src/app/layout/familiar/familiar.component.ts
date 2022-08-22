@@ -39,5 +39,11 @@ export class FamiliarComponent implements OnInit {
       data:"rigth click"
     })
   }
+
+  modificar(familiar: Familiar){
+     this.dialog.open(FamiliarFormComponent,{
+       data: familiar
+     })
+  }
  
 }

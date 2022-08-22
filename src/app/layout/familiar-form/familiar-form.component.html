@@ -49,7 +49,7 @@
         <table class="example-full-width" cellspacing="0"><tr>
             <td> <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Provincia*</mat-label>
-              <mat-select formControlName="provincia" (selectionChange)="getLocalidades('provincia')">
+              <mat-select formControlName="provincia" (selectionChange)="getLocalidades($event)">
                 <mat-option [value]="provincia.nombre" *ngFor="let provincia of listaProvincias">
                   {{provincia.nombre}}
                 </mat-option>
@@ -58,7 +58,7 @@
             </mat-form-field></td>
             <td> <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Localidad*</mat-label>
-              <mat-select formControlName="localidad">
+              <mat-select formControlName="ciudad">
                 <mat-option [value]="localidad.nombre" *ngFor="let localidad of listaDepartamentos" >
                   {{localidad.nombre}}
                 </mat-option>
@@ -79,15 +79,15 @@
         <table class="example-full-width" cellspacing="0"><tr>
           <td><mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Teléfono principal*</mat-label>
-            <input matInput formControlName="telefono_primario" type="number">
+            <input matInput formControlName="telefono_primario" type="text">
             <mat-hint align="start"><strong>Caract. sin 0, numero sin 15. Ej. 11 12345678</strong></mat-hint>
             <mat-error *ngIf="form.get('telefono_primario')?.errors?.['required']">Complete el campo</mat-error>
           </mat-form-field></td>
           <td><mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Teléfono secundario</mat-label>
-            <input matInput formControlName="telefono_secundario" type="number">
+            <input matInput formControlName="telefono_secundario" type="text">
           </mat-form-field></td>
-        </tr></table>  
+        </tr></table><br>  
         
          <!-- Datos de salud -->
          <h3>Datos de salud</h3>
