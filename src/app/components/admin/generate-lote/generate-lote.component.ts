@@ -25,7 +25,7 @@ export class GenerateLoteComponent implements OnInit, OnDestroy {
     producto: ['', [Validators.required]],
     diseno: ['', [Validators.required]]
   })
-
+ 
   showSpinner: boolean = false;
 
   categorias: Array<Categoria> = new Array<Categoria>();

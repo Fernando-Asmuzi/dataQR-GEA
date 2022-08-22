@@ -36,5 +36,5 @@ export class GenerateCategoriaComponent implements OnInit {
   cancel(): void {
     this.dialogRef.close(false);
   }
-
+ 
 }

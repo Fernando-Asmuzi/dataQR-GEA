@@ -24,6 +24,7 @@ import { ProductoComponent } from './layout/producto/producto.component';
 const routes: Routes = [
   { path: '', component: EmergenciaComponent },
   { path: ':codigo', component: InformacionComponent },
+  { path: 'login',component: LoginComponent },
   { path: 'principal/:id', component: DashboardComponent, children: [
     // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
@@ -42,7 +43,7 @@ const routes: Routes = [
     { path: 'categorias', component: AbmCategoriasComponent, canActivate: [AdminGuard] },
     { path: 'usuarios', component: AbmAdminComponent, canActivate: [AdminGuard] },
   ] },
-  { path: 'login',component: LoginComponent },
+  
   // { path: 'productos', component: ProductoComponent }
 ];
 

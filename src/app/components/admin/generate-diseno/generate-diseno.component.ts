@@ -14,7 +14,7 @@ export class GenerateDisenoComponent implements OnInit {
     nombre: ['', [Validators.required]],
     descripcion: ['', [Validators.required]]
   })
-  
+   
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<GenerateDisenoComponent>,

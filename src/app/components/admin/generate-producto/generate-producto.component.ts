@@ -20,7 +20,7 @@ export class GenerateProductoComponent implements OnInit {
   })
   
   progress: number = 0;
-
+ 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<GenerateProductoComponent>,
