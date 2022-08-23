@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { ActionButton } from 'src/app/models/actionButton';
 import { emptyLote, Lote } from 'src/app/models/lote';
 import { LotesService } from 'src/app/services/lotes.service';
+import { VinculacionService } from 'src/app/services/vinculacion.service';
 import { BaseComponent } from '../../abstract/base.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ViewQRComponent } from '../view-qr/view-qr.component';
@@ -23,6 +24,7 @@ export class DetalleLoteComponent extends BaseComponent implements OnInit, OnDes
   lote: Lote = emptyLote();
 
   loteSubscription!: Subscription;
+  vinculacionSubscription!: Subscription;
 
   actionButtons: ActionButton[] = [
     {
@@ -46,7 +48,8 @@ export class DetalleLoteComponent extends BaseComponent implements OnInit, OnDes
     private lotesService: LotesService,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
-    public override dialog: MatDialog
+    public override dialog: MatDialog,
+    private vinculacionService: VinculacionService
   ) {
     super(dialog);
   }
@@ -82,7 +85,20 @@ export class DetalleLoteComponent extends BaseComponent implements OnInit, OnDes
   }
 
   desvincular(lote: Lote): void {
-
+    this.showBasicDialog('Atención', 'Está por limpiar la información asociada al código QR. Confirme').afterClosed().subscribe(
+      response => {
+        if (response) {
+          this.vinculacionSubscription = this.vinculacionService.deleteVinculacionByLoteId(lote).subscribe(
+            response => {
+              if (response) {
+                this.snackBar.open('Se limpio la información asociada al código QR', 'Aceptar', {duration: 1500});
+                this.loadLote();
+              }
+            }
+          )
+        }
+      }
+    )
   }
 
   blockLote(): void {
