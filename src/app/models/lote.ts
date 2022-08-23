@@ -1,4 +1,5 @@
 import { Categoria, emptyCategoria } from "./categoria";
+import { Convenio, emptyConvenio } from "./convenio";
 import { Diseno, emptyDiseno } from "./diseno";
 import { emptyProducto, Producto } from "./producto";
 
@@ -7,6 +8,7 @@ export interface Lote {
     categoria: Categoria;
     producto: Producto;
     diseno: Diseno;
+    convenio: Convenio;
     libre: boolean;
     fecha: Date;
     codigo: string;
@@ -22,6 +24,7 @@ export const emptyLote = (): Lote => ({
     categoria: emptyCategoria(),
     producto: emptyProducto(),
     diseno: emptyDiseno(),
+    convenio: emptyConvenio(),
     libre: false,
     fecha: new Date(),
     codigo: '',
