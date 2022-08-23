@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url_servicios: 'http://56.ar/api/'
+  url_servicios: 'http://localhost/gea_qr/api/'
 };
 
 /*
