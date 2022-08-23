@@ -26,12 +26,11 @@ const routes: Routes = [
   { path: 'login',component: LoginComponent },
   { path: '', component: EmergenciaComponent },
   { path: ':codigo', component: InformacionComponent },
-  { path: 'login',component: LoginComponent },
   { path: 'principal/:id', component: DashboardComponent, children: [
     // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'productos', component: ProductoComponent, canActivate: [UsuarioGuard] },
     { path: 'familiares',component: FamiliarComponent, canActivate: [UsuarioGuard] },
+    { path: 'productos', component: ProductoComponent, canActivate: [UsuarioGuard] },
     { path: 'emergencia',component: EmergenciaComponent, canActivate: [UsuarioGuard] },
     // Admin area
     { path: '', component: AdminHomeComponent, canActivate: [AdminGuard] },

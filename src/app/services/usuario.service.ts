@@ -40,7 +40,8 @@ export class UsuarioService {
 
   logOut(): void {
     localStorage.removeItem('userLogin');
-  }
+    localStorage.removeItem('registro');
+  } 
 
   getAllUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.urlBase}usuarios.php`);

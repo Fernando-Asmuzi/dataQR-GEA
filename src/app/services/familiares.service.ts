@@ -19,4 +19,12 @@ export class FamiliaresService {
   getFamiliares(id: Number): Observable<any>{
      return this.http.get<Familiar[]>(`${this.urlBase}familiares.php?id_usuario=${id}`)
   }
+
+  postFamiliar(familiar: any): Observable<Familiar> {
+    return this.http.post<Familiar>(`${this.urlBase}familiares.php`, familiar);
+  }
+
+  updateFamiliar(familiar: any): Observable<Familiar> {
+    return this.http.put<Familiar>(`${this.urlBase}familiares.php`, familiar);
+  }
 }

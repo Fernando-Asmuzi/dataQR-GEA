@@ -53,7 +53,7 @@ export class AbmCategoriasComponent extends BaseComponent implements OnInit, OnD
     this.categoriasSubscription = this.categoriasService.getAllCategorias().subscribe(
       response => this.categorias.data = response
     )
-  }
+  } 
 
   createCategoria(): void {
     this.dialog.open(GenerateCategoriaComponent, {width: '20%'}).afterClosed().subscribe(

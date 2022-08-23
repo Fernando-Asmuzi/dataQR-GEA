@@ -12,12 +12,12 @@
           <!-- Nombre y apellido -->
         <table class="example-full-width" cellspacing="0"><tr>
             <td><mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Nombre/s*</mat-label>
+              <mat-label>Nombre/s</mat-label>
               <input matInput formControlName="nombre" type="text">
               <mat-error *ngIf="form.get('nombre')?.errors?.['required']">Complete el campo</mat-error>
             </mat-form-field></td>
             <td><mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Apellido/s*</mat-label>
+              <mat-label>Apellido/s</mat-label>
               <input matInput formControlName="apellido" type="text">
               <mat-error *ngIf="form.get('apellido')?.errors?.['required']">Complete el campo</mat-error>
             </mat-form-field></td>
@@ -26,7 +26,7 @@
           <!-- DNI -->
         <table class="example-full-width" cellspacing="0"><tr>
             <td><mat-form-field appearance="outline">
-              <mat-label>Documento*</mat-label>
+              <mat-label>Documento</mat-label>
               <input matInput formControlName="documento" type="number" maxlength="8">
               <mat-error *ngIf="form.get('documento')?.errors?.['required']">Complete el campo</mat-error>
             </mat-form-field></td>
@@ -35,7 +35,7 @@
           <!-- Direcciones -->
         <table class="example-full-width" cellspacing="0"><tr>
             <td><mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Dirección Primaria*</mat-label>
+                <mat-label>Dirección Primaria</mat-label>
                 <input matInput formControlName="direccion_primaria" type="text">
                 <mat-error *ngIf="form.get('direccion_primaria')?.errors?.['required']">Complete el campo</mat-error>
               </mat-form-field></td>
@@ -48,16 +48,16 @@
           <!-- Provincia, localidad -->
         <table class="example-full-width" cellspacing="0"><tr>
             <td> <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Provincia*</mat-label>
+              <mat-label>Provincia</mat-label>
               <mat-select formControlName="provincia" (selectionChange)="getLocalidades($event)">
-                <mat-option [value]="provincia.nombre" *ngFor="let provincia of listaProvincias">
-                  {{provincia.nombre}}
+                <mat-option [value]="provincia" *ngFor="let provincia of listaProvincias">
+                  {{provincia}}
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="form.get('provincia')?.errors?.['required']">Seleccione povincia</mat-error>
             </mat-form-field></td>
             <td> <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Localidad*</mat-label>
+              <mat-label>Localidad</mat-label>
               <mat-select formControlName="ciudad">
                 <mat-option [value]="localidad.nombre" *ngFor="let localidad of listaDepartamentos" >
                   {{localidad.nombre}}
@@ -70,15 +70,15 @@
          <!-- Pais -->
         <table class="example-full-width" cellspacing="0"><tr>
           <td><mat-form-field appearance="outline">
-              <mat-label>Pais*</mat-label>
-              <input matInput value="Argentina" disabled>
+              <mat-label>Pais</mat-label>
+              <input matInput formControlName="pais">
             </mat-form-field></td>
         </tr></table>
 
          <!-- Telefono -->
         <table class="example-full-width" cellspacing="0"><tr>
           <td><mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Teléfono principal*</mat-label>
+            <mat-label>Teléfono principal</mat-label>
             <input matInput formControlName="telefono_primario" type="text">
             <mat-hint align="start"><strong>Caract. sin 0, numero sin 15. Ej. 11 12345678</strong></mat-hint>
             <mat-error *ngIf="form.get('telefono_primario')?.errors?.['required']">Complete el campo</mat-error>
@@ -95,7 +95,7 @@
           <!-- factor sangre y alergias -->
         <table class="example-full-width" cellspacing="0"><tr>
             <td><mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Factor sanguíneo*</mat-label>
+              <mat-label>Factor sanguíneo</mat-label>
               <mat-select formControlName="factor_sangre">
                 <mat-option *ngFor="let f of factorSangre" [value]="f.value">
                   {{f.value}}
@@ -103,7 +103,7 @@
               </mat-select>
             </mat-form-field></td>
             <td><mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Alergia/s*</mat-label>
+              <mat-label>Alergia/s</mat-label>
               <input matInput  formControlName="alergias" type="text">
             </mat-form-field></td>
         </tr></table>
@@ -129,7 +129,7 @@
           </tr></table>
   </div>
       <mat-dialog-actions align="end">
-          <button mat-button>Agregar</button>    
+          <button mat-button type="submit">Agregar</button>    
           <button mat-button mat-dialog-close>Cancelar</button>    
       </mat-dialog-actions>
   </form>
