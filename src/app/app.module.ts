@@ -44,6 +44,9 @@ import { CardLoteComponent } from './components/admin/card-lote/card-lote.compon
 import { AbmAdminComponent } from './components/admin/abm-admin/abm-admin.component';
 import { AdminPipe } from './pipes/admin.pipe';
 import { LoteBloqueadoPipe } from './pipes/lote-bloqueado.pipe';
+import { ViewQRComponent } from './components/admin/view-qr/view-qr.component';
+import { GenerateConvenioComponent } from './components/admin/generate-convenio/generate-convenio.component';
+import { AbmConvenioComponent } from './components/admin/abm-convenio/abm-convenio.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +82,10 @@ import { LoteBloqueadoPipe } from './pipes/lote-bloqueado.pipe';
     CardLoteComponent,
     AbmAdminComponent,
     AdminPipe,
-    LoteBloqueadoPipe
+    LoteBloqueadoPipe,
+    ViewQRComponent,
+    GenerateConvenioComponent,
+    AbmConvenioComponent
   ],
   imports: [
     HttpClientModule,

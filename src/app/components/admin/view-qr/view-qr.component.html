@@ -1,0 +1,51 @@
+<mat-card>
+    <mat-card-title>Código QR</mat-card-title>
+    <mat-card-content>
+        <div class="tarjeta-qr">
+            <div>
+                <h3>Persona asociada al QR</h3>
+                <div *ngIf="familiar.id !== 0">
+                    <p>Nombre: {{ familiar | name | uppercase }}</p>
+                    <p>Documento: {{ familiar.documento }}</p>
+                    <p>Teléfono: {{ familiar.telefono_primario }}</p>
+                </div>
+                <div *ngIf="familiar.id === 0">
+                    <p>No hay datos asociados</p>
+                </div>
+            </div>
+            <div class="qr"  id="{{lote.id}}">
+                <app-qr-image
+                    [id]="lote.id"
+                    [qrdata]="('http://56.ar/') + (lote.id)"
+                    [marco]="marco"
+                    [hasLogo]="hasLogo">
+                </app-qr-image>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+        <div class="actions">
+            <button mat-button [matMenuTriggerFor]="menu">
+                <mat-icon>menu</mat-icon>
+                Marco
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngFor="let marco of marcos" (click)="onSelectionChange(marco)">
+                    <img [src]="marco.imagen" height="20" width="20" class="marco"/>{{ marco.descripcion }}
+                </button>
+            </mat-menu>
+            <mat-slide-toggle
+                  class="example-margin"
+                  [(ngModel)]="hasLogo">
+                Isologo
+            </mat-slide-toggle>
+            <button mat-button (click)="downloadQR()">
+              <span class="material-icons" matTooltip="Descargar Código">
+                cloud_download
+              </span>
+            </button>
+            <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+        </div>
+    </mat-card-actions>
+</mat-card>

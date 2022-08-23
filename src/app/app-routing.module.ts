@@ -3,6 +3,7 @@ import { TooltipComponent } from '@angular/material/tooltip';
 import { RouterModule, Routes } from '@angular/router';
 import { AbmAdminComponent } from './components/admin/abm-admin/abm-admin.component';
 import { AbmCategoriasComponent } from './components/admin/abm-categorias/abm-categorias.component';
+import { AbmConvenioComponent } from './components/admin/abm-convenio/abm-convenio.component';
 import { AbmDisenoComponent } from './components/admin/abm-diseno/abm-diseno.component';
 import { AbmLotesComponent } from './components/admin/abm-lotes/abm-lotes.component';
 import { AbmMarcosComponent } from './components/admin/abm-marcos/abm-marcos.component';
@@ -43,6 +44,7 @@ const routes: Routes = [
     { path: 'disenos', component: AbmDisenoComponent, canActivate: [AdminGuard] },
     { path: 'categorias', component: AbmCategoriasComponent, canActivate: [AdminGuard] },
     { path: 'usuarios', component: AbmAdminComponent, canActivate: [AdminGuard] },
+    { path: 'convenios', component: AbmConvenioComponent, canActivate: [AdminGuard] },
   ] },
   
   // { path: 'productos', component: ProductoComponent }

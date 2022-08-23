@@ -25,7 +25,7 @@
                     </span>
                     <span *ngIf="columna === 'bloqueado'">
                         <mat-chip-list>
-                            <mat-chip [color]="element.bloqueado ? 'warn' : 'primary'" selected class="chip-admin">
+                            <mat-chip [color]="element.bloqueado ? 'warn' : 'primary'" selected class="chip-admin" (click)="chipClick(element)">
                                 {{ getColumnInfo(element, columna) | loteBloqueado }}
                             </mat-chip>
                         </mat-chip-list>

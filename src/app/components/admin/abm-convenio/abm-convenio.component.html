@@ -1,0 +1,17 @@
+<mat-toolbar>
+    <span class="familiar-span">Gestión de Convenios</span>
+    <button mat-button (click)="createConvenio()">
+      <span class="material-icons" matTooltip="Agregar Lote">
+        add_circle_outline
+      </span>
+    </button>
+  </mat-toolbar>
+  <app-table
+    [dataSource]="dataSource"
+    [columnas]="columnasTabla"
+    [showPaginator]="true"
+    [actionButtons]="actionButtons"
+    (actionOne)="editConvenio($event)"
+    (actionTwo)="deleteConvenio($event)"
+>
+</app-table>

@@ -1,15 +1,27 @@
 <mat-toolbar>
     <span class="familiar-span">Detalles del Lote</span>
-    <span class="example-spacer"></span>
     <span>Código: {{ lote.codigo }}</span>
-    <span class="example-spacer"></span>
     <span>Diseño: {{ lote.diseno.nombre }}</span>
-    <span class="example-spacer"></span>
     <span>Creación: {{ lote.fecha |  date: 'dd/MM/yyyy' }}</span>
+    <div>
+        <button mat-button (click)="blockLote()">
+            <span class="material-icons" matTooltip="Bloquer todo el Lote">
+                lock
+            </span>
+        </button>
+        <button mat-button (click)="unlockLote()">
+            <span class="material-icons" matTooltip="Desbloquear todo el Lote">
+                lock_open
+            </span>
+        </button>
+    </div>
 </mat-toolbar>
 <app-table
     [showPaginator]="true"
     [columnas]="columnasTabla"
     [dataSource]="dataSource"
-    [actionButtons]="actionButtons">
+    [actionButtons]="actionButtons"
+    (actionOne)="viewQR($event)"
+    (actionTwo)="desvincular($event)"
+    (actionThree)="manageLock($event)">
 </app-table>

@@ -21,7 +21,13 @@
       <p>Descripcion: {{ lote.producto.producto }}</p>
       <p>Fecha de creación: {{ lote.fecha | date: 'dd/MM/YYYY'}}</p>
       <p>Diseño: {{ lote.diseno.descripcion }}</p>
+      <mat-chip-list>
+        <mat-chip>En uso: {{ lote.registrados }}</mat-chip>
+        <mat-chip>Libres: {{ lote.libres }}</mat-chip>
+        <mat-chip>Bloqueados: {{ lote.bloqueados }}</mat-chip>
+      </mat-chip-list>
     </mat-card-content>
+    <mat-divider></mat-divider>
     <mat-card-actions align="end">
         <button mat-raised-button color="primary" [routerLink]="['../ver-qrs', lote.codigo]">Ver códigos QR</button>
         <button mat-raised-button color="primary" [routerLink]="['../detalle-lote', lote.codigo]">Detalles del Lote</button>
