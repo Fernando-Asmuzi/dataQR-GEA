@@ -1,51 +1,30 @@
 <mat-toolbar>
   <span class="productos-span">Productos</span>
   <span class="example-spacer"></span>
-  <button mat-button (click)="cambiar()">
-    <span class="material-icons" matTooltip="Vincular producto">
-      add_circle_outline
+  <button mat-button (click)="openDialog()">
+    <span class="material-icons" matTooltip="Agregar vinculo">
+      add_circle
     </span>
   </button>
 </mat-toolbar><br>
 
+<!-- <mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Vincular un producto
+      </mat-panel-title>
+      <mat-panel-description>
+        
+        <mat-icon></mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-  <mat-card>
-    <mat-card-title>Vinculación de producto</mat-card-title><br>
-    <div class="vinculacion" *ngIf="vinculacion==true">
-
-        <!-- vinculación del producto desde informacion -->
-        <div class="existente" *ngIf="existente == true">
-            <mat-label>Código del producto: </mat-label>{{registro.id}} 
-        </div><br>
-        <td><mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Familiar a asociar</mat-label>
-              <mat-select [(ngModel)]="selectedValue" name="familiares">
-                <mat-option *ngFor="let f of familiares" [value]="f.nombre + ' ' + f.apellido">
-                  {{f.nombre + ' ' + f.apellido}}
-                </mat-option>
-              </mat-select>
-        </mat-form-field></td>
-
-        <!-- vinculacion del producto desde dashboard -->
-        <!-- <div class="nueva" *ngIf="existente == false">
-              <td><mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Código del producto:</mat-label>
-                <input matInput>
-              </mat-form-field></td>
-        </div><br>
-        <td><mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Familiar a asociar</mat-label>
-              <mat-select [(ngModel)]="selectedValue" name="familiares">
-                <mat-option *ngFor="let f of familiares" [value]="f.nombre + ' ' + f.apellido">
-                  {{f.nombre + ' ' + f.apellido}}
-                </mat-option>
-              </mat-select>
-        </mat-form-field></td>-->
-    </div>
-  </mat-card>
+    
+  </mat-expansion-panel>  
+</mat-accordion> -->
  
-
-<div class="productos" *ngIf="vinculacion==false">
+<div class="productos">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="Descripcion">
       <th mat-header-cell *matHeaderCellDef> Descripcion </th>

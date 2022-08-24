@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Vinculo } from '../../models/vinculo'
 import {MatTableDataSource} from '@angular/material/table';
@@ -6,6 +6,11 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { VinculacionService } from 'src/app/services/vinculacion.service';
 import { FamiliaresService } from 'src/app/services/familiares.service';
 import { Familiar } from 'src/app/models/familiar';
+import {MatAccordion} from '@angular/material/expansion';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { GenerateVinculacionComponent } from '../generate-vinculacion/generate-vinculacion.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const ELEMENT_DATA: Vinculo[] = []; 
 
@@ -16,14 +21,15 @@ const ELEMENT_DATA: Vinculo[] = [];
 })
 export class ProductoComponent implements OnInit {
 
+
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
   id: String | null = '';
   vinculos: Array<Vinculo> = [];
   ELEMENT_DATA = this.vinculos;
-  vinculacion: boolean = false;
-  existente: boolean = false;
   familiares: Array<Familiar> = [];
   selectedValue: string = '';
   registro: any;
+ 
 
   displayedColumns: string[] = ['Descripcion', 'Nombre', 'Apellido', 'Informacion'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -33,31 +39,49 @@ export class ProductoComponent implements OnInit {
     private route: ActivatedRoute,
     private usuarioService: UsuarioService,
     private vinculacionService: VinculacionService,
-    private familiaresService: FamiliaresService
+    private familiaresService: FamiliaresService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
-    this.vinculacion == false;
-    this.id = this.route.snapshot.paramMap.get('id') ? this.route.snapshot.paramMap.get('id') : this.usuarioService.getUserLogin()?.id;
+    
     this.registro = JSON.parse(localStorage.getItem("registro") || '')
-
     if(this.registro.opcion == "registro"){
-        this.vinculacion = true;
-        this.existente = true;
-        this.familiaresService.getFamiliares(Number(this.id)).subscribe(response =>{
-          this.familiares = response  
-       })
+      this.dialog.open(GenerateVinculacionComponent, {
+        width: '600px',
+        data:"rigth click"
+      }).afterClosed().subscribe(resp => {
+        if(resp){
+          this.getVinculos();
+           this.snackBar.open('Vinculación realizada con éxito', 'Aceptar', {duration: 1500})
+        }
+      })
     }
 
-   this.vinculacionService.getVinculoFamiliar(Number(this.id)).subscribe(response =>{
+    this.id = this.route.snapshot.paramMap.get('id') ? this.route.snapshot.paramMap.get('id') : this.usuarioService.getUserLogin()?.id;
+    this.getVinculos();
+    this.familiaresService.getFamiliares(Number(this.id)).subscribe(response =>{
+      this.familiares = response  
+   })
+  }
+
+  getVinculos(){
+    this.vinculacionService.getVinculoFamiliar(Number(this.id)).subscribe(response =>{
       this.dataSource = response 
       console.log(this.dataSource)
     })
   }
 
-  cambiar(){
-    if(this.vinculacion == false){
-      this.vinculacion = !this.vinculacion;
-    } 
+  openDialog(){
+    this.dialog.open(GenerateVinculacionComponent, {
+      width: '600px',
+      data:"rigth click"
+    }).afterClosed().subscribe(resp => {
+      if(resp){
+        this.getVinculos();
+         this.snackBar.open('Vinculación realizada con éxito', 'Aceptar', {duration: 1500})
+      }
+    })
   }
 }

@@ -63,7 +63,7 @@ export class FamiliarFormComponent implements OnInit {
   ngOnInit(): void {
     
     this.usuario = this.usuarioService.getUserLogin();
-    
+    this.getProvincias();
 
     if (this.data) {
       this.form.patchValue({
@@ -88,8 +88,6 @@ export class FamiliarFormComponent implements OnInit {
 
       });
     }
-    this.getProvincias();
-    
   }
 
   submitForm(): void {

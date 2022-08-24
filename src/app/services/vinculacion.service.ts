@@ -22,4 +22,8 @@ export class VinculacionService {
     return this.http.get<Familiar>(`${this.urlBase}vinculacion.php?id_lote=${id}`);
   }
 
+  postVinculacion(vinculacion: any): Observable<Vinculo> {
+    return this.http.post<Vinculo>(`${this.urlBase}vinculacion.php`, vinculacion);
+  }
+
 }

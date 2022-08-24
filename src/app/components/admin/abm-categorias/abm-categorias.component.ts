@@ -69,7 +69,7 @@ export class AbmCategoriasComponent extends BaseComponent implements OnInit, OnD
                 this.loadTable();
               }
             }
-          )
+          ) 
         }
       }
     );

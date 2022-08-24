@@ -42,6 +42,7 @@ import { GenerateMarcoComponent } from './components/admin/generate-marco/genera
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CardLoteComponent } from './components/admin/card-lote/card-lote.component';
 import { AbmAdminComponent } from './components/admin/abm-admin/abm-admin.component';
+import { GenerateVinculacionComponent } from './layout/generate-vinculacion/generate-vinculacion.component';
 import { AdminPipe } from './pipes/admin.pipe';
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { AdminPipe } from './pipes/admin.pipe';
     GenerateMarcoComponent,
     CardLoteComponent,
     AbmAdminComponent,
-    AdminPipe
+    AdminPipe,
+    GenerateVinculacionComponent
   ],
   imports: [
     HttpClientModule,
