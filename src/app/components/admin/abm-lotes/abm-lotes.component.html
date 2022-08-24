@@ -21,6 +21,8 @@
       <p>Descripcion: {{ lote.producto.producto }}</p>
       <p>Fecha de creación: {{ lote.fecha | date: 'dd/MM/YYYY'}}</p>
       <p>Diseño: {{ lote.diseno.descripcion }}</p>
+      <p>Convenio: {{ lote.convenio.nombre }}</p>
+      <p>Teléfono: {{ lote.convenio.telefono }}</p>
       <mat-chip-list>
         <mat-chip>En uso: {{ lote.registrados }}</mat-chip>
         <mat-chip>Libres: {{ lote.libres }}</mat-chip>
