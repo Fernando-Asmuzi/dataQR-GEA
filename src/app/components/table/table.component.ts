@@ -20,6 +20,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Output() actionTwo = new EventEmitter<any>();
   @Output() actionThree = new EventEmitter<any>();
   @Output() chipAction = new EventEmitter<any>();
+  @Output() actionFour = new EventEmitter<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -51,6 +52,9 @@ export class TableComponent implements OnInit, AfterViewInit {
       case 3: {
         this.actionThree.emit(payload);
         break;
+      }
+      case 4: {
+        this.actionFour.emit(payload);
       }
     }
   }

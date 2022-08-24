@@ -9,6 +9,7 @@ import { emptyLote, Lote } from 'src/app/models/lote';
 import { LotesService } from 'src/app/services/lotes.service';
 import { VinculacionService } from 'src/app/services/vinculacion.service';
 import { BaseComponent } from '../../abstract/base.component';
+import { DeleteLoteComponent } from '../delete-lote/delete-lote.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ViewQRComponent } from '../view-qr/view-qr.component';
 
@@ -42,6 +43,11 @@ export class DetalleLoteComponent extends BaseComponent implements OnInit, OnDes
       icon: 'lock',
       tooltip: 'Editar bloqueo'
     },
+    {
+      color: 'warn',
+      icon: 'delete',
+      tooltip: 'Eliminar QR'
+    }
   ];
 
   constructor(
@@ -156,5 +162,23 @@ export class DetalleLoteComponent extends BaseComponent implements OnInit, OnDes
         )
       }
     )
+  }
+
+  deleteQR(lote: Lote): void {
+    this.dialog.open(DeleteLoteComponent, {width: '30%'}).afterClosed().subscribe(
+      resp => {
+        if (resp) {
+          const deletedLote = {...lote, motivo: resp.motivo};
+          this.loteSubscription = this.lotesService.deleteLoteById(deletedLote).subscribe(
+            response => {
+              if (response) {
+                this.snackBar.open('QR eliminado correctamente', 'Aceptar', {duration: 1500});
+                this.loadLote();
+              }
+            }
+          );
+        }
+      }
+    );
   }
 }

@@ -17,6 +17,7 @@ export interface Lote {
     registrados?: number;
     bloqueado: boolean;
     bloqueados?: number;
+    motivo?: string;
 }
 
 export const emptyLote = (): Lote => ({
@@ -32,5 +33,6 @@ export const emptyLote = (): Lote => ({
     libres: 0,
     registrados: 0,
     bloqueado: false,
-    bloqueados: 0
+    bloqueados: 0,
+    motivo: ''
 });

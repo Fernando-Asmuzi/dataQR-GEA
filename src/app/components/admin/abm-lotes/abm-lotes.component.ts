@@ -5,6 +5,7 @@ import { finalize, Subscription } from 'rxjs';
 import { emptyLote, Lote } from 'src/app/models/lote';
 import { LotesService } from 'src/app/services/lotes.service';
 import { BaseComponent } from '../../abstract/base.component';
+import { DeleteLoteComponent } from '../delete-lote/delete-lote.component';
 import { GenerateLoteComponent } from '../generate-lote/generate-lote.component';
 
 @Component({
@@ -63,11 +64,13 @@ export class AbmLotesComponent extends BaseComponent implements OnInit, OnDestro
   }
 
   deleteConfirm(lote: Lote, message: string): void {
-    this.showBasicDialog('Atención', 'Esta por eliminar un lote' + message +', no se podrán recuperar los datos luego de la eliminación. Confirme')
+    const dialogMessage = 'Esta por eliminar un lote' + message + ', no se podrán recuperar los datos luego de la eliminación. Confirme';
+    this.dialog.open(DeleteLoteComponent, {data: dialogMessage})
     .afterClosed().subscribe(
       response => {
         if (response) {
-          this.lotesSubscription = this.lotesServices.delete(lote).subscribe(
+          const deletedLote = {...lote, motivo: response.motivo};
+          this.lotesSubscription = this.lotesServices.delete(deletedLote).subscribe(
             response => {
               if (response) {
                 this.snackBar.open('El lote se eliminó correctamente', 'Aceptar', {duration: 1500});
