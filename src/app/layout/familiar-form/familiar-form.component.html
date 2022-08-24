@@ -1,11 +1,11 @@
 <!-- **********************
      **********************
      Formulario de nuevo familiar  --> 
-<mat-dialog-content class="mat-typography">
+
   <form [formGroup]="form" (submit)="submitForm()">
     <h2 *ngIf="!data">Nuevo Familiar</h2>
     <h2 *ngIf="data">Modificar Familiar</h2>
-
+    <mat-dialog-content class="mat-typography">
     <h3>Datos personales</h3>
     <div class="modal-body">
           <!-- Datos personales -->
@@ -59,8 +59,8 @@
             <td> <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Localidad</mat-label>
               <mat-select formControlName="ciudad">
-                <mat-option [value]="localidad.nombre" *ngFor="let localidad of listaDepartamentos" >
-                  {{localidad.nombre}}
+                <mat-option [value]="localidad" *ngFor="let localidad of listaDepartamentos" >
+                  {{localidad}}
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="form.get('localidad')?.errors?.['required']">Seleccione localidad</mat-error>
@@ -128,12 +128,14 @@
               </mat-form-field></td>
           </tr></table>
   </div>
+</mat-dialog-content>   
+
       <mat-dialog-actions align="end">
-          <button mat-button type="submit">Agregar</button>    
+          <button mat-button type="submit" [disabled]="!form.valid" *ngIf="!data">Agregar</button>    
+          <button mat-button type="submit" [disabled]="!form.valid" *ngIf="data">Modificar</button>    
           <button mat-button mat-dialog-close>Cancelar</button>    
       </mat-dialog-actions>
   </form>
-</mat-dialog-content>   
   <!-- 
      **********************
      ********************** -->

@@ -41,8 +41,7 @@ export class FamiliarComponent implements OnInit {
 
   openDialog(){
     this.dialog.open(FamiliarFormComponent, {
-      width: '600px',
-      data:"rigth click"
+      width: '600px'
     }).afterClosed().subscribe(resp => {
       if(resp){
          this.getFamiliares()

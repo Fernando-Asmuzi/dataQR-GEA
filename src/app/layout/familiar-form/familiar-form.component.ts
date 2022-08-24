@@ -23,9 +23,9 @@ export class FamiliarFormComponent implements OnInit {
     apellido: ['', [Validators.required]],
     direccion_primaria: ['', [Validators.required]],
     direccion_secundaria: [null],
-    telefono_primario: ['', [Validators.required, Validators.maxLength(10), Validators.maxLength(10)]],
+    telefono_primario: ['', [Validators.required, Validators.maxLength(10)]],
     telefono_secundario: [null, [Validators.maxLength(10), Validators.maxLength(10)]],
-    documento: ['', [Validators.required, Validators.maxLength(7), Validators.maxLength(8)]],
+    documento: ['', [Validators.required, Validators.maxLength(8)]],
     diagnostico: [''],
     medicacion: [''],
     alergias: [''],
@@ -87,6 +87,10 @@ export class FamiliarFormComponent implements OnInit {
         ciudad: this.data.ciudad
 
       });
+      let localidad = {
+        value: this.data.provincia
+      }
+      this.getLocalidades(localidad);
     }
   }
 
@@ -129,8 +133,10 @@ export class FamiliarFormComponent implements OnInit {
 
   getLocalidades(provincia: any){
     this.http.get('https://apis.datos.gob.ar/georef/api/departamentos?provincia='+provincia.value).subscribe((departamentos: any)=>{
-        this.listaDepartamentos = departamentos.departamentos
-        console.log(departamentos)
+        departamentos.departamentos.forEach((depa: any) => {
+          this.listaDepartamentos.push(depa.nombre);
+        });
+        console.log(this.listaDepartamentos)
    }) 
   }
 }
