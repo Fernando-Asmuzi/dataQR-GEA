@@ -46,15 +46,15 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.registro = JSON.parse(localStorage.getItem("registro") || '')
+    this.registro = localStorage.getItem("registro") ? JSON.parse(localStorage.getItem("registro") || '') : null;
     if(this.registro != null){
       this.dialog.open(GenerateVinculacionComponent, {
         width: '600px',
-        data:"rigth click"
+        data: this.registro
       }).afterClosed().subscribe(resp => {
         if(resp){
           this.getVinculos();
-           this.snackBar.open('Vinculación realizada con éxito', 'Aceptar', {duration: 1500})
+          this.snackBar.open('Vinculación realizada con éxito', 'Aceptar', {duration: 1500})
         }
       })
     }
@@ -76,7 +76,6 @@ export class ProductoComponent implements OnInit {
   openDialog(){
     this.dialog.open(GenerateVinculacionComponent, {
       width: '600px',
-      data:"rigth click"
     }).afterClosed().subscribe(resp => {
       if(resp){
         this.getVinculos();
