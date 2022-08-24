@@ -41,6 +41,14 @@ export class LotesService {
   }
 
   delete(lote: Lote): Observable<Lote> {
-    return this.http.delete<Lote>(`${this.baseUri}lotes.php?codigo=${lote.codigo}`);
+    return this.http.delete<Lote>(`${this.baseUri}lotes.php?codigo=${lote.codigo}&masivo=true&motivo=${lote.motivo}`);
+  }
+
+  updateLoteByCod(lote: any): Observable<Lote> {
+    return this.http.put<Lote>(`${this.baseUri}lotes.php`, lote);
+  }
+
+  deleteLoteById(lote: Lote): Observable<Lote> {
+    return this.http.delete<Lote>(`${this.baseUri}lotes.php?id=${lote.id}&motivo=${lote.motivo}`);
   }
 }

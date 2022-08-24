@@ -30,6 +30,13 @@
                 </mat-select>
                 <mat-error *ngIf="form.get('diseno')?.errors?.['required']">Seleccione diseño</mat-error>
             </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Selecione Convenio</mat-label>
+                <mat-select formControlName="convenio">
+                    <mat-option [value]="convenio" *ngFor="let convenio of convenios">{{ convenio.nombre }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('convenio')?.errors?.['required']">Seleccione convenio</mat-error>
+            </mat-form-field>
             <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
           </mat-card-content>
         <mat-card-actions align="end">

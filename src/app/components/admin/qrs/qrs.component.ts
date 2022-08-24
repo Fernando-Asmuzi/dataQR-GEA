@@ -5,8 +5,7 @@ import * as JSZip from 'jszip';
 import { toBlob } from 'html-to-image';
 import { LotesService } from 'src/app/services/lotes.service';
 import { Lote } from 'src/app/models/lote';
-import { saveAs
- } from 'file-saver';
+import { saveAs } from 'file-saver';
 import { emptyMarco, Marco } from 'src/app/models/marco';
 import { MarcosService } from 'src/app/services/marcos.service';
 import { finalize, Subscription } from 'rxjs';

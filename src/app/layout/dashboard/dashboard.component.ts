@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
     {name: "Gestion Productos" , path: 'abm-productos', icon: "shopping_basket", admin: true},
     {name: "Gestion Diseño" , path: 'disenos', icon: "category", admin: true},
     {name: "Gestion Usuarios" , path: 'usuarios', icon: "supervised_user_circle", admin: true},
+    {name: "Gestion Convenios" , path: 'convenios', icon: "folder_shared", admin: true},
   ]  
   constructor(private router: Router, private route: ActivatedRoute, private usuarioService: UsuarioService) { }
  

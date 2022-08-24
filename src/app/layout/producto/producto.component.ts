@@ -47,7 +47,7 @@ export class ProductoComponent implements OnInit {
   ngOnInit(): void {
     
     this.registro = JSON.parse(localStorage.getItem("registro") || '')
-    if(this.registro.opcion == "registro"){
+    if(this.registro != null){
       this.dialog.open(GenerateVinculacionComponent, {
         width: '600px',
         data:"rigth click"

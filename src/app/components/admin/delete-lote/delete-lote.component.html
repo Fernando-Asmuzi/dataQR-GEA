@@ -1,0 +1,20 @@
+<form [formGroup]="form" (submit)="submitForm()">
+    <mat-card>
+        <mat-card-title>
+            <h2>Atención</h2>
+        </mat-card-title>
+        <mat-card-content>
+            <p *ngIf="!data">Está por eliminar un QR, es necesario ingresar un motivo para realizar la acción.</p>
+            <p *ngIf="data">{{ data }}</p>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Motivo</mat-label>
+                <input matInput formControlName="motivo" type="text">
+                <mat-error *ngIf="form.get('motivo')?.errors?.['required']">Complete el campo</mat-error>
+            </mat-form-field>
+          </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Eliminar</button>
+            <button mat-raised-button color="warn" mat-dialog-close type="button" (click)="cancel()">Cerrar</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
