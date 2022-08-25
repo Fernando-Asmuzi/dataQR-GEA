@@ -1,5 +1,13 @@
 .informacion{
-    width: 100vw;
+    width: 100vw; 
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .acciones{
+    width: 100vw; 
     height: 100vh;
     display: flex;
     justify-content: center;

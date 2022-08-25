@@ -15,12 +15,20 @@ export class InformacionComponent implements OnInit {
   codigo!: number;
   lote: Lote = emptyLote();
   familiar: Familiar = emptyFamiliar();
+  categoria: string = '';
+
   informacion = [
     //datos personales
-    {name: "Usuario", value: '', icon:"person"},
+    {name: "Nombre", value: '', icon:"person"},
     {name: "Dirección" , value: '', icon: "house"},
     {name: "Teléfono de contacto" , value: '', icon: "phone_in_talk"},
-    //datos de salud
+  ]
+  localizacion = [
+    {name: "Ciudad" , value: '', icon: "location_city"},
+    {name: "Provincia" , value: '', icon: "share_location"},
+    {name: "Pais" , value: '', icon: "flag"},
+  ]
+  salud = [
     {name: "Diagnóstico" , value: '', icon: "medical_information"},
     {name: "Alergias" , value: '', icon: "vaccines"},
     {name: "Medicación" , value: '', icon: "medication"},
@@ -39,17 +47,24 @@ export class InformacionComponent implements OnInit {
 
     this.lotesService.getLoteById(this.lote).subscribe(response => {
       this.lote = response;
+      this.categoria = this.lote.categoria.categoria;
+      console.log(this.lote);
     })
 
     this.vinculacionService.getFamiliarByLoteId(this.codigo).subscribe( response =>{
         this.informacion[0].value = response.nombre + " " + response.apellido
         this.informacion[1].value = response.direccion_primaria
         this.informacion[2].value = response.telefono_primario
-        this.informacion[3].value = response.diagnostico
-        this.informacion[4].value = response.alergias
-        this.informacion[5].value = response.medicacion
-        this.informacion[6].value = response.factor_sangre
-        this.informacion[7].value = response.otros
+
+        this.localizacion[0].value = response.ciudad
+        this.localizacion[1].value = response.provincia
+        this.localizacion[2].value = response.pais
+
+        this.salud[0].value = response.diagnostico
+        this.salud[1].value = response.alergias
+        this.salud[2].value = response.medicacion
+        this.salud[3].value = response.factor_sangre
+        this.salud[4].value = response.otros
     });
 
   }

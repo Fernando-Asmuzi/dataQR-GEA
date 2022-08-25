@@ -7,11 +7,64 @@
       person_add
     </span>
   </button>
-  
 </mat-toolbar>
 
+<div class="container">
+  <mat-card class="example-card" *ngFor="let f of familiares">
+    <mat-card-title>Datos del familiar</mat-card-title>
+    <mat-card-content>
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Información personal
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+              <p><u>Nombre</u> : {{ f.nombre }}</p>
+              <p><u>Apellido</u> : {{ f.apellido }}</p>
+              <p><u>Documento</u> : {{ f.documento }}</p>
+              <p><u>Teléfono primario</u> : {{ f.telefono_primario }}</p> 
+              <p><u>Teléfono secundario</u> : {{ f.telefono_secundario }}</p> 
+        </mat-expansion-panel>
 
-<div class="familiares" *ngFor="let f of familiares">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Información de ubicación
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+              <p><u>Dirección primaria</u> : {{ f.direccion_primaria }}</p>
+              <p><u>Dirección secundaria</u> : {{ f.direccion_secundaria }}</p> 
+              <p><u>Ciudad</u> : {{ f.ciudad }}</p>
+              <p><u>Provincia</u> : {{ f.provincia }}</p>
+              <p><u>País</u> : {{ f.pais }}</p>  
+        </mat-expansion-panel>
+        
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Información médica
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+              <p><u>Diagnóstico</u> : {{ f.diagnostico }}</p>
+              <p><u>Medicación</u> : {{ f.medicacion }}</p>
+              <p><u>Alergias</u> : {{ f.alergias }}</p>
+              <p><u>Factor de sangre</u> : {{ f.factor_sangre }}</p>
+              <p><u>Otros datos de interés</u> : {{ f.otros }}</p>  
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions align="end">
+        <button mat-raised-button color="primary" (click)="editFamiliar(f)">Modificar</button>
+        <button mat-raised-button color="warn" (click)="deleteFamiliar(f)">Eliminar</button> 
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+
+
+<!-- <div class="familiares" *ngFor="let f of familiares">
     <mat-card>
         <mat-card-title>{{f | name | uppercase}}</mat-card-title>
         <mat-card-content>
@@ -32,5 +85,5 @@
             </span>Modificar</button>
         </mat-card-footer>
     </mat-card>
-</div>
+</div> -->
  

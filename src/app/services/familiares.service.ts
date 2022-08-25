@@ -27,4 +27,8 @@ export class FamiliaresService {
   updateFamiliar(familiar: any): Observable<Familiar> {
     return this.http.put<Familiar>(`${this.urlBase}familiares.php`, familiar);
   }
+
+  deleteFamiliar(familiar: Familiar): Observable<Familiar> {
+    return this.http.delete<Familiar>(`${this.urlBase}familiares.php?id=${familiar.id}`);
+  }
 }
