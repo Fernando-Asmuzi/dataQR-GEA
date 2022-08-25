@@ -18,10 +18,8 @@ export class DashboardComponent implements OnInit {
   usuario: Usuario = emptyUsuario();
 
   fillerNav = [
-    {name: "Home", path: '.', icon:"home", admin: false},
     {name: "Productos" , path: 'productos', icon: "store", admin: false},
     {name: "Familiares" , path: 'familiares', icon: "family_restroom", admin: false},
-    {name: "Emergencia" , path: 'emergencia', icon: "emergency", admin: false},
     // Admin area
     {name: "Home" , path: 'home-admin', icon: "home", admin: true},
     {name: "Gestion Lotes QR" , path: 'lotes', icon: "qr_code_2", admin: true},

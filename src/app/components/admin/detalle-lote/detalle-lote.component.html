@@ -2,6 +2,7 @@
     <span class="familiar-span">Detalles del Lote</span>
     <span>Código: {{ lote.codigo }}</span>
     <span>Diseño: {{ lote.diseno.nombre }}</span>
+    <span>Convenio: {{ lote.convenio.nombre }}</span>
     <span>Creación: {{ lote.fecha |  date: 'dd/MM/yyyy' }}</span>
     <div>
         <button mat-button (click)="blockLote()">
@@ -12,6 +13,11 @@
         <button mat-button (click)="unlockLote()">
             <span class="material-icons" matTooltip="Desbloquear todo el Lote">
                 lock_open
+            </span>
+        </button>
+        <button mat-button (click)="editLote()">
+            <span class="material-icons" matTooltip="Modificar Lote">
+                qr_code_2
             </span>
         </button>
     </div>

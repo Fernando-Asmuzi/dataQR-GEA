@@ -6,7 +6,7 @@
         <mat-card-content>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Selecione Categoria</mat-label>
-                <mat-select formControlName="categoria">
+                <mat-select formControlName="categoria" [compareWith]="compareFn">
                     <mat-option [value]="categoria" *ngFor="let categoria of categorias">{{ categoria.categoria }}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="form.get('categoria')?.errors?.['required']">Seleccione categoria</mat-error>
@@ -18,21 +18,21 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Selecione Producto</mat-label>
-                <mat-select formControlName="producto">
+                <mat-select formControlName="producto" [compareWith]="compareFn">
                     <mat-option [value]="producto" *ngFor="let producto of productos">{{ producto.producto }}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="form.get('producto')?.errors?.['required']">Seleccione producto</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Selecione Diseño</mat-label>
-                <mat-select formControlName="diseno">
+                <mat-select formControlName="diseno"  [compareWith]="compareFn">
                     <mat-option [value]="diseno" *ngFor="let diseno of disenos">{{ diseno.descripcion }}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="form.get('diseno')?.errors?.['required']">Seleccione diseño</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Selecione Convenio</mat-label>
-                <mat-select formControlName="convenio">
+                <mat-select formControlName="convenio"  [compareWith]="compareFn">
                     <mat-option [value]="convenio" *ngFor="let convenio of convenios">{{ convenio.nombre }}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="form.get('convenio')?.errors?.['required']">Seleccione convenio</mat-error>
@@ -40,7 +40,8 @@
             <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
           </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Generar</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" *ngIf="!data">Generar</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" *ngIf="data">Modificar</button>
             <button mat-raised-button color="warn" mat-dialog-close type="button">Cerrar</button>
         </mat-card-actions>
     </mat-card>

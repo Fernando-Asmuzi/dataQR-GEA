@@ -11,6 +11,7 @@ import { VinculacionService } from 'src/app/services/vinculacion.service';
 import { BaseComponent } from '../../abstract/base.component';
 import { DeleteLoteComponent } from '../delete-lote/delete-lote.component';
 import { DialogComponent } from '../dialog/dialog.component';
+import { GenerateLoteComponent } from '../generate-lote/generate-lote.component';
 import { ViewQRComponent } from '../view-qr/view-qr.component';
 
 @Component({
@@ -180,5 +181,15 @@ export class DetalleLoteComponent extends BaseComponent implements OnInit, OnDes
         }
       }
     );
+  }
+
+  editLote(): void {
+    this.lote = {
+      ...this.lote, 
+      cantidad: this.dataSource.data.length,
+    }
+    this.dialog.open(GenerateLoteComponent, {data: this.lote}).afterClosed().subscribe(
+      () => this.loadLote()
+    )
   }
 }

@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize, Subscription } from 'rxjs';
 import { Categoria } from 'src/app/models/categoria';
@@ -50,7 +50,8 @@ export class GenerateLoteComponent implements OnInit, OnDestroy {
     private conveniosService: ConveniosService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit(): void {
@@ -58,6 +59,16 @@ export class GenerateLoteComponent implements OnInit, OnDestroy {
     this.getProductos();
     this.getDisenos();
     this.getConvenios();
+    if(this.data){
+      this.form.patchValue({
+        categoria: this.data.categoria,
+        cantidad: this.data.cantidad,
+        producto: this.data.producto,
+        diseno: this.data.diseno,
+        convenio: this.data.convenio
+      });
+      this.form.controls['cantidad'].disable({onlySelf: true});
+    }
   }
 
   ngOnDestroy(): void {
@@ -94,17 +105,38 @@ export class GenerateLoteComponent implements OnInit, OnDestroy {
 
   submitForm(): void {
     const lote: Lote = emptyLote();
-    lote.cantidad = this.form.value.cantidad;
+    lote.cantidad = this.form.getRawValue().cantidad;
     lote.categoria = this.form.value.categoria;
     lote.producto = this.form.value.producto;
     lote.diseno = this.form.value.diseno;
     lote.convenio = this.form.value.convenio;
     this.showSpinner = true;
+    this.data ? this.updateLote(lote) : this.createLote(lote);
+    
+  }
+
+  compareFn(item1: any, item2: any): boolean {
+    return item1.id === item2.id;
+  }
+
+  createLote(lote: Lote): void {
     this.lotesSubscription = this.lotesService.createLote(lote).pipe(
       finalize( () => this.showSpinner = false),
     ).subscribe(
       response => {
         response ? this.snackBar.open('Lote creado','Aceptar',{duration: 1500}) : this.snackBar.open('Ocurrio un error','Aceptar',{duration: 1500})
+        this.dialog.closeAll();
+      }
+    )
+  }
+
+  updateLote(lote: any): void {
+    lote = {...lote, codigo: this.data.codigo};
+    this.lotesSubscription = this.lotesService.updateLoteByCod(lote).pipe(
+      finalize( () => this.showSpinner = false),
+    ).subscribe(
+      response => {
+        response ? this.snackBar.open('Lote modificado','Aceptar',{duration: 1500}) : this.snackBar.open('Ocurrio un error','Aceptar',{duration: 1500})
         this.dialog.closeAll();
       }
     )
