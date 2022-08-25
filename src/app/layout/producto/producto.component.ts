@@ -62,14 +62,17 @@ export class ProductoComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id') ? this.route.snapshot.paramMap.get('id') : this.usuarioService.getUserLogin()?.id;
     this.getVinculos();
     this.familiaresService.getFamiliares(Number(this.id)).subscribe(response =>{
-      this.familiares = response  
+      if (response.code != 204) {
+        this.familiares = response  
+      }
    })
   }
 
   getVinculos(){
     this.vinculacionService.getVinculoFamiliar(Number(this.id)).subscribe(response =>{
-      this.dataSource = response 
-      console.log(this.dataSource)
+      if (response.code != 204) {
+        this.dataSource = response 
+      }
     })
   }
 
