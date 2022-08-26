@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
 
   seleccion(sel: Number){
     this.opcion = sel;
-    console.log(this.opcion)
+    // console.log(this.opcion)
     return this.opcion;
   }
 
