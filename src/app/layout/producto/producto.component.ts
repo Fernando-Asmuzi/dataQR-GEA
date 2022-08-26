@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { GenerateVinculacionComponent } from '../generate-vinculacion/generate-vinculacion.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { finalize } from 'rxjs';
 
 const ELEMENT_DATA: Vinculo[] = []; 
 
@@ -29,7 +30,7 @@ export class ProductoComponent implements OnInit {
   familiares: Array<Familiar> = [];
   selectedValue: string = '';
   registro: any;
- 
+  showSpinner: boolean = true;
 
   displayedColumns: string[] = ['Descripcion', 'Nombre', 'Apellido', 'Informacion'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -69,7 +70,11 @@ export class ProductoComponent implements OnInit {
   }
 
   getVinculos(){
-    this.vinculacionService.getVinculoFamiliar(Number(this.id)).subscribe(response =>{
+    this.vinculacionService.getVinculoFamiliar(Number(this.id)).pipe(
+      finalize(
+        () => this.showSpinner = false
+      ),
+    ).subscribe(response =>{
       if (response.code != 204) {
         this.dataSource = response 
       }

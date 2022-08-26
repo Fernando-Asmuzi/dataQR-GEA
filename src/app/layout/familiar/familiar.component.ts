@@ -7,6 +7,7 @@ import { FamiliarFormComponent } from '../familiar-form/familiar-form.component'
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BaseComponent } from '../../components/abstract/base.component';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-familiar',
@@ -18,6 +19,7 @@ export class FamiliarComponent extends BaseComponent implements OnInit {
   id: String | null = '';
   familiares: Array<Familiar> = [];
   
+  showSpinner: boolean = true;
 
   constructor(
     public override dialog: MatDialog,
@@ -35,7 +37,11 @@ export class FamiliarComponent extends BaseComponent implements OnInit {
   }
 
   getFamiliares(){
-    this.familiaresService.getFamiliares(Number(this.id)).subscribe(response =>{
+    this.familiaresService.getFamiliares(Number(this.id)).pipe(
+      finalize(
+        () => this.showSpinner = false
+      ),
+    ).subscribe(response =>{
       this.familiares = response  
    })  
   }

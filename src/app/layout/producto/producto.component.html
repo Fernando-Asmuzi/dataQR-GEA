@@ -6,7 +6,8 @@
       add_circle
     </span>
   </button>
-</mat-toolbar><br>
+</mat-toolbar>
+<mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
  
 <div class="productos">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
