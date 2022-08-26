@@ -4,7 +4,7 @@ import { Lote, emptyLote } from 'src/app/models/lote';
 import { LotesService } from 'src/app/services/lotes.service';
 import { VinculacionService } from 'src/app/services/vinculacion.service';
 import { Familiar, emptyFamiliar } from 'src/app/models/familiar';
-
+import { finalize } from 'rxjs';
 @Component({
   selector: 'app-informacion',
   templateUrl: './informacion.component.html',
@@ -36,7 +36,7 @@ export class InformacionComponent implements OnInit {
     {name: "Factor sanguíneo" , value: '', icon: "bloodtype"},
     {name: "Más información" , value: '', icon: "info"},
   ]
-
+  showSpinner = true;
   constructor(
     private route: ActivatedRoute, 
     private lotesService: LotesService, 
@@ -46,12 +46,14 @@ export class InformacionComponent implements OnInit {
     this.codigo = Number(this.route.snapshot.paramMap.get('codigo'));
     this.lote.id = this.codigo;
 
-    this.lotesService.getLoteById(this.lote).subscribe(response => {
-      this.lote = response;
-      this.categoria = this.lote.categoria.categoria;
-      if(!this.lote.libre){
-          this.libre = false;
-      }
+    this.lotesService.getLoteById(this.lote).pipe(
+        finalize( () => this.showSpinner = false),
+      ).subscribe(response => {
+        this.lote = response;
+        this.categoria = this.lote.categoria.categoria;
+        if(!this.lote.libre){
+            this.libre = false;
+        }
     })
 
     this.vinculacionService.getFamiliarByLoteId(this.codigo).subscribe( response =>{

@@ -1,12 +1,14 @@
 <div class="container">
+    <img src="./assets/images/isologo2.png" alt="isologo" class="isologo">
     <mat-card>
-        <div class="input">
-            <mat-form-field appearance="outline">
-                <mat-label>Código numérico</mat-label>
-                <input matInput placeholder="Ingrese el código" name="codigo" [(ngModel)]="codigo">
-                <mat-hint></mat-hint>
-            </mat-form-field>
+        <div style="text-align:center;">
+            <mat-card-title>Ver datos de Emergencia</mat-card-title>
         </div>
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Código numérico</mat-label>
+            <input matInput placeholder="Ingrese el código" name="codigo" [(ngModel)]="codigo">
+            <mat-hint></mat-hint>
+        </mat-form-field>
         <button mat-stroked-button color="accent" class="boton" routerLink="/{{codigo}}">Ver información</button>
         <mat-card-actions align="end">
             <a [routerLink]="['/login']">Ingresar</a>

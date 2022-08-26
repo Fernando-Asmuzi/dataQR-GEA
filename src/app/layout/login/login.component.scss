@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .inputs{
@@ -11,4 +12,9 @@
 }
 .full{
   width: 100%;
+}
+.isologo{
+  width: 100px;
+  height: auto;
+  margin: 20px;
 }
