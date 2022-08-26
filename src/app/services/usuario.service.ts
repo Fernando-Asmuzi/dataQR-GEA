@@ -14,7 +14,7 @@ const cudOptions = {
 })
 export class UsuarioService {
 
-  private urlBase = 'http://geadata.com.ar/api/';
+  private urlBase = 'https://geadata.com.ar/api/';
   
   constructor(public http: HttpClient) { }
 

@@ -11,7 +11,7 @@
 
 <div class="container">
   <mat-card class="example-card" *ngFor="let f of familiares">
-    <mat-card-title>Datos del familiar</mat-card-title>
+    <mat-card-title>{{f | name | titlecase}}</mat-card-title>
     <mat-card-content>
       <mat-accordion>
         <mat-expansion-panel hideToggle>
@@ -57,33 +57,8 @@
     <mat-divider></mat-divider>
     <mat-card-actions align="end">
         <button mat-raised-button color="primary" (click)="editFamiliar(f)">Modificar</button>
-        <button mat-raised-button color="warn" (click)="deleteFamiliar(f)">Eliminar</button> 
     </mat-card-actions>
   </mat-card>
 </div>
 
-
-
-<!-- <div class="familiares" *ngFor="let f of familiares">
-    <mat-card>
-        <mat-card-title>{{f | name | uppercase}}</mat-card-title>
-        <mat-card-content>
-          <p>
-            <b>Dirección: </b>{{f.direccion_primaria | uppercase}}<br>
-            <b>Teléfono: </b>{{f.telefono_primario | uppercase}}<br>
-            <b>Ciudad: </b>{{f.ciudad | uppercase}}<br>
-            <b>Provincia: </b>{{f.provincia | uppercase}}<br>
-            <b>País: </b>{{f.pais | uppercase}}<br>
-          </p>
-        </mat-card-content>
-        <mat-card-footer>
-          <button mat-button><span class="material-icons">
-            visibility
-            </span>Ver más</button>
-          <button mat-button (click)="modificar(f)"><span class="material-icons">
-            edit
-            </span>Modificar</button>
-        </mat-card-footer>
-    </mat-card>
-</div> -->
  

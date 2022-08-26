@@ -1,5 +1,5 @@
 
-<div class="informacion" *ngIf="!lote.libre">
+<div class="informacion" *ngIf="!libre">
   <div class="informacion" [ngSwitch]="categoria">
     <div class="salud" *ngSwitchCase="'SALUD'">
       <mat-card>
@@ -113,7 +113,7 @@
 </div>
 
 
-<div class="acciones" *ngIf="lote.libre">
+<div class="acciones" *ngIf="libre">
   <mat-card>
     <mat-card-title>
       El producto no esta vinculado

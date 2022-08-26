@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { emptyUsuario, Usuario } from 'src/app/models/usuario';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -12,28 +13,30 @@ import { emptyUsuario, Usuario } from 'src/app/models/usuario';
 })
 export class LoginComponent implements OnInit {
 
-  username = new FormControl('', [Validators.required]);
   hide = true;
-  password = '';
   user = '';
   usuario : Usuario = emptyUsuario();
-  login = {
-      username: '',
-      password: '',
-  }
+  form: FormGroup = this.fb.group({
+    username:['', [Validators.required]],
+    password:['', [Validators.required]]
+  })
 
-  constructor(private usuarioServicie: UsuarioService, private route: Router) { }
+  constructor(private usuarioServicie: UsuarioService,
+    private route: Router,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
-  ingresar(){
-   
-    this.login.username = this.username.value;
-    this.login.password = this.password
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action);
+  }
+
+  submitForm(){
     let registro = localStorage.getItem("registro") ? JSON.parse(localStorage.getItem("registro") || '') : null;
 
-    this.usuarioServicie.postUsuario(this.login).subscribe( response =>{
+    this.usuarioServicie.postUsuario(this.form.value).subscribe( response =>{
        if(response){
          this.usuarioServicie.setUserLogin(response);
            if(registro){
@@ -42,6 +45,7 @@ export class LoginComponent implements OnInit {
               this.route.navigate(['/principal/'+ response.id]);
            }         
        }
-    });
+    },
+    error => { console.log(error); });
   }
 }

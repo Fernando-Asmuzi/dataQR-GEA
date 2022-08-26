@@ -20,7 +20,7 @@
               <button mat-stroked-button type="button" (click)="addFamiliar()">Agregar Familiar</button>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-raised-button color="primary" type="submit">Vincular producto</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Vincular producto</button>
             <button mat-raised-button color="warn" mat-dialog-close type="button" (click)="cancel()">Cerrar</button>
         </mat-card-actions>
     </mat-card> 

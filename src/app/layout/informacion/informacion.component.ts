@@ -16,6 +16,7 @@ export class InformacionComponent implements OnInit {
   lote: Lote = emptyLote();
   familiar: Familiar = emptyFamiliar();
   categoria: string = '';
+  libre: boolean = true;
 
   informacion = [
     //datos personales
@@ -48,7 +49,9 @@ export class InformacionComponent implements OnInit {
     this.lotesService.getLoteById(this.lote).subscribe(response => {
       this.lote = response;
       this.categoria = this.lote.categoria.categoria;
-      console.log(this.lote);
+      if(!this.lote.libre){
+          this.libre = false;
+      }
     })
 
     this.vinculacionService.getFamiliarByLoteId(this.codigo).subscribe( response =>{

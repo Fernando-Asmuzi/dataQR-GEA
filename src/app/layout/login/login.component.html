@@ -1,27 +1,33 @@
-<div class="login_container">
-  <mat-card>
-    <div style="text-align:center;">
-      <mat-card-title>Ingreso</mat-card-title>
-    </div>
-    <div class="example-container">
+<form [formGroup]="form" (submit)="submitForm()">
+  <div class="login_container">
+    <mat-card>
+      <div style="text-align:center;">
+        <mat-card-title>Ingreso</mat-card-title>
+      </div>
+      <div class="example-container">
+          <mat-form-field appearance="outline" class="inputs">
+            <mat-label>Usuario</mat-label>
+            <input matInput placeholder="" formControlName="username" required>
+            <mat-error *ngIf="form.get('username')?.errors?.['required']">Debe ingresar su nombre de usuario</mat-error>
+          </mat-form-field>
+      </div>    
+      
+      <div class="example-container">
         <mat-form-field appearance="outline" class="inputs">
-          <mat-label>Usuario</mat-label>
-          <input matInput placeholder="" [formControl]="username" required>
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.get('password')?.errors?.['required']">Debe ingresar su contraseña</mat-error>
         </mat-form-field>
-    </div>    
-    
-    <div class="example-container">
-      <mat-form-field appearance="outline" class="inputs">
-        <mat-label>Password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </mat-form-field>
-    </div>
+      </div>
+  
+      <mat-card-actions>
+          <button mat-raised-button color="primary" class="full" type="submit" [disabled]="!form.valid">Ingresar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</form>
 
-    <mat-card-actions>
-        <button mat-raised-button color="primary" class="full" (click)="ingresar()">Ingresar</button>
-    </mat-card-actions>
-  </mat-card>
-</div>
+

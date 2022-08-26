@@ -56,7 +56,7 @@ export class FamiliarComponent extends BaseComponent implements OnInit {
        data: familiar
      }).afterClosed().subscribe(resp => {
       if(resp){
-         this.getFamiliares()
+         this.getFamiliares() 
          this.snackBar.open('Familiar modificado con éxito', 'Aceptar', {duration: 1500})
       }
     })
