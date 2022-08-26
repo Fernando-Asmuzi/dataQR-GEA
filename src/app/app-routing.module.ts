@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { TooltipComponent } from '@angular/material/tooltip';
 import { RouterModule, Routes } from '@angular/router';
 import { AbmAdminComponent } from './components/admin/abm-admin/abm-admin.component';
 import { AbmCategoriasComponent } from './components/admin/abm-categorias/abm-categorias.component';
@@ -11,7 +10,6 @@ import { AbmProductoComponent } from './components/admin/abm-producto/abm-produc
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { DetalleLoteComponent } from './components/admin/detalle-lote/detalle-lote.component';
 import { QrsComponent } from './components/admin/qrs/qrs.component';
-import { TableComponent } from './components/table/table.component';
 import { AdminGuard } from './guards/admin.guard';
 import { UsuarioGuard } from './guards/usuario.guard';
 import { DashboardComponent } from './layout/dashboard/dashboard.component';
@@ -19,7 +17,6 @@ import { EmergenciaComponent } from './layout/emergencia/emergencia.component';
 import { FamiliarComponent } from './layout/familiar/familiar.component';
 import { InformacionComponent } from './layout/informacion/informacion.component';
 import { LoginComponent } from './layout/login/login.component';
-import { PerfilComponent } from './layout/perfil/perfil.component';
 import { ProductoComponent } from './layout/producto/producto.component';
 
 

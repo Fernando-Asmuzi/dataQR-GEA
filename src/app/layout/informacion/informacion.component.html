@@ -110,14 +110,16 @@
   <div class="acciones" *ngIf="libre">
     <mat-card>
       <mat-card-title>
-        El producto no esta vinculado
+        El producto no está vinculado
       </mat-card-title><br>
       <mat-card-content>
-        <button mat-raised-button color="primary" class="full" [routerLink]="['/login']" (click)="registrar()">Vincular
-          producto</button>
-        <br>
-        <a [routerLink]="['']">Volver</a>
+        <button mat-raised-button color="primary" class="full" [routerLink]="['/login']" (click)="registrar()">
+          Vincular producto
+        </button>
       </mat-card-content>
+      <mat-card-actions align="end">
+        <a [routerLink]="['']">Volver</a>
+      </mat-card-actions>
     </mat-card>
   </div>
 </div>

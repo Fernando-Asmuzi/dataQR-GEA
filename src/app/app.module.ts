@@ -17,7 +17,6 @@ import { DashboardComponent } from './layout/dashboard/dashboard.component';
 import { AbmLotesComponent } from './components/admin/abm-lotes/abm-lotes.component';
 import { AccessComponent } from './components/admin/access/access.component';
 import { FamiliarFormComponent } from './layout/familiar-form/familiar-form.component';
-import { PerfilComponent } from './layout/perfil/perfil.component';
 import { LoginComponent } from './layout/login/login.component';
 import { InformacionComponent } from './layout/informacion/informacion.component';
 import { ProductoComponent } from './layout/producto/producto.component';
@@ -56,7 +55,6 @@ import { DeleteLoteComponent } from './components/admin/delete-lote/delete-lote.
     DashboardComponent,
     InformacionComponent,
     LoginComponent,
-    PerfilComponent,
     ProductoComponent,
     EmergenciaComponent,
     FamiliarComponent,

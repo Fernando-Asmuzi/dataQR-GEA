@@ -101,7 +101,7 @@ export class ProductoComponent extends BaseComponent implements OnInit {
             if (resp) {
               this.vinculacionService.deleteVinculacionByLoteId(lote).subscribe(resp => {
                   if(resp){
-                    this.snackBar.open('Vínculo eliminado correctamente', 'Aceptar')
+                    this.snackBar.open('Vínculo eliminado correctamente', 'Aceptar', {duration: 1500})
                     this.loadTable();
                   }
                 }

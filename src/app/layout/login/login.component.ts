@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action);
+    this.snackBar.open(message, action, {duration: 1500});
   }
 
   submitForm(){
@@ -46,6 +46,6 @@ export class LoginComponent implements OnInit {
            }         
        }
     },
-    error => { this.openSnackBar('Datos incorrectos, ingrese nuevamente', 'Aceptar'); });
+    error => { this.openSnackBar('Datos incorrectos, intente nuevamente', 'Aceptar'); });
   }
 }
