@@ -46,6 +46,6 @@ export class LoginComponent implements OnInit {
            }         
        }
     },
-    error => { console.log(error); });
+    error => { this.openSnackBar('Datos incorrectos, ingrese nuevamente', 'Aceptar'); });
   }
 }

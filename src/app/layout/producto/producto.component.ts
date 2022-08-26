@@ -6,12 +6,15 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { VinculacionService } from 'src/app/services/vinculacion.service';
 import { FamiliaresService } from 'src/app/services/familiares.service';
 import { Familiar } from 'src/app/models/familiar';
+import { emptyLote, Lote } from 'src/app/models/lote';
 import {MatAccordion} from '@angular/material/expansion';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { GenerateVinculacionComponent } from '../generate-vinculacion/generate-vinculacion.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs';
+import { BaseComponent } from 'src/app/components/abstract/base.component';
+import { VinculoInfoComponent } from '../vinculo-info/vinculo-info.component';
 
 const ELEMENT_DATA: Vinculo[] = []; 
 
@@ -20,7 +23,7 @@ const ELEMENT_DATA: Vinculo[] = [];
   templateUrl: './producto.component.html',
   styleUrls: ['./producto.component.scss']
 })
-export class ProductoComponent implements OnInit {
+export class ProductoComponent extends BaseComponent implements OnInit {
 
 
   @ViewChild(MatAccordion) accordion!: MatAccordion;
@@ -34,6 +37,8 @@ export class ProductoComponent implements OnInit {
 
   displayedColumns: string[] = ['Descripcion', 'Nombre', 'Apellido', 'Informacion'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
+  lote: any;
+
 
   constructor(
     private router: Router,
@@ -41,9 +46,9 @@ export class ProductoComponent implements OnInit {
     private usuarioService: UsuarioService,
     private vinculacionService: VinculacionService,
     private familiaresService: FamiliaresService,
-    public dialog: MatDialog,
+    public override dialog: MatDialog,
     private snackBar: MatSnackBar
-    ) { }
+    ) { super(dialog); }
 
   ngOnInit(): void {
 
@@ -76,10 +81,41 @@ export class ProductoComponent implements OnInit {
       ),
     ).subscribe(response =>{
       if (response.code != 204) {
-        this.dataSource = response 
+        this.dataSource = response
+        console.log(response) 
       }
     })
   }
+
+  loadTable(): void {
+     this.getVinculos();
+  }
+
+  deleteVinculo(id_lote: any){
+      console.log(id_lote)
+      let lote: Lote = emptyLote();
+      lote = {...lote, id: id_lote}
+
+        this.showBasicDialog('Atención', 'Va a borrar un vínculo de producto, confirme eliminación').afterClosed().subscribe(
+          resp => {
+            if (resp) {
+              this.vinculacionService.deleteVinculacionByLoteId(lote).subscribe(resp => {
+                  if(resp){
+                    this.snackBar.open('Vínculo eliminado correctamente', 'Aceptar')
+                    this.loadTable();
+                  }
+                }
+              )
+            }
+          }
+        )
+  }
+
+  showVinculoInformacion(vinculo: Vinculo){
+    this.dialog.open(VinculoInfoComponent,{
+      data: vinculo
+  })
+}
 
   openDialog(){
     this.dialog.open(GenerateVinculacionComponent, {
