@@ -16,9 +16,10 @@
       <mat-accordion>
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
-            <mat-panel-title>
+            <mat-icon>person</mat-icon>
+            <mat-panel-description>
               Información personal
-            </mat-panel-title>
+            </mat-panel-description>
           </mat-expansion-panel-header>
               <p><u>Nombre</u> : {{ f.nombre }}</p>
               <p><u>Apellido</u> : {{ f.apellido }}</p>
@@ -29,9 +30,10 @@
 
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
-            <mat-panel-title>
+            <mat-icon>place</mat-icon>
+            <mat-panel-description>
               Información de ubicación
-            </mat-panel-title>
+            </mat-panel-description>
           </mat-expansion-panel-header>
               <p><u>Dirección primaria</u> : {{ f.direccion_primaria }}</p>
               <p><u>Dirección secundaria</u> : {{ f.direccion_secundaria }}</p> 
@@ -42,9 +44,10 @@
         
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
-            <mat-panel-title>
+            <mat-icon>emergency</mat-icon>
+            <mat-panel-description>
               Información médica
-            </mat-panel-title>
+            </mat-panel-description>
           </mat-expansion-panel-header>
               <p><u>Diagnóstico</u> : {{ f.diagnostico }}</p>
               <p><u>Medicación</u> : {{ f.medicacion }}</p>
