@@ -80,5 +80,9 @@ export class InformacionComponent implements OnInit {
          opcion: "registro"
       }
      localStorage.setItem("registro", JSON.stringify(producto)); 
-  }  
+  }
+
+  llamar(): void {
+    window.location.href = `tel:${this.informacion[2].value}`;
+  }
 }
