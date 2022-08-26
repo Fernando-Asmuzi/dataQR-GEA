@@ -27,7 +27,7 @@ export class QrImageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
+    // console.log(changes)
     if(changes['hasLogo']){
       this.isologo = changes['hasLogo'].currentValue ? './assets/images/isologo.png' : '';
     }

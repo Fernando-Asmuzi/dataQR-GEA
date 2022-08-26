@@ -94,7 +94,7 @@ export class ViewQRComponent extends BaseComponent implements OnInit, OnDestroy 
     })
     .catch((error) => {
       this.showBasicDialog('Error', 'Ocurrió un error al generar el archivo, intente nuevamente.')
-      console.log(error);
+      // console.log(error);
     })
   }
 }
