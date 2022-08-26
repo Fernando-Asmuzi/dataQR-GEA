@@ -2,21 +2,9 @@
     flex: 1 1 auto;
 
 }
-
-$medium: 1349px;
-$large: 1920px;
-
-@media screen and (min-width: $medium) {
-    mat-sidenav-container{
-        height: 90.5%;
-    }
+mat-sidenav-container {
+    height: calc(100vh - 55px);
 }
-@media screen and (min-width: $large) {
-    mat-sidenav-container{
-        height: 93.5%;
-    }
-}
-
 a{ 
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -29,14 +17,15 @@ mat-sidenav {
     width: 250px;
 }
 
-.logout{
-    position: absolute;
-    bottom: 0; 
-}
 .container-router{
     padding: 1.5em;
     height: 80vh;
 }
 .user{
     font-size: 0.8em !important;
+}
+::ng-deep .mat-drawer-inner-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }

@@ -8,15 +8,15 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav mode="side" [(opened)]="opened">
-    <mat-nav-list>
-      <div *ngFor="let nav of fillerNav">
+  <mat-sidenav mode="over" [(opened)]="opened" #sidenav>
+    <div>
+      <mat-nav-list *ngFor="let nav of fillerNav" (click)="sidenav.toggle()">
         <a mat-list-item [routerLink]="[nav.path]" *ngIf="nav.admin === usuario.admin">
           <mat-icon>{{nav.icon}}</mat-icon>
           {{nav.name}}
         </a>
-      </div>
-    </mat-nav-list>
+      </mat-nav-list>
+    </div>
     <mat-nav-list>
       <a mat-list-item class="logout" (click)="logout()">
         <mat-icon>logout</mat-icon>
