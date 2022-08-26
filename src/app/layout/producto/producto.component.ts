@@ -45,19 +45,6 @@ export class ProductoComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    
-    this.registro = localStorage.getItem("registro") ? JSON.parse(localStorage.getItem("registro") || '') : null;
-    if(this.registro != null){
-      this.dialog.open(GenerateVinculacionComponent, {
-        width: '600px',
-        data: this.registro
-      }).afterClosed().subscribe(resp => {
-        if(resp){
-          this.getVinculos();
-          this.snackBar.open('Vinculación realizada con éxito', 'Aceptar', {duration: 1500})
-        }
-      })
-    }
 
     this.id = this.route.snapshot.paramMap.get('id') ? this.route.snapshot.paramMap.get('id') : this.usuarioService.getUserLogin()?.id;
     this.getVinculos();
@@ -65,7 +52,20 @@ export class ProductoComponent implements OnInit {
       if (response.code != 204) {
         this.familiares = response  
       }
-   })
+    })
+
+    this.registro = localStorage.getItem("registro") ? JSON.parse(localStorage.getItem("registro") || '') : null;
+    if(this.registro != null){
+      this.dialog.open(GenerateVinculacionComponent, {
+        width: '600px',
+        data: this.registro
+      }).afterClosed().subscribe(resp => {
+        if(resp){
+          this.snackBar.open('Vinculación realizada con éxito', 'Aceptar', {duration: 1500})
+          this.getVinculos();
+        }
+      })
+    }
   }
 
   getVinculos(){
