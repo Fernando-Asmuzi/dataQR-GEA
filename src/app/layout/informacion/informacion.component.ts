@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Lote, emptyLote } from 'src/app/models/lote';
 import { LotesService } from 'src/app/services/lotes.service';
 import { VinculacionService } from 'src/app/services/vinculacion.service';
 import { Familiar, emptyFamiliar } from 'src/app/models/familiar';
-import { finalize } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
+import { ScanService } from 'src/app/services/scan.service';
+import { emptyScan, Scan } from 'src/app/models/scan';
 @Component({
   selector: 'app-informacion',
   templateUrl: './informacion.component.html',
   styleUrls: ['./informacion.component.scss']
 })
-export class InformacionComponent implements OnInit {
+export class InformacionComponent implements OnInit, OnDestroy {
 
   codigo!: number;
   lote: Lote = emptyLote();
@@ -37,10 +39,17 @@ export class InformacionComponent implements OnInit {
     {name: "Más información" , value: '', icon: "info"},
   ]
   showSpinner = true;
+
+  scanSubscription!: Subscription;
+
+  id_usuario!: number;
+
   constructor(
     private route: ActivatedRoute, 
     private lotesService: LotesService, 
-    private vinculacionService: VinculacionService) { }
+    private vinculacionService: VinculacionService,
+    private scanService: ScanService
+  ) { }
 
   ngOnInit(): void {
     this.codigo = Number(this.route.snapshot.paramMap.get('codigo'));
@@ -53,6 +62,7 @@ export class InformacionComponent implements OnInit {
         this.categoria = this.lote.categoria.categoria;
         if(!this.lote.libre){
             this.libre = false;
+	    this.saveScan();
         }
     })
 
@@ -70,8 +80,13 @@ export class InformacionComponent implements OnInit {
         this.salud[2].value = response.medicacion
         this.salud[3].value = response.factor_sangre
         this.salud[4].value = response.otros
+        this.id_usuario = response.id_usuario
     });
 
+  }
+
+  ngOnDestroy():  void {
+    this.scanSubscription && this.scanSubscription.unsubscribe();
   }
 
   registrar(){
@@ -84,5 +99,16 @@ export class InformacionComponent implements OnInit {
 
   llamar(): void {
     window.location.href = `tel:${this.informacion[2].value}`;
+  }
+
+  saveScan(): void {
+    let scan: Scan = emptyScan();
+    scan = {
+      ...scan,
+      lote: this.lote,
+      movimiento: 'Escaneo de QR',
+      id_usuario: this.id_usuario
+    };
+    this.scanSubscription = this.scanService.saveScan(scan).subscribe();
   }
 }
