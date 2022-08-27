@@ -49,3 +49,15 @@ td {
   .example-headers-align .mat-form-field + .mat-form-field {
     margin-left: 8px;
   }
+
+.example-flex-container{
+    display: inline-flex;
+}
+
+.producto{
+    width: 10%;
+}
+.mat-column-Descripcion {
+    flex: none;
+    width: 30%;
+}

@@ -35,7 +35,7 @@ export class ProductoComponent extends BaseComponent implements OnInit {
   registro: any;
   showSpinner: boolean = true;
 
-  displayedColumns: string[] = ['Descripcion', 'Nombre', 'Apellido', 'Informacion'];
+  displayedColumns: string[] = ['Descripcion', 'Nombre', 'Informacion'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   lote: any;
 
