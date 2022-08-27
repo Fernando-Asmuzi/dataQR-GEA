@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Usuario } from 'src/app/models/usuario';
+import { Router } from '@angular/router';
 
 
 const cudOptions = {
@@ -16,7 +17,10 @@ export class UsuarioService {
 
   private urlBase = 'https://geadata.com.ar/api/';
   
-  constructor(public http: HttpClient) { }
+  constructor(
+    public http: HttpClient,
+    private router: Router
+  ) { }
 
   postUsuario(usuario: any): Observable<Usuario> {
     return this.http.post<Usuario>(`${this.urlBase}login.php`, usuario);
@@ -35,7 +39,7 @@ export class UsuarioService {
   }
 
   getUserLogin(): any {
-    return JSON.parse(localStorage.getItem('userLogin') || '{}');
+    return localStorage.getItem('userLogin') ? JSON.parse(localStorage.getItem('userLogin') || '{}') : null;
   }
 
   logOut(): void {
@@ -49,6 +53,21 @@ export class UsuarioService {
 
   updateAdmin(usuario: Usuario): Observable<Usuario>{
     return this.http.put<Usuario>(`${this.urlBase}usuarios.php`, usuario)
+  }
+
+  checkedLoggedUser(): boolean {
+    let isLogged = this.getUserLogin();
+
+    if (isLogged) {
+      this.getUsuarioId(isLogged.id).subscribe(
+        resp => {
+          this.setUserLogin(resp);
+          this.router.navigate(['/principal/'+ isLogged.id]);
+          return true;
+        }
+      )
+    }
+    return false;
   }
 
 }
