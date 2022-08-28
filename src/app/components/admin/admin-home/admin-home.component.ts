@@ -5,6 +5,7 @@ import { LotesService } from 'src/app/services/lotes.service';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { MatDialog } from '@angular/material/dialog';
 import { CardLoteComponent } from '../card-lote/card-lote.component';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -38,10 +39,12 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
   
   constructor(
     private lotesService: LotesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit(): void {
+    this.usuarioService.checkAdmin();
     this.lotesSubscription = this.lotesService.getLoteForCodes().subscribe(
       response => {
         this.setData(response);

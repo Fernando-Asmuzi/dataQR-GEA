@@ -70,4 +70,16 @@ export class UsuarioService {
     return false;
   }
 
+  checkAdmin(): void {
+    let isLogged = this.getUserLogin();
+    if (isLogged) {
+      this.getUsuarioId(isLogged.id).subscribe(
+        resp => {
+          this.setUserLogin(resp);
+          this.router.navigate(['/principal/'+ isLogged.id]);
+        }
+      )
+    }
+  }
+
 }
