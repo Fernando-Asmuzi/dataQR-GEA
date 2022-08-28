@@ -48,6 +48,8 @@ import { ViewQRComponent } from './components/admin/view-qr/view-qr.component';
 import { GenerateConvenioComponent } from './components/admin/generate-convenio/generate-convenio.component';
 import { AbmConvenioComponent } from './components/admin/abm-convenio/abm-convenio.component';
 import { DeleteLoteComponent } from './components/admin/delete-lote/delete-lote.component';
+import { VinculoInfoComponent } from './layout/vinculo-info/vinculo-info.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,7 +89,8 @@ import { DeleteLoteComponent } from './components/admin/delete-lote/delete-lote.
     GenerateConvenioComponent,
     AbmConvenioComponent,
     DeleteLoteComponent,
-    GenerateVinculacionComponent
+    GenerateVinculacionComponent,
+    VinculoInfoComponent
   ],
   imports: [
     HttpClientModule,

@@ -10,6 +10,7 @@ import { emptyUsuario, Usuario } from 'src/app/models/usuario';
 import { FamiliarFormComponent } from '../familiar-form/familiar-form.component';
 import { LotesService } from 'src/app/services/lotes.service';
 import { emptyLote, Lote } from 'src/app/models/lote';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -38,12 +39,11 @@ export class GenerateVinculacionComponent implements OnInit {
     private lotesService: LotesService,
     private route: ActivatedRoute,
     private vinculacionService: VinculacionService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
-
-    
     this.usuario = this.usuarioService.getUserLogin();
     
     this.registro = localStorage.getItem("registro") ? JSON.parse(localStorage.getItem("registro") || '') : null;
@@ -56,6 +56,10 @@ export class GenerateVinculacionComponent implements OnInit {
       });
       this.form.controls['id_lote'].disable({onlySelf: true});
     }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {duration: 1500});
   }
 
   submitForm(): void {
@@ -77,9 +81,7 @@ export class GenerateVinculacionComponent implements OnInit {
         } else {
           this.form.controls['id_lote'].setErrors({invalidLote: true});
         }
-      }
-    );
-    
+      },error => { this.openSnackBar('Código incorrecto o inexistente', 'Aceptar');})
   }
 
   cancel(): void {
