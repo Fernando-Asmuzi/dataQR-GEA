@@ -1,126 +1,150 @@
 <div *ngIf="!showSpinner">
-  <div *ngIf="!libre">
-    <div class="informacion" [ngSwitch]="categoria">
-      <div class="salud" *ngSwitchCase="'SALUD'">
-        <mat-card>
-          <div style="text-align:center;">
-            <mat-card-title>
-              ¡Emergencia!
-            </mat-card-title>
-            <h4>Aquí se encuentran mis datos personales y médicos. Gracias por tu ayuda!</h4>
-          </div>
-          <div *ngFor="let i of informacion" class="line">
-            <a mat-list-item>
-              <mat-icon>{{i.icon}}</mat-icon>
-              <u>{{i.name}}</u> <a>: </a> {{i.value}}
-            </a>
-          </div>
-          <div *ngFor="let l of localizacion" class="line">
-            <a mat-list-item>
-              <mat-icon>{{l.icon}}</mat-icon>
-              <u>{{l.name}}</u> <a>: </a> {{l.value}}
-            </a>
-          </div>
-          <div *ngFor="let s of salud" class="line">
-            <a mat-list-item>
-              <mat-icon>{{s.icon}}</mat-icon>
-              <u>{{s.name}}</u> <a>: </a> {{s.value}}
-            </a>
-          </div>
-        </mat-card>
-      </div>
-      <div class="mascotas" *ngSwitchCase="'MASCOTA'">
-        <mat-card>
-          <div style="text-align:center;">
-            <mat-card-title>
-              Mascota extraviada
-            </mat-card-title><br>
-            <h4>Hola, me separé de mi dueño y necesito de tu ayuda.
-              Por favor contactá a mi
-              persona de emergencia.</h4>
-            <h4>Muchas gracias!</h4><br>
-            <h4 align="left">Datos de contacto:</h4>
-          </div>
-          <div *ngFor="let i of informacion" class="line">
-            <a mat-list-item>
-              <mat-icon>{{i.icon}}</mat-icon>
-              <u>{{i.name}}</u> <a>: </a> {{i.value}}
-            </a>
-          </div>
-          <div *ngFor="let l of localizacion" class="line">
-            <a mat-list-item>
-              <mat-icon>{{l.icon}}</mat-icon>
-              <u>{{l.name}}</u> <a>: </a> {{l.value}}
-            </a>
-          </div>
-        </mat-card>
-      </div>
-      <div class="valija" *ngSwitchCase="'VALIJA'">
-        <mat-card>
-          <div style="text-align:center;">
-            <mat-card-title>
-              Valija extraviada
-            </mat-card-title>
-            <h4>Si encontrás esta valija, por favor contactá a su persona de
-              emergencia.</h4>
-            <h4>En caso de que tengas una sección de objetos perdidos cerca,
-              por favor llevala e indicá los datos. Muchas gracias!
-            </h4><br>
-            <h4>Datos de contacto:</h4>
-          </div>
-          <div *ngFor="let i of informacion" class="line">
-            <a mat-list-item>
-              <mat-icon>{{i.icon}}</mat-icon>
-              <u>{{i.name}}</u> <a>: </a> {{i.value}}
-            </a>
-          </div>
-          <div *ngFor="let l of localizacion" class="line">
-            <a mat-list-item>
-              <mat-icon>{{l.icon}}</mat-icon>
-              <u>{{l.name}}</u> <a>: </a> {{l.value}}
-            </a>
-          </div>
-        </mat-card>
-      </div>
-      <div class="default" *ngSwitchDefault>
-        <mat-card>
-          <div style="text-align:center;">
-            <mat-card-title>
-              Por favor contactá con la persona de emergencia
-            </mat-card-title><br>
-            <h4>Datos de contacto:</h4>
-          </div>
-          <div *ngFor="let i of informacion" class="line">
-            <a mat-list-item>
-              <mat-icon>{{i.icon}}</mat-icon>
-              <u>{{i.name}}</u> <a>: </a> {{i.value}}
-            </a>
-          </div>
-          <div *ngFor="let l of localizacion" class="line">
-            <a mat-list-item>
-              <mat-icon>{{l.icon}}</mat-icon>
-              <u>{{l.name}}</u> <a>: </a> {{l.value}}
-            </a>
-          </div>
-        </mat-card>
-      </div>
-      <button mat-raised-button color="primary" (click)="llamar()">Llamar a mi contacto</button>
-    </div>
-  </div>
-  <div class="acciones" *ngIf="libre">
+  <div *ngIf="lote.eliminado" class="informacion">
     <mat-card>
-      <mat-card-title>
-        El producto no está vinculado
-      </mat-card-title><br>
+      <mat-card-title  style="text-align:center;margin-bottom: 30px">
+        Lote Eliminado
+      </mat-card-title>
       <mat-card-content>
-        <button mat-raised-button color="primary" class="full" [routerLink]="['/login']" (click)="registrar()">
-          Vincular producto
-        </button>
+        <p>Contacte al administrador para gestionar el estado de su QR.</p>
       </mat-card-content>
-      <mat-card-actions align="end">
-        <a [routerLink]="['']">Volver</a>
-      </mat-card-actions>
     </mat-card>
+  </div>
+  <div *ngIf="!lote.eliminado">
+    <div *ngIf="!lote.bloqueado">
+      <div *ngIf="!libre">
+        <div class="informacion" [ngSwitch]="categoria">
+          <div class="salud" *ngSwitchCase="'SALUD'">
+            <mat-card>
+              <div style="text-align:center;">
+                <mat-card-title>
+                  ¡Emergencia!
+                </mat-card-title>
+                <h4>Aquí se encuentran mis datos personales y médicos. Gracias por tu ayuda!</h4>
+              </div>
+              <div *ngFor="let i of informacion" class="line">
+                <a mat-list-item>
+                  <mat-icon>{{i.icon}}</mat-icon>
+                  <u>{{i.name}}</u> <a>: </a> {{i.value}}
+                </a>
+              </div>
+              <div *ngFor="let l of localizacion" class="line">
+                <a mat-list-item>
+                  <mat-icon>{{l.icon}}</mat-icon>
+                  <u>{{l.name}}</u> <a>: </a> {{l.value}}
+                </a>
+              </div>
+              <div *ngFor="let s of salud" class="line">
+                <a mat-list-item>
+                  <mat-icon>{{s.icon}}</mat-icon>
+                  <u>{{s.name}}</u> <a>: </a> {{s.value}}
+                </a>
+              </div>
+            </mat-card>
+          </div>
+          <div class="mascotas" *ngSwitchCase="'MASCOTA'">
+            <mat-card>
+              <div style="text-align:center;">
+                <mat-card-title>
+                  Mascota extraviada
+                </mat-card-title><br>
+                <h4>Hola, me separé de mi dueño y necesito de tu ayuda.
+                  Por favor contactá a mi
+                  persona de emergencia.</h4>
+                <h4>Muchas gracias!</h4><br>
+                <h4 align="left">Datos de contacto:</h4>
+              </div>
+              <div *ngFor="let i of informacion" class="line">
+                <a mat-list-item>
+                  <mat-icon>{{i.icon}}</mat-icon>
+                  <u>{{i.name}}</u> <a>: </a> {{i.value}}
+                </a>
+              </div>
+              <div *ngFor="let l of localizacion" class="line">
+                <a mat-list-item>
+                  <mat-icon>{{l.icon}}</mat-icon>
+                  <u>{{l.name}}</u> <a>: </a> {{l.value}}
+                </a>
+              </div>
+            </mat-card>
+          </div>
+          <div class="valija" *ngSwitchCase="'VALIJA'">
+            <mat-card>
+              <div style="text-align:center;">
+                <mat-card-title>
+                  Valija extraviada
+                </mat-card-title>
+                <h4>Si encontrás esta valija, por favor contactá a su persona de
+                  emergencia.</h4>
+                <h4>En caso de que tengas una sección de objetos perdidos cerca,
+                  por favor llevala e indicá los datos. Muchas gracias!
+                </h4><br>
+                <h4>Datos de contacto:</h4>
+              </div>
+              <div *ngFor="let i of informacion" class="line">
+                <a mat-list-item>
+                  <mat-icon>{{i.icon}}</mat-icon>
+                  <u>{{i.name}}</u> <a>: </a> {{i.value}}
+                </a>
+              </div>
+              <div *ngFor="let l of localizacion" class="line">
+                <a mat-list-item>
+                  <mat-icon>{{l.icon}}</mat-icon>
+                  <u>{{l.name}}</u> <a>: </a> {{l.value}}
+                </a>
+              </div>
+            </mat-card>
+          </div>
+          <div class="default" *ngSwitchDefault>
+            <mat-card>
+              <div style="text-align:center;">
+                <mat-card-title>
+                  Por favor contactá con la persona de emergencia
+                </mat-card-title><br>
+                <h4>Datos de contacto:</h4>
+              </div>
+              <div *ngFor="let i of informacion" class="line">
+                <a mat-list-item>
+                  <mat-icon>{{i.icon}}</mat-icon>
+                  <u>{{i.name}}</u> <a>: </a> {{i.value}}
+                </a>
+              </div>
+              <div *ngFor="let l of localizacion" class="line">
+                <a mat-list-item>
+                  <mat-icon>{{l.icon}}</mat-icon>
+                  <u>{{l.name}}</u> <a>: </a> {{l.value}}
+                </a>
+              </div>
+            </mat-card>
+          </div>
+          <button mat-raised-button color="primary" (click)="llamar()">Llamar a mi contacto</button>
+        </div>
+      </div>
+      <div class="acciones" *ngIf="libre">
+        <mat-card>
+          <mat-card-title>
+            El producto no está vinculado
+          </mat-card-title><br>
+          <mat-card-content>
+            <button mat-raised-button color="primary" class="full" [routerLink]="['/login']" (click)="registrar()">
+              Vincular producto
+            </button>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <a [routerLink]="['']">Volver</a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+    <div *ngIf="lote.bloqueado" class="informacion">
+      <mat-card>
+        <mat-card-title  style="text-align:center;margin-bottom: 30px">
+          Lote Bloqueado
+        </mat-card-title>
+        <mat-card-content>
+          <p>Contacte al administrador para gestionar el estado de su QR.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>
 <div *ngIf="showSpinner" class="acciones">

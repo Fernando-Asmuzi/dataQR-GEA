@@ -56,31 +56,31 @@ export class InformacionComponent implements OnInit, OnDestroy {
     this.lote.id = this.codigo;
 
     this.lotesService.getLoteById(this.lote).pipe(
-        finalize( () => this.showSpinner = false),
-      ).subscribe(response => {
-        this.lote = response;
-        this.categoria = this.lote.categoria.categoria;
-        if(!this.lote.libre){
-            this.libre = false;
-	    this.saveScan();
-        }
+      finalize( () => this.showSpinner = false),
+    ).subscribe(response => {
+      this.lote = response;
+      this.categoria = this.lote.categoria.categoria;
+      if(!this.lote.libre && !this.lote.eliminado && !this.lote.bloqueado){
+        this.libre = false;
+        this.saveScan();
+      }
     })
 
     this.vinculacionService.getFamiliarByLoteId(this.codigo).subscribe( response =>{
-        this.informacion[0].value = response.nombre + " " + response.apellido
-        this.informacion[1].value = response.direccion_primaria
-        this.informacion[2].value = response.telefono_primario
+      this.informacion[0].value = response.nombre + " " + response.apellido
+      this.informacion[1].value = response.direccion_primaria
+      this.informacion[2].value = response.telefono_primario
 
-        this.localizacion[0].value = response.ciudad
-        this.localizacion[1].value = response.provincia
-        this.localizacion[2].value = response.pais
+      this.localizacion[0].value = response.ciudad
+      this.localizacion[1].value = response.provincia
+      this.localizacion[2].value = response.pais
 
-        this.salud[0].value = response.diagnostico
-        this.salud[1].value = response.alergias
-        this.salud[2].value = response.medicacion
-        this.salud[3].value = response.factor_sangre
-        this.salud[4].value = response.otros
-        this.id_usuario = response.id_usuario
+      this.salud[0].value = response.diagnostico
+      this.salud[1].value = response.alergias
+      this.salud[2].value = response.medicacion
+      this.salud[3].value = response.factor_sangre
+      this.salud[4].value = response.otros
+      this.id_usuario = response.id_usuario
     });
 
   }
@@ -90,11 +90,11 @@ export class InformacionComponent implements OnInit, OnDestroy {
   }
 
   registrar(){
-      var producto = {
-         id: this.codigo,
-         opcion: "registro"
-      }
-     localStorage.setItem("registro", JSON.stringify(producto)); 
+    var producto = {
+      id: this.codigo,
+      opcion: "registro"
+    }
+    localStorage.setItem("registro", JSON.stringify(producto)); 
   }
 
   llamar(): void {
