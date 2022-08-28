@@ -58,14 +58,16 @@ export class AbmConvenioComponent extends BaseComponent implements OnInit, OnDes
   createConvenio(): void {
     this.dialog.open(GenerateConvenioComponent, {width: '20%'}).afterClosed().subscribe(
       (convenio: Convenio) => {
-        this.convenioSubscription = this.conveniosService.postConvenio(convenio).subscribe(
-          resp => {
-            if (resp) {
-              this.snackBar.open('Convenio creado correctamente', 'Aceptar', {duration: 1500});
-              this.loadTable();
+        if (convenio) {
+          this.convenioSubscription = this.conveniosService.postConvenio(convenio).subscribe(
+            resp => {
+              if (resp) {
+                this.snackBar.open('Convenio creado correctamente', 'Aceptar', {duration: 1500});
+                this.loadTable();
+              }
             }
-          }
-        )
+          )
+        }
       }
     )
   }
