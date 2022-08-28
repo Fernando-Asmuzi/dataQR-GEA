@@ -67,8 +67,8 @@ export class QrsComponent extends BaseComponent implements OnInit, OnDestroy {
         response.unshift(vacio);
         this.marcos = response;
       }
-    )
-  }
+      )
+    }
 
   ngOnDestroy(): void {
     this.lotesSubscription && this.lotesSubscription.unsubscribe();
@@ -76,19 +76,20 @@ export class QrsComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   async downloadQR(): Promise<void> {
-
+    
     this.showSpinner = true;
     let zip = new JSZip();
     let img = zip.folder("images");
-
-    await this.lotes.map((lote: Lote, index: number) => {
+    let indice = 0;
+    console.log('lotes.length', this.lotes)
+    await this.lotes.map(async (lote: Lote, index: number) => {
       let qr = document.getElementById(lote.id.toString());
       const canvas = <HTMLCanvasElement> qr?.firstChild;
       
       let par = document.createElement('span');
       par.innerHTML = lote.id.toString();
 
-      let indice;
+      
       // plantilla hueso
       // let width = 267;
       // let height = 389;
@@ -99,12 +100,12 @@ export class QrsComponent extends BaseComponent implements OnInit, OnDestroy {
       const frame = document.getElementById('qrContainer');
       let width = frame?.offsetWidth;
       let height = frame?.offsetHeight;
-      toBlob(canvas, {width: width, height: height})
-      .then( (data: any) => {
-				img!.file(lote.id+".png", data, {base64: true});
-        indice = index + 1;
+      await toBlob(canvas, {width: width, height: height})
+      .then( async (data: any) => {
+				await img!.file(lote.id+".png", data, {base64: true});
+        indice = indice + 1;
         if (this.lotes.length === indice) {
-          zip.generateAsync({type:"blob", compression: "DEFLATE", compressionOptions: {level: 9}}).then(
+          await zip.generateAsync({type:"blob", compression: "DEFLATE", compressionOptions: {level: 9}}).then(
             (content: any) => {
               saveAs(content, 'codigos.zip')
               this.showSpinner = false;
@@ -116,6 +117,7 @@ export class QrsComponent extends BaseComponent implements OnInit, OnDestroy {
         this.showBasicDialog('Error', 'Ocurrió un error al generar el archivo, intente nuevamente.')
         // console.log(error);
 			})
+      
     })
   }
 

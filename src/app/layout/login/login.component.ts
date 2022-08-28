@@ -21,12 +21,13 @@ export class LoginComponent implements OnInit {
     password:['', [Validators.required]]
   })
 
-  constructor(private usuarioServicie: UsuarioService,
+  constructor(private usuarioService: UsuarioService,
     private route: Router,
     private fb: FormBuilder,
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.usuarioService.checkedLoggedUser();
   }
 
   openSnackBar(message: string, action: string) {
@@ -36,9 +37,9 @@ export class LoginComponent implements OnInit {
   submitForm(){
     let registro = localStorage.getItem("registro") ? JSON.parse(localStorage.getItem("registro") || '') : null;
 
-    this.usuarioServicie.postUsuario(this.form.value).subscribe( response =>{
+    this.usuarioService.postUsuario(this.form.value).subscribe( response =>{
        if(response){
-         this.usuarioServicie.setUserLogin(response);
+         this.usuarioService.setUserLogin(response);
            if(registro){
               this.route.navigate(['/principal/'+ response.id + '/productos']);
            }else{
