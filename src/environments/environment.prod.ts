@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url_servicios: 'http://56.ar/api/'
+  url_servicios: 'https://56.ar/api/'
 };
