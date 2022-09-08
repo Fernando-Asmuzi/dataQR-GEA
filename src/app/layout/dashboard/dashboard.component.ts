@@ -59,6 +59,7 @@ export class DashboardComponent implements OnInit {
       {name: "Gestion Diseño" , path: 'disenos', icon: "category", admin: true},
       {name: "Gestion Usuarios" , path: 'usuarios', icon: "supervised_user_circle", admin: true},
       {name: "Gestion Convenios" , path: 'convenios', icon: "folder_shared", admin: true},
+      {name: "Agenda", path: 'agenda', icon: 'calendar_today', admin: true}
     ];
   }
  
