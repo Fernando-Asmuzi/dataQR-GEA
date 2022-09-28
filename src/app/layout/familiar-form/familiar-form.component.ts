@@ -2,10 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FamiliaresService } from 'src/app/services/familiares.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { emptyFamiliar, Familiar } from 'src/app/models/familiar';
+import { TerminosCondicionesComponent } from '../terminos-condiciones/terminos-condiciones.component';
+import { BaseComponent } from 'src/app/components/abstract/base.component';
 
 
 
@@ -14,7 +16,7 @@ import { emptyFamiliar, Familiar } from 'src/app/models/familiar';
   templateUrl: './familiar-form.component.html',
   styleUrls: ['./familiar-form.component.scss']
 })
-export class FamiliarFormComponent implements OnInit {
+export class FamiliarFormComponent extends BaseComponent implements OnInit {
 
   form: FormGroup = this.fb.group({
     id: [''],
@@ -22,19 +24,23 @@ export class FamiliarFormComponent implements OnInit {
     nombre: ['', [Validators.required]],
     apellido: ['', [Validators.required]],
     direccion_primaria: ['', [Validators.required]],
-    direccion_secundaria: [null],
+    direccion_secundaria: ['', [Validators.required]],
     telefono_primario: ['', [Validators.required, Validators.maxLength(10)]],
-    telefono_secundario: [null, [Validators.maxLength(10), Validators.maxLength(10)]],
-    documento: ['', [Validators.required, Validators.maxLength(8)]],
-    diagnostico: [''],
-    medicacion: [''],
-    alergias: [''],
-    factor_sangre: [''],
-    otros: [''],
+    telefono_secundario: ['', [Validators.required, Validators.maxLength(10)]],
+    documento_tipo: ['', [Validators.required]],
+    documento: ['', [Validators.required]],
+    diagnostico: ['', [Validators.required]],
+    medicacion: ['', [Validators.required]],
+    alergias: ['', [Validators.required]],
+    factor_sangre: ['', [Validators.required]],
+    otros: ['', [Validators.required]],
     provincia: ['', [Validators.required]],
     pais: [{value: "Argentina", disabled: true}, [Validators.required]],
     ciudad: ['', [Validators.required]],
+    codigo_postal: ['', [Validators.required]],
+    checked: ['', [Validators.requiredTrue]]
   })
+
 
   usuario: any;
   listaProvincias: any = [];
@@ -51,14 +57,23 @@ export class FamiliarFormComponent implements OnInit {
     {value: 'AB+'},
     {value: 'AB-'},
   ]
+
+  tipo_documento = [
+    {value: 'DNI'},
+    {value: 'Libreta de enrolamiento'},
+    {value: 'Libreta cívica'},
+    {value: 'Pasaporte'}
+  ]
   
   constructor(private http: HttpClient, 
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<FamiliarFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private familiaresService: FamiliaresService,
-    private usuarioService: UsuarioService
-    ) { }
+    private usuarioService: UsuarioService,
+    public override dialog: MatDialog,
+
+    ) { super(dialog); }
 
   ngOnInit(): void {
     
@@ -114,9 +129,24 @@ export class FamiliarFormComponent implements OnInit {
         (resp:any) => console.log(resp)
      })
     }
-    
-
     this.dialogRef.close(true);
+  }
+
+  openDialog(){
+    const dialogRef = this.dialog.open(TerminosCondicionesComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === true){
+         this.form.patchValue({checked: true})
+      }
+    });
+  }
+
+  checkState($event: any){
+      if($event.checked === true){
+         this.form.patchValue({checked: true})
+      }else{
+        this.form.patchValue({checked: false})
+      }
   }
 
   cancel(): void {
@@ -132,8 +162,12 @@ export class FamiliarFormComponent implements OnInit {
   }
 
   getLocalidades(provincia: any){
-    this.http.get('https://apis.datos.gob.ar/georef/api/departamentos?provincia='+provincia.value).subscribe((departamentos: any)=>{
+    this.listaDepartamentos = [];
+    this.http.get('https://apis.datos.gob.ar/georef/api/departamentos?provincia='+provincia.value+'&max=999').subscribe((departamentos: any)=>{
         departamentos.departamentos.forEach((depa: any) => {
+          if(depa.id == 38021){
+            depa.nombre = "San Salvador de Jujuy"
+          }
           this.listaDepartamentos.push(depa.nombre);
         });
         console.log(this.listaDepartamentos)

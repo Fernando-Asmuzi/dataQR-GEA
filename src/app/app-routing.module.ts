@@ -21,8 +21,8 @@ import { ProductoComponent } from './layout/producto/producto.component';
 
 
 const routes: Routes = [
-  { path: 'login',component: LoginComponent },
-  { path: '', component: EmergenciaComponent },
+  { path: '',component: LoginComponent },
+  /* { path: '', component: EmergenciaComponent }, */
   { path: ':codigo', component: InformacionComponent },
   { path: 'principal/:id', component: DashboardComponent, children: [
     // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
