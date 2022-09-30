@@ -21,10 +21,20 @@
         <mat-error *ngIf="form.get('apellido')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
 
-      <!-- DNI -->
+      <!-- Documento tipo -->
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Tipo de documento</mat-label>
+        <mat-select formControlName="documento_tipo">
+          <mat-option *ngFor="let d of tipo_documento" [value]="d.value">
+            {{d.value}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('documento_tipo')?.errors?.['required']">Seleccione tipo de documento</mat-error>
+      </mat-form-field>
+      <!-- Numero de documento -->
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Documento</mat-label>
-        <input matInput formControlName="documento" type="number" maxlength="8">
+        <input matInput formControlName="documento" type="text">
         <mat-error *ngIf="form.get('documento')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
 
@@ -37,9 +47,10 @@
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Dirección secundaria</mat-label>
         <input matInput formControlName="direccion_secundaria" type="text">
+        <mat-error *ngIf="form.get('direccion_secundaria')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
 
-      <!-- Provincia, localidad -->
+      <!-- Provincia, localidad, código postal -->
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Provincia</mat-label>
         <mat-select formControlName="provincia" (selectionChange)="getLocalidades($event)">
@@ -69,12 +80,15 @@
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Teléfono principal</mat-label>
         <input matInput formControlName="telefono_primario" type="text">
-        <mat-hint align="start"><strong>Caract. sin 0, numero sin 15. Ej. 11 12345678</strong></mat-hint>
         <mat-error *ngIf="form.get('telefono_primario')?.errors?.['required']">Complete el campo</mat-error>
+        <mat-error *ngIf="form.get('telefono_primario')?.errors?.['maxlength']">El número debe contener 10 dígitos</mat-error>
+        <mat-hint align="start"><strong>Caract. sin 0, numero sin 15. Ej. 11 12345678</strong></mat-hint>
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Teléfono secundario</mat-label>
         <input matInput formControlName="telefono_secundario" type="text">
+        <mat-error *ngIf="form.get('telefono_secundario')?.errors?.['required']">Complete el campo</mat-error>
+        <mat-error *ngIf="form.get('telefono_secundario')?.errors?.['maxlength']">El número debe contener 10 dígitos</mat-error>
       </mat-form-field>
 
       <!-- Datos de salud -->
@@ -88,27 +102,37 @@
             {{f.value}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="form.get('factor_sangre')?.errors?.['required']">Seleccione factor sanguíneo</mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Alergia/s</mat-label>
         <input matInput  formControlName="alergias" type="text">
+        <mat-error *ngIf="form.get('alergias')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
 
       <!-- diagnostico y medicacion -->
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Diagnóstico</mat-label>
         <input matInput formControlName="diagnostico" type="text">
+        <mat-error *ngIf="form.get('diagnostico')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Medicación</mat-label>
         <input matInput formControlName="medicacion" type="text">
+        <mat-error *ngIf="form.get('medicacion')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
 
       <!-- otros detalles -->
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Otros datos de interés</mat-label>
         <textarea matInput formControlName="otros" type="text"></textarea>
+        <mat-error *ngIf="form.get('otros')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
+       
+      
+      <mat-checkbox class="example-margin" formControlName="checked" (change)="checkState($event)"><span (click)="openDialog()">He leído y acepto los <span style="color: blue">términos y condiciones</span></span></mat-checkbox>
+      
+
     </div>
   </mat-dialog-content>   
 

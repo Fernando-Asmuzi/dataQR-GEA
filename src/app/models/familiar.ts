@@ -8,6 +8,7 @@ export interface Familiar {
     telefono_primario: string;
     telefono_secundario: string;
     documento: string;
+    documento_tipo: string;
     diagnostico: string;
     medicacion: string;
     alergias: string;
@@ -28,6 +29,7 @@ export const emptyFamiliar = (): Familiar => ({
     telefono_primario: '',
     telefono_secundario: '',
     documento: '',
+    documento_tipo: '',
     diagnostico: '',
     medicacion: '',
     alergias: '',
