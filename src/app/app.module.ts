@@ -49,6 +49,10 @@ import { GenerateConvenioComponent } from './components/admin/generate-convenio/
 import { AbmConvenioComponent } from './components/admin/abm-convenio/abm-convenio.component';
 import { DeleteLoteComponent } from './components/admin/delete-lote/delete-lote.component';
 import { VinculoInfoComponent } from './layout/vinculo-info/vinculo-info.component';
+import { AgendaComponent } from './components/admin/agenda/agenda.component';
+import { AbmVentasComponent } from './components/ventas/abm-ventas/abm-ventas.component';
+import { GenerateVentaComponent } from './components/ventas/generate-venta/generate-venta.component';
+import { VentasComponent } from './components/admin/ventas/ventas.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +94,11 @@ import { VinculoInfoComponent } from './layout/vinculo-info/vinculo-info.compone
     AbmConvenioComponent,
     DeleteLoteComponent,
     GenerateVinculacionComponent,
-    VinculoInfoComponent
+    VinculoInfoComponent,
+    AgendaComponent,
+    AbmVentasComponent,
+    GenerateVentaComponent,
+    VentasComponent
   ],
   imports: [
     HttpClientModule,

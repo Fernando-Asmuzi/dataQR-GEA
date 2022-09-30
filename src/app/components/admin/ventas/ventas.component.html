@@ -1,0 +1,18 @@
+<mat-toolbar>
+    <span class="familiar-span">Ventas</span>
+    <span class="example-spacer"></span>
+    <mat-form-field appearance="outline">
+        <mat-label>Vendedor</mat-label>
+        <mat-select (selectionChange)="selectVendedor($event)">
+          <mat-option></mat-option>
+          <mat-option [value]="vendedor" *ngFor="let vendedor of vendedores">{{ vendedor }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <span class="example-spacer"></span>
+    <p>Total de Ventas: {{ getTotalVentas() | currency }}</p>
+</mat-toolbar>
+<app-table
+    [showPaginator]="true"
+    [dataSource]="ventas"
+    [columnas]="columnasTabla">
+</app-table>

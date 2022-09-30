@@ -8,8 +8,10 @@ import { AbmLotesComponent } from './components/admin/abm-lotes/abm-lotes.compon
 import { AbmMarcosComponent } from './components/admin/abm-marcos/abm-marcos.component';
 import { AbmProductoComponent } from './components/admin/abm-producto/abm-producto.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
+import { AgendaComponent } from './components/admin/agenda/agenda.component';
 import { DetalleLoteComponent } from './components/admin/detalle-lote/detalle-lote.component';
 import { QrsComponent } from './components/admin/qrs/qrs.component';
+import { VentasComponent } from './components/admin/ventas/ventas.component';
 import { AdminGuard } from './guards/admin.guard';
 import { UsuarioGuard } from './guards/usuario.guard';
 import { DashboardComponent } from './layout/dashboard/dashboard.component';
@@ -42,6 +44,8 @@ const routes: Routes = [
     { path: 'categorias', component: AbmCategoriasComponent, canActivate: [AdminGuard] },
     { path: 'usuarios', component: AbmAdminComponent, canActivate: [AdminGuard] },
     { path: 'convenios', component: AbmConvenioComponent, canActivate: [AdminGuard] },
+    { path: 'agenda', component: AgendaComponent, canActivate: [AdminGuard] },
+    { path: 'ventas', component: VentasComponent, canActivate: [AdminGuard] },
   ] },
   
   // { path: 'productos', component: ProductoComponent }

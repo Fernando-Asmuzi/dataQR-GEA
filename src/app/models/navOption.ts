@@ -3,4 +3,5 @@ export interface NavOption {
     path: string;
     icon: string;
     admin: boolean;
+    vendedor: boolean;
 }
