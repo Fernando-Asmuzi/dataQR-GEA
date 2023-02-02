@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Familiar } from 'src/app/models/familiar';
+import { Mascota } from '../models/mascota';
 
 const cudOptions = {
   headers: new HttpHeaders({'Content-Type':'application/json'})
@@ -30,5 +31,13 @@ export class FamiliaresService {
 
   deleteFamiliar(familiar: Familiar): Observable<Familiar> {
     return this.http.delete<Familiar>(`${this.urlBase}familiares.php?id=${familiar.id}`);
+  }
+
+  postMascota(mascota: Mascota): Observable<Mascota> {
+    return this.http.post<Mascota>(`${this.urlBase}mascotas.php`, mascota);
+  }
+  
+  updateMascota(mascota: Mascota): Observable<Mascota> {
+    return this.http.put<Mascota>(`${this.urlBase}mascotas.php`, mascota);
   }
 }

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url_servicios: 'http://localhost/gea_qr/api/'
+  url_servicios: 'http://localhost/gea_qr/api/',
+  url_documentos: 'http://localhost/gea_qr'
 };
 
 /*

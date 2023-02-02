@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Familiar } from 'src/app/models/familiar';
@@ -11,6 +11,8 @@ import { FamiliarFormComponent } from '../familiar-form/familiar-form.component'
 import { LotesService } from 'src/app/services/lotes.service';
 import { emptyLote, Lote } from 'src/app/models/lote';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MascotaFormComponent } from '../mascota-form/mascota-form.component';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -18,7 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './generate-vinculacion.component.html',
   styleUrls: ['./generate-vinculacion.component.scss']
 })
-export class GenerateVinculacionComponent implements OnInit {
+export class GenerateVinculacionComponent implements OnInit, OnDestroy {
 
   form: FormGroup = this.fb.group({
     id: [''],
@@ -29,6 +31,9 @@ export class GenerateVinculacionComponent implements OnInit {
   registro: any;
   familiares: Array<Familiar> = [];
   usuario: Usuario = emptyUsuario();
+
+  vinculacionSubscription!: Subscription;
+  lotesSubscription!: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -58,6 +63,11 @@ export class GenerateVinculacionComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.vinculacionSubscription && this.vinculacionSubscription.unsubscribe();
+    this.lotesSubscription && this.lotesSubscription.unsubscribe();
+  }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {duration: 1500});
   }
@@ -68,20 +78,26 @@ export class GenerateVinculacionComponent implements OnInit {
     }
     let lote: Lote = emptyLote();
     lote = {...lote, id: vinculo.id_lote}
-    this.lotesService.getLoteById(lote).subscribe(
+    this.lotesSubscription = this.lotesService.getLoteById(lote).subscribe(
       response => {
         lote = response
         if (lote.libre) {
           if (!this.data) {
             delete vinculo.id
           }
-          this.vinculacionService.postVinculacion(vinculo).subscribe()
-          this.dialogRef.close(this.form.value);
-          localStorage.removeItem('registro');
+          this.vinculacionSubscription = this.vinculacionService.postVinculacion(vinculo).subscribe(resp => {
+            if(resp){
+              this.dialogRef.close(this.form.value);
+              localStorage.removeItem('registro');
+            }
+          },
+          error => this.openSnackBar('Ocurrió un error al vincular el producto, intente nuevamente', 'Aceptar'))
         } else {
           this.form.controls['id_lote'].setErrors({invalidLote: true});
         }
-      },error => { this.openSnackBar('Código incorrecto o inexistente', 'Aceptar');})
+      },
+      error => this.openSnackBar('Código incorrecto o inexistente', 'Aceptar')
+    )
   }
 
   cancel(): void {
@@ -97,10 +113,26 @@ export class GenerateVinculacionComponent implements OnInit {
     })
   }
 
-  addFamiliar(): void {
-    this.dialog.open(FamiliarFormComponent).afterClosed().subscribe(
+  addUsuario(): void {
+    if(this.registro.categoria == 'SALUD'){
+      this.showComponent(FamiliarFormComponent);
+    }
+    if(this.registro.categoria == 'MASCOTAS'){
+      this.showComponent(MascotaFormComponent);
+    }
+  }
+
+  showComponent(component: any): void {
+    this.dialog.open(component).afterClosed().subscribe(
       resp => {
-        if (resp) {
+        if (resp == true) {
+          this.form.patchValue({
+            id_familiar: resp.id
+          })
+          this.snackBar.open('Usuario agregado correctamente', 'Aceptar', {duration: 1500});
+          this.getFamiliares();
+        } else {
+          this.snackBar.open(`Ocurrió un error al agregar usuario, intente nuevamente.`, 'Aceptar', {duration: 1500})
           this.getFamiliares();
         }
       }

@@ -7,6 +7,10 @@ export interface Scan {
     fecha?: Date | null;
     email: string;
     id_usuario: number;
+    nombre: string;
+    apellido: string;
+    latitud: number;
+    longitud: number;
 }
 
 export const emptyScan = (): Scan => ({
@@ -15,5 +19,9 @@ export const emptyScan = (): Scan => ({
     movimiento: '',
     fecha: null,
     email: '',
-    id_usuario: 0
+    id_usuario: 0,
+    nombre: '',
+    apellido: '',
+    latitud: 0,
+    longitud: 0
 });

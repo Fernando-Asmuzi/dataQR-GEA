@@ -33,8 +33,7 @@ import { TerminosCondicionesComponent } from './terminos-condiciones/terminos-co
 
 @NgModule({
     declarations: [
-  
-    TerminosCondicionesComponent
+    TerminosCondicionesComponent,
   ],
     imports: [
       CommonModule,

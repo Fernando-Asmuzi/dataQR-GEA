@@ -53,7 +53,9 @@ import { AgendaComponent } from './components/admin/agenda/agenda.component';
 import { AbmVentasComponent } from './components/ventas/abm-ventas/abm-ventas.component';
 import { GenerateVentaComponent } from './components/ventas/generate-venta/generate-venta.component';
 import { VentasComponent } from './components/admin/ventas/ventas.component';
-
+import { MascotaFormComponent } from './layout/mascota-form/mascota-form.component';
+import { DocumentoFormComponent } from './layout/documento-form/documento-form.component';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,7 +100,9 @@ import { VentasComponent } from './components/admin/ventas/ventas.component';
     AgendaComponent,
     AbmVentasComponent,
     GenerateVentaComponent,
-    VentasComponent
+    VentasComponent,
+    MascotaFormComponent,
+    DocumentoFormComponent,
   ],
   imports: [
     HttpClientModule,
@@ -114,7 +118,9 @@ import { VentasComponent } from './components/admin/ventas/ventas.component';
     QRCodeModule,
     NgxChartsModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {verticalPosition: 'start'}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

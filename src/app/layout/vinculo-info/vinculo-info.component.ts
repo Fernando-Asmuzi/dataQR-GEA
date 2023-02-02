@@ -25,17 +25,15 @@ export class VinculoInfoComponent implements OnInit {
     private vinculacionService: VinculacionService) { }
 
   ngOnInit(): void {
-    
     this.lote = {...this.lote,
         id: this.data.id_lote,
     }
     this.lotesService.getLoteById(this.lote).subscribe(response => {
-      console.log(this.data.id_lote)
       this.lote = response;
       this.categoria = this.lote.categoria.categoria;
       this.producto = this.lote.producto.producto;
       this.vinculacionService.getFamiliarByLoteId(this.data.id_lote).subscribe( response =>{
-            this.familiar = response;
+        this.familiar = response;
       });
     })
 

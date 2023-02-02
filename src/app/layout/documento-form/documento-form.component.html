@@ -1,0 +1,32 @@
+<form [formGroup]="form" (submit)="submitForm()">
+    <h2>Agregar Documentación</h2>
+    <mat-dialog-content class="mat-typography">
+        <h3>Documentos Cargados</h3>
+            
+        <p *ngIf="documentos.length == 0">No tiene documentos</p>
+        <ng-container *ngIf="documentos.length != 0">
+            <button mat-raised-button color="accent" *ngFor="let documento of documentos" class="example-full-width mt-1">{{ documento.nombre }}</button>
+        </ng-container>
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+        <div class="modal-body">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Nombre o descripción del nuevo documento</mat-label>
+                <input matInput formControlName="nombre" type="text">
+                <mat-error *ngIf="form.get('nombre')?.errors?.['required']">Complete el campo</mat-error>
+            </mat-form-field>
+            <button type="button" mat-stroked-button color="primary" class="example-full-width" (click)="image.click()">Subir Archivo</button>
+            <mat-progress-bar color="primary"
+                mode="determinate"
+                [value]="progress">
+            </mat-progress-bar>
+            <input hidden type="file" #image mat-raised-button accept="image/*" (change)="uploadDocument($event)">
+        </div>
+    </mat-dialog-content>   
+    <mat-dialog-actions align="end">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Enviar</button>    
+        <button mat-raised-button color="warn" mat-dialog-close>Cancelar</button>    
+    </mat-dialog-actions>
+</form>
+      

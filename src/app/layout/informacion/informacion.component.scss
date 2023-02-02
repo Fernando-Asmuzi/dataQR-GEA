@@ -1,6 +1,6 @@
 .informacion{
     width: 100vw; 
-    height: 100vh;
+
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -9,7 +9,6 @@
 
   .acciones{
     width: 100vw; 
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,3 +38,36 @@ mat-icon {
   
 }
 
+.w-100-mt-1 {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+.foto-container{
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  overflow: hidden;
+  position: relative;
+}
+.foto{
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+.justify-center{
+  justify-content: center;
+}
+.item-mascota{
+  display: flex;
+}
+.align-start{
+  align-items: flex-start;
+}

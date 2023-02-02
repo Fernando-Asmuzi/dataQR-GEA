@@ -20,7 +20,7 @@ export class AdminGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       let usuario: Usuario = this.usuarioService.getUserLogin();
       if (!usuario.admin) {
-        this.router.navigate(['principal/',usuario.id,'familiares']);
+        this.router.navigate(['principal/',usuario.id,'productos']);
         return false;
       }
       return true;

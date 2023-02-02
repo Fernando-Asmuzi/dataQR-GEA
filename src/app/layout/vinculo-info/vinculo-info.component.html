@@ -1,15 +1,23 @@
 <mat-card>
-    <mat-card-title>
-        <h2>Información de vínculo</h2>
-    </mat-card-title>
+    <mat-card-header>
+        <div mat-card-avatar style="background-size: cover;background-image: url('{{familiar.foto}}')"></div>
+        <mat-card-title>
+            <h2>Información de vínculo</h2>
+        </mat-card-title>
+    </mat-card-header>
     <mat-card-content>
-       
+        <ng-container *ngIf="!familiar.especie">
             <mat-label> <u>Persona vinculada</u>: {{data | name | titlecase}}</mat-label><br>
             <mat-label> <u>DNI</u>: {{familiar.documento}}</mat-label><br>
-            <mat-label> <u>Dirección primaria</u>: {{familiar.direccion_primaria}}</mat-label><br>
+            <mat-label> <u>Domicilio principal</u>: {{familiar.direccion_primaria}}</mat-label><br>
+            <mat-label> <u>Domicilio alternativo</u>: {{familiar.direccion_secundaria}}</mat-label><br>
             <mat-label> <u>Ciudad</u>: {{familiar.ciudad}}</mat-label><br>
             <mat-label> <u>Provincia</u>: {{familiar.provincia }}</mat-label><br>
             <mat-label> <u>País</u>: {{familiar.pais}} </mat-label><br>
+            <mat-label> <u>Alergias</u>: {{familiar.alergias}} </mat-label><br>
+            <mat-label> <u>Diagnostico</u>: {{familiar.diagnostico}} </mat-label><br>
+            <mat-label> <u>Medicación</u>: {{familiar.medicacion}} </mat-label><br>
+            <mat-label> <u>Otros datos</u>: {{familiar.otros}} </mat-label><br>
 
             <mat-label> <u>Fecha de vinculación</u>: {{data.fecha | date: 'dd/MM/YYYY'}}</mat-label><br>
             <mat-label> <u>Categoría del producto</u>: {{categoria}}</mat-label><br>
@@ -17,7 +25,27 @@
             <mat-label> <u>Producto N°</u>: {{lote.id}}</mat-label><br>
             <mat-label> <u>Lote N°</u>: {{lote.codigo}}</mat-label><br>
             <mat-label> <u>Fecha de creación</u>: {{lote.fecha | date: 'dd/MM/YYYY'}}</mat-label><br>
-       
+        </ng-container>
+        <ng-container *ngIf="familiar.especie">
+            <mat-label> <u>Mascota vinculada</u>: {{data | name | titlecase}}</mat-label><br>
+            <mat-label> <u>Domicilio principal</u>: {{familiar.direccion_primaria}}</mat-label><br>
+            <mat-label> <u>Domicilio alternativo</u>: {{familiar.direccion_secundaria}}</mat-label><br>
+            <mat-label> <u>Ciudad</u>: {{familiar.ciudad}}</mat-label><br>
+            <mat-label> <u>Provincia</u>: {{familiar.provincia }}</mat-label><br>
+            <mat-label> <u>País</u>: {{familiar.pais}} </mat-label><br>
+
+            <mat-label> <u>Especie</u>: {{familiar.especie}} </mat-label><br>
+            <mat-label> <u>Raza</u>: {{familiar.raza}} </mat-label><br>
+            <mat-label> <u>Características</u>: {{familiar.caracteristicas}} </mat-label><br>
+            <mat-label> <u>Otros datos</u>: {{familiar.otros}} </mat-label><br>
+
+            <mat-label> <u>Fecha de vinculación</u>: {{data.fecha | date: 'dd/MM/YYYY'}}</mat-label><br>
+            <mat-label> <u>Categoría del producto</u>: {{categoria}}</mat-label><br>
+            <mat-label> <u>Tipo de producto</u>: {{producto}}</mat-label><br>
+            <mat-label> <u>Producto N°</u>: {{lote.id}}</mat-label><br>
+            <mat-label> <u>Lote N°</u>: {{lote.codigo}}</mat-label><br>
+            <mat-label> <u>Fecha de creación</u>: {{lote.fecha | date: 'dd/MM/YYYY'}}</mat-label><br>
+        </ng-container>
       </mat-card-content>
     <mat-card-actions align="end">
        <button mat-raised-button color="primary" mat-dialog-close type="button">Cerrar</button>

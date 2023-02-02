@@ -20,4 +20,8 @@ export class ImagesService {
     return this.http.post<Image>(`${this.baseUri}imagenes.php`, image, { reportProgress: true, observe: 'events' });
   }
 
+  uploadDocument(document: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUri}documentos.php`, document, { reportProgress: true, observe: 'events' });
+  }
+
 }

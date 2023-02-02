@@ -49,8 +49,8 @@ export class DashboardComponent implements OnInit {
   generateMenu(): void {
     this.fillerNav = [
       {name: "Productos" , path: 'productos', icon: "store", admin: false, vendedor: false},
-      {name: "Familiares" , path: 'familiares', icon: "family_restroom", admin: false, vendedor: false},
-      {name: "Mis Ventas", path: 'agenda', icon: 'calendar_today', admin: false, vendedor: true},
+      {name: "Usuarios" , path: 'familiares', icon: "family_restroom", admin: false, vendedor: false},
+      // {name: "Mis Ventas", path: 'agenda', icon: 'calendar_today', admin: false, vendedor: true},
       // Admin area
       {name: "Home" , path: 'home-admin', icon: "home", admin: true, vendedor: false},
       {name: "Gestion Lotes QR" , path: 'lotes', icon: "qr_code_2", admin: true, vendedor: false},
@@ -60,8 +60,8 @@ export class DashboardComponent implements OnInit {
       {name: "Gestion Diseño" , path: 'disenos', icon: "category", admin: true, vendedor: false},
       {name: "Gestion Usuarios" , path: 'usuarios', icon: "supervised_user_circle", admin: true, vendedor: false},
       {name: "Gestion Convenios" , path: 'convenios', icon: "folder_shared", admin: true, vendedor: false},
-      {name: "Agenda", path: 'agenda', icon: 'calendar_today', admin: true, vendedor: false},
-      {name: "Ventas", path: 'ventas', icon: 'shop', admin: true, vendedor: false},
+//      {name: "Agenda", path: 'agenda', icon: 'calendar_today', admin: true, vendedor: false},
+//      {name: "Ventas", path: 'ventas', icon: 'shop', admin: true, vendedor: false},
     ];
   }
  

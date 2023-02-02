@@ -7,6 +7,9 @@ import { Familiar, emptyFamiliar } from 'src/app/models/familiar';
 import { finalize, Subscription } from 'rxjs';
 import { ScanService } from 'src/app/services/scan.service';
 import { emptyScan, Scan } from 'src/app/models/scan';
+import { DocumentosService } from 'src/app/services/documentos.service';
+import { environment } from 'src/environments/environment';
+import { LocationService } from 'src/app/services/location.service';
 @Component({
   selector: 'app-informacion',
   templateUrl: './informacion.component.html',
@@ -23,7 +26,7 @@ export class InformacionComponent implements OnInit, OnDestroy {
   informacion = [
     //datos personales
     {name: "Nombre", value: '', icon:"person"},
-    {name: "Dirección" , value: '', icon: "house"},
+    {name: "Domicilio" , value: '', icon: "house"},
     {name: "Teléfono de contacto" , value: '', icon: "phone_in_talk"},
   ]
   localizacion = [
@@ -38,17 +41,30 @@ export class InformacionComponent implements OnInit, OnDestroy {
     {name: "Factor sanguíneo" , value: '', icon: "bloodtype"},
     {name: "Más información" , value: '', icon: "info"},
   ]
+  mascota = [
+    {name: 'Especie', value: '', icon: 'pets'},
+    {name: 'Raza', value: '', icon: 'pets'},
+    {name: 'Características', value: '', icon: 'pets'},
+  ]
   showSpinner = true;
 
   scanSubscription!: Subscription;
+  documentosSubscription!: Subscription;
+  hasDocuments: boolean = false;
+
+  otros!: string;
 
   id_usuario!: number;
+  documentos: any[] = [];
+  foto!: any;
 
   constructor(
     private route: ActivatedRoute, 
     private lotesService: LotesService, 
     private vinculacionService: VinculacionService,
-    private scanService: ScanService
+    private scanService: ScanService,
+    private documentosService: DocumentosService,
+    private locationService: LocationService
   ) { }
 
   ngOnInit(): void {
@@ -62,7 +78,6 @@ export class InformacionComponent implements OnInit, OnDestroy {
       this.categoria = this.lote.categoria.categoria;
       if(!this.lote.libre && !this.lote.eliminado && !this.lote.bloqueado){
         this.libre = false;
-        this.saveScan();
       }
     })
 
@@ -81,18 +96,39 @@ export class InformacionComponent implements OnInit, OnDestroy {
       this.salud[3].value = response.factor_sangre
       this.salud[4].value = response.otros
       this.id_usuario = response.id_usuario
+      this.foto = response.foto
+
+      this.mascota[0].value = String(response.especie)
+      this.mascota[1].value = String(response.raza)
+      this.mascota[2].value = String(response.caracteristicas)
+
+      this.otros = String(response.otros)
+      
+      this.saveScan()
+      this.documentosSubscription = this.documentosService.getDocumentoByFamiliar(response.id).subscribe(
+        resp => {
+          if(resp.code == 200) {
+            this.hasDocuments = true;
+            this.documentos = resp.body;
+          } else {
+            this.hasDocuments = false;
+          }
+        }
+      );
     });
 
   }
 
   ngOnDestroy():  void {
     this.scanSubscription && this.scanSubscription.unsubscribe();
+    this.documentosSubscription && this.documentosSubscription.unsubscribe();
   }
 
   registrar(){
     var producto = {
       id: this.codigo,
-      opcion: "registro"
+      opcion: "registro",
+      categoria: this.categoria
     }
     localStorage.setItem("registro", JSON.stringify(producto)); 
   }
@@ -101,14 +137,32 @@ export class InformacionComponent implements OnInit, OnDestroy {
     window.location.href = `tel:${this.informacion[2].value}`;
   }
 
-  saveScan(): void {
+  async saveScan(): Promise<void> {
     let scan: Scan = emptyScan();
+    await this.locationService.getPosition().then(
+      pos => {
+        scan = {
+          ...scan,
+          latitud: pos.latitud,
+          longitud: pos.longitud
+        }
+      }
+    )
+    let splitted = this.informacion[0].value.split(" ");
     scan = {
       ...scan,
       lote: this.lote,
       movimiento: 'Escaneo de QR',
-      id_usuario: this.id_usuario
+      id_usuario: this.id_usuario,
+      nombre: splitted[0],
+      apellido: splitted[1],
     };
-    this.scanSubscription = this.scanService.saveScan(scan).subscribe();
+    this.scanSubscription = this.scanService.saveScan(scan).subscribe(resp=> console.log(resp));
+  }
+
+  openDocument(documento: any): void {
+    const splitted = documento.documento.slice(1);
+    const link = environment.url_documentos + splitted;
+    window.open(link);
   }
 }

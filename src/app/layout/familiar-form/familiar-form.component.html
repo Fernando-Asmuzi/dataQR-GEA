@@ -40,12 +40,12 @@
 
       <!-- Direcciones -->
       <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Dirección Primaria</mat-label>
+        <mat-label>Domicilio Principal</mat-label>
         <input matInput formControlName="direccion_primaria" type="text">
         <mat-error *ngIf="form.get('direccion_primaria')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Dirección secundaria</mat-label>
+        <mat-label>Domicilio Alternativo</mat-label>
         <input matInput formControlName="direccion_secundaria" type="text">
         <mat-error *ngIf="form.get('direccion_secundaria')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
@@ -53,27 +53,19 @@
       <!-- Provincia, localidad, código postal -->
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Provincia</mat-label>
-        <mat-select formControlName="provincia" (selectionChange)="getLocalidades($event)">
-          <mat-option [value]="provincia" *ngFor="let provincia of listaProvincias">
-            {{provincia}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="form.get('provincia')?.errors?.['required']">Seleccione povincia</mat-error>
+        <input matInput type="text" formControlName="provincia">
+        <mat-error *ngIf="form.get('provincia')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Localidad</mat-label>
-        <mat-select formControlName="ciudad">
-          <mat-option [value]="localidad" *ngFor="let localidad of listaDepartamentos" >
-            {{localidad}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="form.get('localidad')?.errors?.['required']">Seleccione localidad</mat-error>
+          <mat-label>Localidad</mat-label>
+          <input matInput type="text" formControlName="ciudad">
+          <mat-error *ngIf="form.get('localidad')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
 
       <!-- Pais -->
-      <mat-form-field appearance="outline">
-        <mat-label>Pais</mat-label>
-        <input matInput formControlName="pais">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Pais</mat-label>
+          <input matInput formControlName="pais">
       </mat-form-field>
 
       <!-- Telefono -->
@@ -81,14 +73,10 @@
         <mat-label>Teléfono principal</mat-label>
         <input matInput formControlName="telefono_primario" type="text">
         <mat-error *ngIf="form.get('telefono_primario')?.errors?.['required']">Complete el campo</mat-error>
-        <mat-error *ngIf="form.get('telefono_primario')?.errors?.['maxlength']">El número debe contener 10 dígitos</mat-error>
-        <mat-hint align="start"><strong>Caract. sin 0, numero sin 15. Ej. 11 12345678</strong></mat-hint>
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Teléfono secundario</mat-label>
         <input matInput formControlName="telefono_secundario" type="text">
-        <mat-error *ngIf="form.get('telefono_secundario')?.errors?.['required']">Complete el campo</mat-error>
-        <mat-error *ngIf="form.get('telefono_secundario')?.errors?.['maxlength']">El número debe contener 10 dígitos</mat-error>
       </mat-form-field>
 
       <!-- Datos de salud -->
@@ -128,7 +116,15 @@
         <textarea matInput formControlName="otros" type="text"></textarea>
         <mat-error *ngIf="form.get('otros')?.errors?.['required']">Complete el campo</mat-error>
       </mat-form-field>
+
+      <img [src]="form.get('foto')?.value" class="foto">
        
+      <button type="button" mat-stroked-button color="primary" class="example-full-width" (click)="image.click()">Subir Imagen</button>
+      <mat-progress-bar color="primary"
+          mode="determinate"
+          [value]="progress">
+      </mat-progress-bar>
+      <input hidden type="file" #image mat-raised-button accept="image/*" (change)="uploadImage($event)">
       
       <mat-checkbox class="example-margin" formControlName="checked" (change)="checkState($event)"><span (click)="openDialog()">He leído y acepto los <span style="color: blue">términos y condiciones</span></span></mat-checkbox>
       

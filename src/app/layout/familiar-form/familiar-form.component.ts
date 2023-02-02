@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FamiliaresService } from 'src/app/services/familiares.service';
@@ -8,6 +8,9 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { emptyFamiliar, Familiar } from 'src/app/models/familiar';
 import { TerminosCondicionesComponent } from '../terminos-condiciones/terminos-condiciones.component';
 import { BaseComponent } from 'src/app/components/abstract/base.component';
+import { Image, emptyImage } from 'src/app/models/image';
+import { ImagesService } from 'src/app/services/images.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -24,21 +27,21 @@ export class FamiliarFormComponent extends BaseComponent implements OnInit {
     nombre: ['', [Validators.required]],
     apellido: ['', [Validators.required]],
     direccion_primaria: ['', [Validators.required]],
-    direccion_secundaria: ['', [Validators.required]],
-    telefono_primario: ['', [Validators.required, Validators.maxLength(10)]],
-    telefono_secundario: ['', [Validators.required, Validators.maxLength(10)]],
+    direccion_secundaria: ['', []],
+    telefono_primario: ['', [Validators.required]],
+    telefono_secundario: ['', []],
     documento_tipo: ['', [Validators.required]],
     documento: ['', [Validators.required]],
-    diagnostico: ['', [Validators.required]],
-    medicacion: ['', [Validators.required]],
-    alergias: ['', [Validators.required]],
-    factor_sangre: ['', [Validators.required]],
-    otros: ['', [Validators.required]],
+    diagnostico: ['', []],
+    medicacion: ['', []],
+    alergias: ['', []],
+    factor_sangre: ['', []],
+    otros: ['', []],
     provincia: ['', [Validators.required]],
-    pais: [{value: "Argentina", disabled: true}, [Validators.required]],
+    pais: ['', [Validators.required]],
     ciudad: ['', [Validators.required]],
-    codigo_postal: ['', [Validators.required]],
-    checked: ['', [Validators.requiredTrue]]
+    checked: ['', [Validators.requiredTrue]],
+    foto: ['']
   })
 
 
@@ -64,6 +67,8 @@ export class FamiliarFormComponent extends BaseComponent implements OnInit {
     {value: 'Libreta cívica'},
     {value: 'Pasaporte'}
   ]
+
+  progress: number = 0;
   
   constructor(private http: HttpClient, 
     private fb: FormBuilder,
@@ -72,13 +77,14 @@ export class FamiliarFormComponent extends BaseComponent implements OnInit {
     private familiaresService: FamiliaresService,
     private usuarioService: UsuarioService,
     public override dialog: MatDialog,
-
+    private imagesService: ImagesService,
+    private snackBar: MatSnackBar
     ) { super(dialog); }
 
   ngOnInit(): void {
     
     this.usuario = this.usuarioService.getUserLogin();
-    this.getProvincias();
+    // this.getProvincias();
 
     if (this.data) {
       this.form.patchValue({
@@ -92,6 +98,7 @@ export class FamiliarFormComponent extends BaseComponent implements OnInit {
         telefono_primario: this.data.telefono_primario,
         telefono_secundario: this.data.telefono_secundario,
         documento: this.data.documento,
+        documento_tipo: this.data.documento_tipo,
         diagnostico: this.data.diagnostico,
         medicacion: this.data.medicacion,
         alergias: this.data.alergias,
@@ -99,37 +106,63 @@ export class FamiliarFormComponent extends BaseComponent implements OnInit {
         otros: this.data.otros,
         provincia: this.data.provincia,
         pais: this.data.pais,
-        ciudad: this.data.ciudad
-
+        ciudad: this.data.ciudad,
+        checked: true,
+        foto: this.data.foto
       });
       let localidad = {
         value: this.data.provincia
       }
-      this.getLocalidades(localidad);
+      // this.getLocalidades(localidad);
     }
+    this.form.patchValue({
+      id_usuario: this.usuario.id
+    })
   }
 
   submitForm(): void {
     
-    let user = this.form.value
 
-    user = {...user,
-      id_usuario: this.usuario.id,
-      pais: 'Argentina'
-    }  
+    let familiar = emptyFamiliar();
+    familiar.nombre = this.form.value.nombre
+    familiar.apellido = this.form.value.apellido
+    familiar.documento_tipo = this.form.value.documento_tipo
+    familiar.documento = this.form.value.documento
+    familiar.direccion_primaria = this.form.value.direccion_primaria
+    familiar.direccion_secundaria = this.form.value.direccion_secundaria
+    familiar.provincia = this.form.value.provincia
+    familiar.ciudad = this.form.value.ciudad
+    familiar.pais = this.form.value.pais
+    familiar.telefono_primario = this.form.value.telefono_primario
+    familiar.telefono_secundario = this.form.value.telefono_secundario
+    familiar.factor_sangre = this.form.value.factor_sangre
+    familiar.alergias = this.form.value.alergias
+    familiar.diagnostico = this.form.value.diagnostico
+    familiar.medicacion = this.form.value.medicacion
+    familiar.otros = this.form.value.otros
+    familiar.id_usuario = this.form.value.id_usuario
+    familiar.foto = this.form.value.foto
 
-    Object.keys(user).forEach((obj: any) => user[obj] = user[obj] ? user[obj] : null) 
+    let requestResponse = false;
     if(!this.data){
-      delete user.id
-      this.familiaresService.postFamiliar(user).subscribe((resp:any) => {
-       (resp:any) => console.log(resp)
-    })
+      this.familiaresService.postFamiliar(familiar).subscribe(resp => {
+        if(resp) {
+          requestResponse = true;
+        }
+        this.dialogRef.close(requestResponse);
+      },
+      error => this.dialogRef.close(requestResponse))
     }else{
-      this.familiaresService.updateFamiliar(user).subscribe((resp:any) => {
-        (resp:any) => console.log(resp)
-     })
+      familiar.id = this.data.id
+      this.familiaresService.updateFamiliar(familiar).subscribe(resp => {
+        if(resp) {
+          requestResponse = true;
+        }
+        this.dialogRef.close(requestResponse);
+     },
+     error => this.dialogRef.close(requestResponse))
     }
-    this.dialogRef.close(true);
+    
   }
 
   openDialog(){
@@ -153,24 +186,39 @@ export class FamiliarFormComponent extends BaseComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  getProvincias(){
-    this.http.get('https://apis.datos.gob.ar/georef/api/provincias').subscribe((provincias: any)=>{
-        provincias.provincias.forEach((prov: any) => {
-           this.listaProvincias.push(prov.nombre);
-        });
-    })
-  }
+  uploadImage(event: any): void {
+    let file: File = event.target.files[0];
+    let myReader: FileReader = new FileReader();
+    myReader.readAsDataURL(file);
+    myReader.onloadend = e => {
+      let image: Image = emptyImage();
+      image.encodedImage = myReader.result as string;
+      image.tipo = "familiares";
 
-  getLocalidades(provincia: any){
-    this.listaDepartamentos = [];
-    this.http.get('https://apis.datos.gob.ar/georef/api/departamentos?provincia='+provincia.value+'&max=999').subscribe((departamentos: any)=>{
-        departamentos.departamentos.forEach((depa: any) => {
-          if(depa.id == 38021){
-            depa.nombre = "San Salvador de Jujuy"
+      // console.log(image)
+      this.imagesService.uploadImage(image).subscribe(
+
+        (event: HttpEvent<any>) =>{
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              let total = Number(event?.total);
+              this.progress = Math.round(event.loaded / total * 100)
+              break;
+            case HttpEventType.Response:
+              if (event.body.statusMessage != 'existe') {
+                // this.form.controls['imagen'].setValue(event.body.data);
+                this.form.patchValue({
+                  foto: event.body.data
+                })
+              } else {
+                this.snackBar.open('Imagen invalida, use otra','Aceptar',{duration: 1500})
+              }
+              this.progress = 0
           }
-          this.listaDepartamentos.push(depa.nombre);
-        });
-        console.log(this.listaDepartamentos)
-   }) 
+        }
+
+
+      )
+    }
   }
 }

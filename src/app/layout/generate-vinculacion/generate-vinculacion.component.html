@@ -5,23 +5,22 @@
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Código del producto</mat-label>
                 <input matInput formControlName="id_lote">
-                <mat-error *ngIf="form.get('id_lote')?.errors?.['required']">Complete el campo</mat-error>
-                <mat-error *ngIf="form.get('id_lote')?.errors?.['invalidLote']">Código en uso, utilice otro</mat-error>
-            </mat-form-field><br>
-              <mat-form-field appearance="outline" class="w-100" *ngIf="familiares.length !== 0">
-                <mat-label>Familiar a asociar</mat-label>
-                      <mat-select formControlName="id_familiar">
-                          <mat-option [value]="familiar.id" *ngFor="let familiar of familiares" >
-                              {{familiar.nombre + ' ' + familiar.apellido}}
-                          </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="form.get('id_familiar')?.errors?.['required']">Seleccione familiar</mat-error>
-              </mat-form-field>
-              <button mat-stroked-button type="button" (click)="addFamiliar()">Agregar Familiar</button>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100" *ngIf="familiares.length !== 0">
+                <mat-label>Usuario a vincular</mat-label>
+                <mat-select formControlName="id_familiar">
+                    <mat-option [value]="familiar.id" *ngFor="let familiar of familiares" >
+                        {{familiar.nombre + ' ' + familiar.apellido}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('id_familiar')?.errors?.['required']">Seleccione un usuario</mat-error>
+            </mat-form-field>
+            <button mat-flat-button color="accent" type="button" (click)="addUsuario()">Asociar nuevo usuario</button>
+            <mat-error *ngIf="form.get('id_lote')?.errors?.['invalidLote']">Este QR ya está en uso.</mat-error>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Vincular producto</button>
-            <button mat-raised-button color="warn" mat-dialog-close type="button" (click)="cancel()">Cerrar</button>
+            <button mat-raised-button color="primary" class="w-100" type="submit" [disabled]="!form.valid">Finalizar Vinculación</button>
+            <button mat-raised-button color="warn" mat-dialog-close type="button">Cerrar</button>
         </mat-card-actions>
     </mat-card> 
 </form>

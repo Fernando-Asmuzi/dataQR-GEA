@@ -19,10 +19,15 @@
                 <mat-card-title>
                   ¡Emergencia!
                 </mat-card-title>
+                <div class="d-flex justify-center" *ngIf="foto != '' && foto">
+                  <div class="foto-container">
+                    <img  [src]="foto" class="foto">
+                  </div>
+                </div>
                 <h4>Aquí se encuentran mis datos personales y médicos. Gracias por tu ayuda!</h4>
               </div>
               <div *ngFor="let i of informacion" class="line">
-                <a mat-list-item>
+                <a mat-list-item [hidden]="i.value == ''">
                   <mat-icon>{{i.icon}}</mat-icon>
                   <u>{{i.name}}</u> <a>: </a> {{i.value}}
                 </a>
@@ -33,20 +38,27 @@
                   <u>{{l.name}}</u> <a>: </a> {{l.value}}
                 </a>
               </div>
-              <div *ngFor="let s of salud" class="line">
-                <a mat-list-item>
-                  <mat-icon>{{s.icon}}</mat-icon>
-                  <u>{{s.name}}</u> <a>: </a> {{s.value}}
-                </a>
+              <div class="d-flex flex-column align-start">
+                <ng-container *ngFor="let s of salud" class="line">
+                  <a mat-list-item [hidden]="s.value == ''">
+                    <mat-icon>{{s.icon}}</mat-icon>
+                    <u>{{s.name}}</u> <a>: </a> {{s.value}}
+                  </a>
+                </ng-container>
               </div>
             </mat-card>
           </div>
-          <div class="mascotas" *ngSwitchCase="'MASCOTA'">
+          <div class="mascotas" *ngSwitchCase="'MASCOTAS'">
             <mat-card>
               <div style="text-align:center;">
                 <mat-card-title>
                   Mascota extraviada
                 </mat-card-title><br>
+                <div class="d-flex justify-center">
+                  <div class="foto-container">
+                    <img  [src]="foto" class="foto">
+                  </div>
+                </div>
                 <h4>Hola, me separé de mi dueño y necesito de tu ayuda.
                   Por favor contactá a mi
                   persona de emergencia.</h4>
@@ -59,10 +71,22 @@
                   <u>{{i.name}}</u> <a>: </a> {{i.value}}
                 </a>
               </div>
+              <ng-container *ngFor="let m of mascota" class="d-flex">
+                <a mat-list-item [hidden]="m.value == '' || m.value == 'null'" [ngClass]="{'item-mascota': m.name != 'Características'}">
+                  <mat-icon>{{m.icon}}</mat-icon>
+                  <u>{{m.name}}</u> <a>: </a> {{m.value}}
+                </a>
+              </ng-container>
               <div *ngFor="let l of localizacion" class="line">
                 <a mat-list-item>
                   <mat-icon>{{l.icon}}</mat-icon>
                   <u>{{l.name}}</u> <a>: </a> {{l.value}}
+                </a>
+              </div>
+              <div class="line" *ngIf="otros != '' && otros != 'null'">
+                <a mat-list-item>
+                  <mat-icon>info</mat-icon>
+                  <u>Otros datos de interes</u> <a>: </a> {{otros}}
                 </a>
               </div>
             </mat-card>
@@ -116,7 +140,19 @@
               </div>
             </mat-card>
           </div>
+          <br>
+          <mat-card *ngIf="hasDocuments">
+              <mat-card-title>
+                Documentos
+              </mat-card-title>
+              <p>Aquí tienes documentación que puede servir de ayuda.</p>
+              <mat-card-content class="d-flex flex-column">
+                <button mat-raised-button *ngFor="let documento of documentos" class="w-100-mt-1" (click)="openDocument(documento)">{{ documento.nombre }}</button>
+              </mat-card-content>
+          </mat-card>
+          <br>
           <button mat-raised-button color="primary" (click)="llamar()">Llamar a mi contacto</button>
+          <br>
         </div>
       </div>
       <div class="acciones" *ngIf="libre">

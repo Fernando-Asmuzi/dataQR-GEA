@@ -7,9 +7,9 @@
       </div>
       <div class="example-container">
           <mat-form-field appearance="outline" class="inputs">
-            <mat-label>Usuario</mat-label>
+            <mat-label>Administrador</mat-label>
             <input matInput placeholder="" formControlName="username" required>
-            <mat-error *ngIf="form.get('username')?.errors?.['required']">Debe ingresar su nombre de usuario</mat-error>
+            <mat-error *ngIf="form.get('username')?.errors?.['required']">Debe ingresar su cuenta de administrador</mat-error>
           </mat-form-field>
       </div>    
       
@@ -17,7 +17,7 @@
         <mat-form-field appearance="outline" class="inputs">
           <mat-label>Password</mat-label>
           <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-error *ngIf="form.get('password')?.errors?.['required']">Debe ingresar su contraseña</mat-error>
@@ -27,6 +27,7 @@
       <mat-card-actions class="actions">
         <button mat-raised-button color="primary" class="full" type="submit" [disabled]="!form.valid">Ingresar</button>
         <a mat-stroked-button color="accent" class="full mt" href="https://geadata.com.ar/ingresar/?action=register">Registrarme</a>
+        <a class="full mt blue" href="https://geadata.com.ar/mi-cuenta/lost-password/">¿Olvidaste tu contraseña?</a>
       </mat-card-actions>
     </mat-card>
   </div>
